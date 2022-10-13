@@ -1,0 +1,45 @@
+:root {
+  --font-primary: 'Manrope', sans-serif;
+  --bg-primary: #181818;
+  --bg-secondary: #f1f1f1;
+  --bg-tertiary: #dc8a5c;
+  --dot-color: #ad643b;
+  --border-primary: #97979740;
+  --text-primary: #fff;
+  --text-secondary: #949494;
+  --color-primary: #d87d4a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a,
+button {
+  outline-offset: 4px;
+}
+
+html {
+  font-family: var(--font-primary);
+  font-size: 62.5%;
+}
+
+body {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
+
+ul {
+  list-style-type: none;
+}
