@@ -187,13 +187,14 @@ const closeNav = () => {
 }
 
 .header {
-  height: 150px;
+  height: 120px;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: var(--bg-primary);
+  /* background-color: transparent; */
 }
 
 .header__inner {
@@ -202,8 +203,7 @@ const closeNav = () => {
   justify-content: space-between;
   border-bottom: 1px solid var(--border-primary);
   height: 100%;
-  width: 100%;
-  padding: 0 12px;
+  width: calc(100% - 24px);
 }
 
 .logo_link {
@@ -233,7 +233,7 @@ const closeNav = () => {
 
 @media (min-width: 375px) {
   .header__inner {
-    padding: 0 32px;
+    width: calc(100% - 64px);
   }
 }
 

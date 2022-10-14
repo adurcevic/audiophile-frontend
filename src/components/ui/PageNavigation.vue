@@ -131,12 +131,12 @@ const navClass = computed(() => {
   height: 100%;
   z-index: 2;
   transition: visibility 0.3s, opacity 0.3s, transform 0.5s ease-in-out;
+  background-color: var(--bg-primary);
 }
 
 .navigation__inner {
   height: 100%;
   padding-top: 150px;
-  background-color: var(--bg-primary);
   display: flex;
   align-items: flex-start;
   padding-left: 12px;
@@ -195,7 +195,7 @@ const navClass = computed(() => {
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1009px) {
   .navigation {
     position: static;
     visibility: visible;
@@ -203,6 +203,7 @@ const navClass = computed(() => {
     left: 0;
     opacity: 1;
     transition: opacity 0s;
+    background-color: transparent;
   }
 
   .navigation.is_open {
@@ -223,7 +224,7 @@ const navClass = computed(() => {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 32px;
+    gap: 48px;
   }
 
   .navigation__list a {
@@ -270,6 +271,11 @@ const navClass = computed(() => {
 
   .active_link.nav__link .navigation__item::after {
     width: 100%;
+  }
+
+  .active_link .navigation__item {
+    background-image: none;
+    -webkit-text-fill-color: var(--dot-color);
   }
 }
 </style>

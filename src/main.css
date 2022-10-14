@@ -8,6 +8,7 @@
   --text-primary: #fff;
   --text-secondary: #949494;
   --color-primary: #d87d4a;
+  --navigation-menu: #2f2f2f;
 }
 
 /* [theme='custom-dark'] {
@@ -30,7 +31,6 @@ html {
 }
 
 body {
-  overflow-y: scroll;
   overflow-x: hidden;
 }
 
