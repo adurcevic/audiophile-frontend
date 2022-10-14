@@ -72,7 +72,7 @@ const hamburgerStatus = computed(() => {
   transform: rotate(-48deg);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1009px) {
   .hamburger {
     display: none;
   }
