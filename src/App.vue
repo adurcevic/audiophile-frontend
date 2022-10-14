@@ -1,21 +1,21 @@
 <script setup>
+import TheHeader from './components/layout/TheHeader.vue';
+import { provide } from 'vue';
+import { useDark, useToggle } from '@vueuse/core';
+
+const isDark = useDark({
+  selector: 'html',
+  attribute: 'theme',
+  valueDark: 'custom-dark',
+});
+
+const toggleTheme = useToggle(isDark);
+
+provide('theme', { isDark, toggleTheme });
 </script>
 
 <template>
-  <div>
-  </div>
+  <router-view></router-view>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<style></style>
