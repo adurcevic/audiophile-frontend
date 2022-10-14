@@ -233,13 +233,13 @@ const closeNav = () => {
 
 @media (min-width: 375px) {
   .header__inner {
-    padding: 32px;
+    padding: 0 32px;
   }
 }
 
 @media (min-width: 1024px) {
   .header__inner {
-    max-width: 1024px;
+    max-width: 1200px;
   }
 }
 </style>

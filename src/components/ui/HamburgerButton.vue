@@ -44,15 +44,15 @@ const hamburgerStatus = computed(() => {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   background-color: transparent;
   cursor: pointer;
   z-index: 5;
 }
 
 .hamburger div {
-  width: 26px;
+  width: 28px;
   height: 2px;
   background-color: #ffffff;
   border-radius: 10px;
