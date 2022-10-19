@@ -1,6 +1,6 @@
 <script setup>
 import HamburgerButton from '../ui/HamburgerButton.vue';
-import PageNavigation from '../ui/PageNavigation.vue';
+import NavBar from '../navigation/NavBar.vue';
 import ToggleSwitch from '../ui/ToggleSwitch.vue';
 import { computed, ref } from 'vue';
 import { inject } from 'vue';
@@ -95,11 +95,11 @@ const closeNav = () => {
           />
         </svg>
       </router-link>
-      <page-navigation
+      <nav-bar
         id="navigation"
         :is-nav-open="isNavOpen"
         v-click-outside="closeNav"
-      ></page-navigation>
+      ></nav-bar>
       <div :class="$style.headers__icons">
         <button
           :class="$style.icons_btn"
