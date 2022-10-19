@@ -26,7 +26,7 @@ import BaseButton from './BaseButton.vue';
   top: -50px;
   left: 0;
   content: '';
-  background-image: url('../../assets/landing-mobile.webp');
+  background-image: url('../../assets/landing/landing-mobile.webp');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -91,7 +91,7 @@ import BaseButton from './BaseButton.vue';
   }
   .content::after {
     height: 850px;
-    background-image: url('../../assets/landing-tablet.webp');
+    background-image: url('../../assets/landing/landing-tablet.webp');
   }
 
   .action__text {
@@ -118,7 +118,7 @@ import BaseButton from './BaseButton.vue';
   .content::after {
     top: 0px;
     height: 700px;
-    background-image: url('../../assets/landing-desktop.webp');
+    background-image: url('../../assets/landing/landing-desktop.webp');
     background-size: cover;
   }
 
