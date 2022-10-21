@@ -114,7 +114,7 @@ const navClass = computed(() => {
   left: -220px;
   width: 220px;
   height: 100%;
-  z-index: 2;
+  z-index: 3;
   transition: visibility 0.3s, opacity 0.3s, transform 0.5s ease-in-out;
   background-color: var(--bg-primary);
 }

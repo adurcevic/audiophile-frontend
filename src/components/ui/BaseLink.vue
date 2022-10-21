@@ -56,7 +56,7 @@ const bgColor = computed(() => {
   justify-content: center;
   background-color: v-bind(bgColor);
   padding: 12px 24px;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   letter-spacing: 1px;
   cursor: pointer;
   color: v-bind(fontColor);
