@@ -198,7 +198,6 @@ const closeNav = () => {
   align-items: center;
   justify-content: center;
   background-color: var(--bg-primary);
-  /* background-color: transparent; */
 }
 
 .header__inner {

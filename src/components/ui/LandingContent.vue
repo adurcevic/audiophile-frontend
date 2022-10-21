@@ -2,40 +2,43 @@
 import BaseLink from './BaseLink.vue';
 </script>
 <template>
-  <div :class="$style.content">
-    <div :class="$style.content__inner">
-      <span :class="$style.action__text">New product</span>
-      <h1 :class="$style.content__title">XX99 mark II headphones</h1>
-      <p :class="$style.content__text">
-        Experience natural, lifelike audio and exceptional build quality made
-        for the passionate music enthusiast.
-      </p>
-      <base-link>See Product</base-link>
+  <transition :appear-active-class="$style.content_enter_active" appear>
+    <div :class="$style.content__wrapper">
+      <div :class="$style.content">
+        <div :class="$style.content__inner">
+          <span :class="$style.action__text">New product</span>
+          <h1 :class="$style.content__title">XX99 mark II headphones</h1>
+          <p :class="$style.content__text">
+            Experience natural, lifelike audio and exceptional build quality
+            made for the passionate music enthusiast.
+          </p>
+          <base-link>See Product</base-link>
+        </div>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
-<style module>
+<style lang="css" module>
+.content__wrapper::after {
+  content: '';
+  top: -50px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-image: url('../../assets/landing/landing-mobile.webp');
+  background-repeat: no-repeat;
+  background-position: center;
+}
 .content {
-  height: calc(500px - 50px);
+  padding: 64px 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.content::after {
-  position: absolute;
-  top: -50px;
-  left: 0;
-  content: '';
-  background-image: url('../../assets/landing/landing-mobile.webp');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  width: 100%;
-  z-index: -1;
-  height: 500px;
-}
 
 .content__inner {
+  z-index: 2;
   width: 100%;
   max-width: 300px;
   display: flex;
@@ -70,28 +73,21 @@ import BaseLink from './BaseLink.vue';
 }
 
 @media (min-width: 375px) {
-  .content {
-    height: calc(700px - 100px);
-    padding: 0px 32px;
-  }
-  .content::after {
-    top: -100px;
-    height: 700px;
-  }
-
   .content__inner {
     max-width: 387px;
   }
 }
 
-@media (min-width: 492px) {
-  .content {
-    height: calc(850px - 100px);
-    padding: 0px 32px;
-  }
-  .content::after {
-    height: 850px;
+@media (min-width: 401px) {
+  .content__wrapper::after {
     background-image: url('../../assets/landing/landing-tablet.webp');
+  }
+}
+
+@media (min-width: 492px) {
+  .content__wrapper::after {
+    top: -100px;
+    height: 120%;
   }
 
   .action__text {
@@ -109,23 +105,28 @@ import BaseLink from './BaseLink.vue';
 
 @media (min-width: 1009px) {
   .content {
-    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    height: 700px;
-    max-width: 1264px;
   }
-  .content::after {
+
+  .content__wrapper {
+    position: relative;
+    max-width: 1264px;
+    margin: 0 auto;
+  }
+
+  .content__wrapper::after {
     top: 0px;
-    height: 700px;
-    background-image: url('../../assets/landing/landing-desktop.webp');
-    background-size: cover;
+    right: 0;
+    height: 100%;
+    width: 555px;
   }
 
   .content__inner {
     max-width: 350px;
     align-items: flex-start;
     text-align: start;
+    padding-left: 32px;
   }
 
   .action__text {
@@ -137,9 +138,18 @@ import BaseLink from './BaseLink.vue';
   }
 }
 
-@media (min-width: 1500px) {
-  .content::after {
-    background-size: contain;
+.content_enter_active {
+  animation: enter 1.5s ease-in;
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>
