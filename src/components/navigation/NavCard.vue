@@ -89,7 +89,7 @@ const imgUrl = computed(() => {
 
 .link__title {
   font-size: 1.6rem;
-  color: var(--text-secondary);
+  color: var(--theme-text-secondary);
   text-transform: uppercase;
   letter-spacing: 1px;
 }

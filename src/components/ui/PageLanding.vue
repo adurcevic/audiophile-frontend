@@ -17,7 +17,9 @@ const props = defineProps({
 </template>
 <style module>
 .landing {
+  overflow: hidden;
   position: relative;
+  background-color: var(--bg-primary);
 }
 
 .default__header {

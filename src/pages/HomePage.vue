@@ -4,17 +4,38 @@ import PageLanding from '../components/ui/PageLanding.vue';
 import LandingContent from '../components/ui/LandingContent.vue';
 import TheMain from '../components/layout/TheMain.vue';
 import TheSection from '../components/layout/TheSection.vue';
-import SecondaryNav from '../components/navigation/SecondaryNav.vue';
+import BaseGrid from '../components/ui/BaseGrid.vue';
+import FeaturedSpeaker from '../components/products-home/FeaturedSpeaker.vue';
+import FeaturedProducts from '../components/products-home/FeaturedProducts.vue';
+import NavCard from '../components/navigation/NavCard.vue';
+import FeaturedEarphones from '../components/products-home/FeaturedEarphones.vue';
+import { navData } from '../data/data';
 </script>
 <template>
-  <the-header> </the-header>
-  <the-main>
-    <page-landing>
-      <landing-content></landing-content>
-    </page-landing>
-    <the-section>
-      <secondary-nav></secondary-nav>
-    </the-section>
-  </the-main>
+  <TheHeader />
+  <TheMain>
+    <PageLanding>
+      <LandingContent />
+    </PageLanding>
+    <TheSection>
+      <BaseGrid>
+        <NavCard
+          v-for="{ title, path, imgSrc } in navData"
+          :title="title"
+          :path="path"
+          :imgSrc="imgSrc"
+        ></NavCard>
+      </BaseGrid>
+    </TheSection>
+    <TheSection>
+      <FeaturedProducts>
+        <FeaturedSpeaker />
+      </FeaturedProducts>
+      <FeaturedProducts />
+      <FeaturedProducts>
+        <FeaturedEarphones />
+      </FeaturedProducts>
+    </TheSection>
+  </TheMain>
 </template>
 <style lang="css" module></style>

@@ -55,7 +55,7 @@ const closeNav = () => {
         </svg>
       </div>
 
-      <toggle-switch :value="isDark" @toggle="toggleTheme"></toggle-switch>
+      <ToggleSwitch :value="isDark" @toggle="toggleTheme"></ToggleSwitch>
       <div :class="$style.theme__icon">
         <svg
           aria-hidden="true"
@@ -76,11 +76,15 @@ const closeNav = () => {
       </div>
     </div>
     <div :class="$style.header__inner">
-      <hamburger-button
+      <HamburgerButton
         :is-nav-open="isNavOpen"
         @toggle-nav="toggleNav"
-      ></hamburger-button>
-      <router-link to="/" :class="$style.logo_link">
+      ></HamburgerButton>
+      <router-link
+        to="/"
+        :class="$style.logo_link"
+        aria-label="go to home page"
+      >
         <svg
           aria-hidden="true"
           focusable="false"
@@ -95,11 +99,11 @@ const closeNav = () => {
           />
         </svg>
       </router-link>
-      <nav-bar
+      <NavBar
         id="navigation"
         :is-nav-open="isNavOpen"
         v-click-outside="closeNav"
-      ></nav-bar>
+      ></NavBar>
       <div :class="$style.headers__icons">
         <button
           :class="$style.icons_btn"
@@ -194,7 +198,6 @@ const closeNav = () => {
   align-items: center;
   justify-content: center;
   background-color: var(--bg-primary);
-  /* background-color: transparent; */
 }
 
 .header__inner {
