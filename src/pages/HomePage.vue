@@ -9,7 +9,8 @@ import FeaturedSpeaker from '../components/products-home/FeaturedSpeaker.vue';
 import FeaturedProducts from '../components/products-home/FeaturedProducts.vue';
 import NavCard from '../components/navigation/NavCard.vue';
 import FeaturedEarphones from '../components/products-home/FeaturedEarphones.vue';
-import { navData } from '../data/data';
+import BaseCard from '../components/ui/BaseCard.vue';
+import { navData, bestGearData } from '../data/data';
 </script>
 <template>
   <TheHeader />
@@ -35,6 +36,18 @@ import { navData } from '../data/data';
       <FeaturedProducts>
         <FeaturedEarphones />
       </FeaturedProducts>
+    </TheSection>
+    <TheSection>
+      <BaseCard
+        cardTitle="Bringing you the "
+        emphasizedWord="best "
+        restOfTitle="audio gear"
+        :cardText="bestGearData.text"
+        :imgMobile="bestGearData.imgMobile"
+        :imgTablet="bestGearData.imgTablet"
+        :imgDesktop="bestGearData.imgDesktop"
+        :imgAlt="bestGearData.imgAlt"
+      />
     </TheSection>
   </TheMain>
 </template>
