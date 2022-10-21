@@ -7,11 +7,17 @@
 <style lang="css" module>
 .section {
   padding: 130px 12px;
+  padding: 130px 12px 0px 12px;
+}
+
+.section:last-child {
+  padding-bottom: 130px;
 }
 
 @media (min-width: 375px) {
   .section {
-    padding: 130px 32px;
+    padding-left: 32px;
+    padding-right: 32px;
   }
 }
 

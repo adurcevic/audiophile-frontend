@@ -1,5 +1,6 @@
 :root {
   --font-primary: 'Manrope', sans-serif;
+  --bg-body: #ffffff;
   --bg-primary: #181818;
   --bg-secondary: #f1f1f1;
   --bg-tertiary: #dc8a5c;
@@ -7,12 +8,17 @@
   --border-primary: #97979740;
   --text-primary: #fff;
   --text-secondary: #949494;
+  --theme-text-secondary: #949494;
+  --text-tertiary: #181818;
   --color-primary: #d87d4a;
   --navigation-menu: #2f2f2f;
 }
 
-/* [theme='custom-dark'] {
-}  */
+[theme='custom-dark'] {
+  --bg-body: #111111;
+  --bg-secondary: #c1c1c1;
+  --theme-text-secondary: #686868;
+}
 
 * {
   margin: 0;
@@ -32,6 +38,7 @@ html {
 
 body {
   overflow-x: hidden;
+  background-color: var(--bg-body);
 }
 
 a {

@@ -1,5 +1,5 @@
 <script setup>
-import BaseButton from './BaseButton.vue';
+import BaseLink from './BaseLink.vue';
 </script>
 <template>
   <div :class="$style.content">
@@ -10,7 +10,7 @@ import BaseButton from './BaseButton.vue';
         Experience natural, lifelike audio and exceptional build quality made
         for the passionate music enthusiast.
       </p>
-      <base-button></base-button>
+      <base-link>See Product</base-link>
     </div>
   </div>
 </template>

@@ -21,19 +21,19 @@ const indicatorStyles = computed(() => {
 });
 </script>
 <template lang="">
-  <div :class="$style.switch">
-    <span
-      :class="$style.toggle__wrapper"
-      role="checkbox"
-      :aria-checked="value"
-      tabindex="0"
-      @click="emit('toggle')"
-      @keydown.space.prevent="emit('toggle')"
-    >
+  <button
+    :class="$style.switch"
+    @click="emit('toggle')"
+    @keydown.space.prevent="emit('toggle')"
+    aria-label="Change page theme"
+    role="checkbox"
+    :aria-checked="value"
+  >
+    <span :class="$style.toggle__wrapper">
       <span :class="[$style.toggle__background, backgroundStyles]"> </span>
       <span :class="$style.toggle__indicator" :style="indicatorStyles"> </span>
     </span>
-  </div>
+  </button>
 </template>
 <style lang="css" module>
 .switch {
