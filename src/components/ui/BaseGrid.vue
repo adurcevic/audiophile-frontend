@@ -1,6 +1,4 @@
-<script setup>
-import NavCard from '../navigation/NavCard.vue';
-</script>
+<script setup></script>
 <template lang="">
   <ul :class="$style.grid">
     <slot></slot>

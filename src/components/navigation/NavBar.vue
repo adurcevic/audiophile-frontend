@@ -10,6 +10,8 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(['close-nav']);
+
 const style = useCssModule();
 const navData = [
   { name: 'Home', path: '/' },
@@ -63,6 +65,7 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
           :to="path"
           :exact-active-class="$style.active_link"
           :class="$style.nav__link"
+          @click="$emit('close-nav')"
         >
           <li :class="$style.navigation__item">
             <svg

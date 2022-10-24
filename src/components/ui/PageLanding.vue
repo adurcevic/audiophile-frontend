@@ -2,7 +2,6 @@
 const props = defineProps({
   title: {
     type: String,
-    default: 'Home',
   },
 });
 </script>
@@ -10,7 +9,7 @@ const props = defineProps({
   <div :class="$style.landing">
     <slot>
       <div :class="$style.default__header">
-        <h1 :class="$style.default__title">Headphones</h1>
+        <h1 :class="$style.default__title">{{ title }}</h1>
       </div>
     </slot>
   </div>

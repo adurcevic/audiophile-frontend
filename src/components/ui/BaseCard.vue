@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue';
 const props = defineProps({
   cardTitle: {
     type: String,
@@ -26,28 +27,47 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  isProductsPage: {
+    type: Boolean,
+  },
 });
+
+const mediaWidth = computed(() =>
+  props.imgDesktop ? '(max-width: 900px)' : '(min-width: 901px)'
+);
+
+const isActionTextVisibile = computed(() => {
+  const title = props.cardTitle.toLowerCase();
+  const newHeadphones = 'XX99 Mark II Headphones';
+  const newSpeaker = 'ZX9 Speaker';
+  const newEarphones = 'YX1 Wireless Earphones';
+
+  if (
+    title === newHeadphones.toLowerCase() ||
+    title === newSpeaker.toLowerCase() ||
+    title === newEarphones.toLowerCase()
+  )
+    return true;
+
+  return false;
+});
+
+const gridGap = computed(() => (props.isProductsPage ? '98px' : '32px'));
 </script>
 <template lang="">
   <div :class="$style.card__wrapper">
     <picture>
-      <source
-        media="(max-width: 450px)"
-        srcset="../../assets/best-gear/image-best-gear-mobile.webp"
-      />
-      <source
-        media="(max-width: 900px)"
-        srcset="../../assets/best-gear/image-best-gear-tablet.webp"
-      />
-      <source
-        media="(min-width: 901px)"
-        srcset="../../assets/best-gear/image-best-gear-mobile.webp"
-      />
+      <source media="(max-width: 450px)" :srcset="imgMobile" />
+      <source :media="mediaWidth" :srcset="imgTablet" />
+      <source media="(min-width: 901px)" :srcset="imgDesktop" />
       <source />
       <source />
-      <img :class="$style.card__img" :alt="imgAlt" />
+      <img :class="$style.card__img" :alt="imgAlt" :src="imgMobile" />
     </picture>
     <div :class="$style.card__content">
+      <span v-if="isActionTextVisibile" :class="$style.card__action_text"
+        >New product</span
+      >
       <p :class="$style.card__title">
         {{ cardTitle
         }}<span v-if="emphasizedWord" :class="$style.emphasized_word">{{
@@ -56,7 +76,7 @@ const props = defineProps({
         >{{ restOfTitle }}
       </p>
       <p :class="$style.card__text">{{ cardText }}</p>
-      <slot></slot>
+      <BaseLink v-if="isProductsPage">See Product</BaseLink>
     </div>
   </div>
 </template>
@@ -65,6 +85,13 @@ const props = defineProps({
   display: grid;
   grid-template-columns: 1fr;
   gap: 32px;
+}
+
+.card__action_text {
+  font-size: 2rem;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  letter-spacing: 6px;
 }
 
 .card__img {
@@ -104,14 +131,18 @@ const props = defineProps({
 
 @media (min-width: 901px) {
   .card__wrapper {
-    display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
+    gap: v-bind(gridGap);
   }
 
   .card__content {
-    grid-column-start: 1;
-    grid-row-start: 1;
+    grid-column: 1;
+    grid-row: 1;
+    align-items: start;
+  }
+
+  .card__wrapper:nth-child(even) .card__content {
+    grid-column: 2;
   }
 
   .card__title {
