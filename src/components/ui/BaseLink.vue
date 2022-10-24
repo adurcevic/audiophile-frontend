@@ -18,25 +18,23 @@ const click = () => {
   console.log(click);
 };
 
-const fontColor = computed(() => {
-  if (props.isOutline) return 'var(--text-tertiary)';
-  return 'var(--text-primary)';
-});
+const fontColor = computed(() =>
+  props.isOutline ? 'var(--text-tertiary)' : 'var(--text-primary)'
+);
 
-const border = computed(() => {
-  if (props.isOutline) return '1px solid var(--bg-primary)';
-  return 'none';
-});
+const border = computed(() =>
+  props.isOutline ? '1px solid var(--bg-primary)' : 'none'
+);
 
-const hoverBg = computed(() => {
-  if (props.isOutline || props.isSecondary) return 'var(--bg-primary)';
-  return 'var(--color-primary)';
-});
+const hoverBg = computed(() =>
+  props.isOutline || props.isSecondary
+    ? 'var(--bg-primary)'
+    : 'var(--color-primary)'
+);
 
-const hoverColor = computed(() => {
-  if (props.isOutline) return 'var(--text-primary)';
-  return 'var(--text-primary)';
-});
+const hoverColor = computed(() =>
+  props.isOutline ? 'var(--text-primary)' : 'var(--text-primary)'
+);
 
 const bgColor = computed(() => {
   if (props.isSecondary) return 'var(--bg-primary)';

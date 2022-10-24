@@ -14,15 +14,11 @@ const toggleNav = () => {
   emit('toggle-nav');
 };
 
-const ariaExpanded = computed(() => {
-  if (props.isNavOpen) return 'true';
-  return 'false';
-});
+const ariaExpanded = computed(() => (props.isNavOpen ? 'true' : 'false'));
 
-const hamburgerStatus = computed(() => {
-  if (props.isNavOpen) return [style.hamburger, style.is_open];
-  return style.hamburger;
-});
+const hamburgerStatus = computed(() =>
+  props.isNavOpen ? [style.hamburger, style.is_open] : style.hamburger
+);
 </script>
 <template>
   <button

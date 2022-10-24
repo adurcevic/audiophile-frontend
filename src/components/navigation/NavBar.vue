@@ -2,8 +2,10 @@
 import { useCssModule, computed } from 'vue';
 
 const props = defineProps({
+  isFooter: {
+    type: Boolean,
+  },
   isNavOpen: {
-    required: true,
     type: Boolean,
   },
 });
@@ -17,13 +19,44 @@ const navData = [
 ];
 
 const navClass = computed(() => {
+  if (props.isFooter) return style.navigation_footer;
   if (props.isNavOpen) return [style.navigation, style.is_open];
   return style.navigation;
 });
+
+const navInnerClass = computed(() =>
+  props.isFooter ? style.navigation__inner_footer : style.navigation__inner
+);
+
+const transitionEl = computed(() =>
+  props.isFooter
+    ? 'background-position 0.3s ease-in-out'
+    : 'transform 0.2s ease-in-out'
+);
+
+const transformHover = computed(() =>
+  props.isFooter ? 'none' : 'scale(1.02)'
+);
+
+const bgPosition = computed(() => (props.isFooter ? '0' : '-100%'));
+
+const afterEl = computed(() => (props.isFooter ? 'none' : '""'));
+
+const activeLinkBg = computed(() =>
+  props.isFooter ? 'none' : 'var(--bg-tertiary)'
+);
+
+const navListGap = computed(() => (props.isFooter ? '4px' : '24px'));
+
+const navListAlign = computed(() => (props.isFooter ? 'center' : 'flex-start'));
+
+const navLinkWidth = computed(() => (props.isFooter ? 'auto' : '100%'));
+
+const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
 </script>
 <template lang="">
   <nav id="navigation" :class="navClass">
-    <div :class="$style.navigation__inner">
+    <div :class="navInnerClass">
       <ul :class="$style.navigation__list">
         <router-link
           v-for="{ name, path } in navData"
@@ -33,7 +66,7 @@ const navClass = computed(() => {
         >
           <li :class="$style.navigation__item">
             <svg
-              v-if="name === 'Home'"
+              v-if="!isFooter && name === 'Home'"
               aria-hidden="true"
               focusable="false"
               :class="$style.list_icon"
@@ -46,7 +79,7 @@ const navClass = computed(() => {
               />
             </svg>
             <svg
-              v-else-if="name === 'Headphones'"
+              v-else-if="!isFooter && name === 'Headphones'"
               :class="$style.list_icon"
               style="width: 24px; height: 24px"
               viewBox="0 0 24 24"
@@ -59,7 +92,7 @@ const navClass = computed(() => {
               />
             </svg>
             <svg
-              v-else-if="name === 'Speakers'"
+              v-else-if="!isFooter && name === 'Speakers'"
               :class="$style.list_icon"
               style="width: 24px; height: 24px"
               viewBox="0 0 24 24"
@@ -72,7 +105,7 @@ const navClass = computed(() => {
               />
             </svg>
             <svg
-              v-else
+              v-else-if="!isFooter && name === 'Earphones'"
               :class="$style.list_icon"
               style="width: 24px; height: 24px"
               viewBox="0 0 24 24"
@@ -93,11 +126,11 @@ const navClass = computed(() => {
 </template>
 <style lang="css" module>
 .active_link {
-  background-color: var(--bg-tertiary);
+  background-color: v-bind(activeLinkBg);
 }
 
 .active_link .navigation__item::after {
-  content: '';
+  content: v-bind(afterEl);
   height: 12px;
   width: 12px;
   border-radius: 50%;
@@ -119,12 +152,25 @@ const navClass = computed(() => {
   background-color: var(--bg-primary);
 }
 
+.navigation_footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .navigation__inner {
   height: 100%;
   padding-top: 150px;
   display: flex;
   align-items: flex-start;
   padding-left: 12px;
+}
+
+.navigation__inner_footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .navigation.is_open {
@@ -137,13 +183,13 @@ const navClass = computed(() => {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: v-bind(navListAlign);
   justify-content: center;
-  gap: 24px;
+  gap: v-bind(navListGap);
 }
 
 .navigation__list a {
-  width: 100%;
+  width: v-bind(navLinkWidth);
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
   padding-left: 6px;
@@ -158,11 +204,22 @@ const navClass = computed(() => {
   text-transform: uppercase;
   font-size: 1.6rem;
   font-weight: 600;
-  transition: transform 0.2s ease-in-out;
+  background-image: linear-gradient(
+    to right,
+    var(--color-primary),
+    var(--color-primary) 50%,
+    #fff 50%
+  );
+  background-size: 200% 100%;
+  background-position: -100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: v-bind(transitionEl);
 }
 
 .navigation__item:hover {
-  transform: scale(1.02);
+  transform: v-bind(transformHover);
+  background-position: v-bind(bgPosition);
 }
 
 @media (min-width: 375px) {
@@ -177,6 +234,13 @@ const navClass = computed(() => {
 
   .navigation.is_open {
     transform: translateX(240px);
+  }
+}
+
+@media (min-width: 500px) {
+  .navigation__list {
+    flex-direction: v-bind(navListDirection);
+    gap: 24px;
   }
 }
 
@@ -225,16 +289,6 @@ const navClass = computed(() => {
   }
 
   .navigation__item {
-    background-image: linear-gradient(
-      to right,
-      var(--bg-tertiary),
-      var(--bg-tertiary) 50%,
-      #fff 50%
-    );
-    background-size: 200% 100%;
-    background-position: -100%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     transition: background-position 0.3s ease-in-out;
   }
 
@@ -244,13 +298,13 @@ const navClass = computed(() => {
   }
 
   .nav__link .navigation__item:after {
-    content: '';
+    content: v-bind(afterEl);
     position: absolute;
     left: 0;
     bottom: 0;
     height: 2px;
     width: 0;
-    background-color: var(--dot-color);
+    background-color: var(--color-primary);
     margin: 0;
   }
 
@@ -260,7 +314,7 @@ const navClass = computed(() => {
 
   .active_link .navigation__item {
     background-image: none;
-    -webkit-text-fill-color: var(--dot-color);
+    -webkit-text-fill-color: var(--color-primary);
   }
 }
 </style>
