@@ -7,7 +7,7 @@
   --bg-primary: #181818;
   --bg-secondary: #f1f1f1;
   --bg-tertiary: #dc8a5c;
-  --text-primary: #fff;
+  --text-primary: #ffffff;
   --text-secondary: #949494;
   --text-tertiary: #181818;
   --navigation-menu: #2f2f2f;
@@ -19,8 +19,8 @@
 [theme='custom-dark'] {
   --bg-body: #111111;
   --bg-secondary: #c1c1c1;
-  --theme-text-secondary: #686868;
   --theme-text-primary: #ffffff;
+  --theme-text-secondary: #686868;
   --theme-text-tertiary: #e6e6e6;
 }
 

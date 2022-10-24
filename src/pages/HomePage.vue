@@ -10,6 +10,7 @@ import FeaturedProducts from '../components/products-home/FeaturedProducts.vue';
 import NavCard from '../components/navigation/NavCard.vue';
 import FeaturedEarphones from '../components/products-home/FeaturedEarphones.vue';
 import BaseCard from '../components/ui/BaseCard.vue';
+import TheFooter from '../components/layout/TheFooter.vue';
 import { navData, bestGearData } from '../data/data';
 </script>
 <template>
@@ -50,5 +51,6 @@ import { navData, bestGearData } from '../data/data';
       />
     </TheSection>
   </TheMain>
+  <TheFooter />
 </template>
 <style lang="css" module></style>

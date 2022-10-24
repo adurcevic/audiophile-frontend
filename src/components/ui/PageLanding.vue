@@ -44,11 +44,4 @@ const props = defineProps({
     height: 200px;
   }
 }
-
-@media (min-width: 1500px) {
-  .landing {
-    z-index: 1;
-    background-color: var(--bg-primary);
-  }
-}
 </style>

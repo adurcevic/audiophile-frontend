@@ -12,9 +12,9 @@ const props = defineProps({
 
 const emit = defineEmits(['toggle']);
 
-const backgroundStyles = computed(() => {
-  return props.value ? style.gold_mid : style.gray_lighter;
-});
+const backgroundStyles = computed(() =>
+  props.value ? style.gold_mid : style.gray_lighter
+);
 
 const indicatorStyles = computed(() => {
   return { transform: props.value ? 'translateX(14px)' : 'translateX(0)' };
