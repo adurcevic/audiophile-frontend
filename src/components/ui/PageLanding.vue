@@ -2,7 +2,6 @@
 const props = defineProps({
   title: {
     type: String,
-    default: 'Home',
   },
 });
 </script>
@@ -10,7 +9,14 @@ const props = defineProps({
   <div :class="$style.landing">
     <slot>
       <div :class="$style.default__header">
-        <h1 :class="$style.default__title">Headphones</h1>
+        <transition
+          :enter-active-class="$style.switch_enter"
+          :leave-active-class="$style.switch_leave"
+          mode="out-in"
+          appear
+        >
+          <h1 :key="title" :class="$style.default__title">{{ title }}</h1>
+        </transition>
       </div>
     </slot>
   </div>
@@ -42,6 +48,24 @@ const props = defineProps({
 @media (min-width: 768px) {
   .default__header {
     height: 200px;
+  }
+}
+
+.switch_enter {
+  animation: fade 0.3s ease-out;
+}
+.switch_leave {
+  animation: fade 0.3s ease-in reverse;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    /* transform: translateY(-30px); */
+  }
+  to {
+    opacity: 1;
+    /* transform: translateY(0); */
   }
 }
 </style>

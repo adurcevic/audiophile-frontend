@@ -26,7 +26,7 @@ import { navData, bestGearData } from '../data/data';
           :title="title"
           :path="path"
           :imgSrc="imgSrc"
-        ></NavCard>
+        />
       </BaseGrid>
     </TheSection>
     <TheSection>

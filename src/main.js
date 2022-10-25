@@ -6,14 +6,40 @@ import './main.css';
 import App from './App.vue';
 import BaseLink from './components/ui/BaseLink.vue';
 
+const routes = [
+  {
+    path: '/',
+    redirect: { name: 'home' },
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: HomePage,
+  },
+  {
+    path: '/headphones',
+    name: 'headphones',
+    component: () => import('./pages/ProductsPage.vue'),
+  },
+  {
+    path: '/speakers',
+    name: 'speakers',
+    component: () => import('./pages/ProductsPage.vue'),
+  },
+  {
+    path: '/earphones',
+    name: 'earphones',
+    component: () => import('./pages/ProductsPage.vue'),
+  },
+];
+
 const router = createRouter({
   history: createWebHashHistory(),
-  routes: [
-    {
-      path: '/',
-      component: HomePage,
-    },
-  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) return savedPosition;
+    return { left: 0, top: 0 };
+  },
+  routes,
 });
 
 const app = createApp(App);

@@ -10,12 +10,14 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(['close-nav']);
+
 const style = useCssModule();
 const navData = [
-  { name: 'Home', path: '/' },
-  { name: 'Headphones', path: '/headphones' },
-  { name: 'Speakers', path: '/speakers' },
-  { name: 'Earphones', path: '/earphones' },
+  { name: 'Home', path: { name: 'home' } },
+  { name: 'Headphones', path: { name: 'headphones' } },
+  { name: 'Speakers', path: { name: 'speakers' } },
+  { name: 'Earphones', path: { name: 'earphones' } },
 ];
 
 const navClass = computed(() => {
@@ -63,6 +65,7 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
           :to="path"
           :exact-active-class="$style.active_link"
           :class="$style.nav__link"
+          @click="$emit('close-nav')"
         >
           <li :class="$style.navigation__item">
             <svg

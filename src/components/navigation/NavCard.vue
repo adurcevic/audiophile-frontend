@@ -10,7 +10,7 @@ const props = defineProps({
     required: true,
   },
   path: {
-    type: String,
+    type: Object,
     required: true,
   },
 });

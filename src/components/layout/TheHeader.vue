@@ -80,6 +80,7 @@ const closeNav = () => {
         id="navigation"
         :is-nav-open="isNavOpen"
         v-click-outside="closeNav"
+        @close-nav="closeNav"
       ></NavBar>
       <div :class="$style.headers__icons">
         <button
