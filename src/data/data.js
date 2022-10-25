@@ -1,17 +1,17 @@
 export const navData = [
   {
     title: 'Headphones',
-    path: '/headphones',
+    path: { name: 'headphones' },
     imgSrc: '/src//assets/nav/image-headphones.webp',
   },
   {
     title: 'Speakers',
-    path: '/speakers',
+    path: { name: 'speakers' },
     imgSrc: '/src/assets/nav/image-speakers.webp',
   },
   {
     title: 'Earphones',
-    path: '/earphones',
+    path: { name: 'earphones' },
     imgSrc: '/src/assets/nav/image-earphones.webp',
   },
 ];

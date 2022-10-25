@@ -1,6 +1,10 @@
 <script setup></script>
 <template lang="">
-  <router-link to="/" :class="$style.logo_link" aria-label="go to home page">
+  <router-link
+    :to="{ name: 'home' }"
+    :class="$style.logo_link"
+    aria-label="go to home page"
+  >
     <svg
       aria-hidden="true"
       focusable="false"

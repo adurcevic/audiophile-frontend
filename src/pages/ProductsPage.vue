@@ -12,14 +12,15 @@ import { useRoute } from 'vue-router';
 import { watch, ref, onBeforeMount } from 'vue';
 
 const route = useRoute();
-const param = ref(route.params.productsName);
+const title = ref('');
 const products = ref(null);
 
 const initProductsPage = () => {
-  param.value = route.params.productsName;
+  const routeName = route.fullPath.replace('/', '');
+  title.value = routeName;
   productsData.forEach((product) => {
-    if (product[param.value]) {
-      products.value = product[param.value];
+    if (product[routeName]) {
+      products.value = product[routeName];
     }
   });
 };
@@ -33,19 +34,26 @@ onBeforeMount(() => initProductsPage());
 <template lang="">
   <TheHeader />
   <TheMain>
-    <PageLanding :title="param" />
+    <PageLanding :title="title" />
     <TheSection>
-      <div :class="$style.products__wrapper" v-if="products">
-        <BaseCard
-          v-for="item in products"
-          :cardTitle="item.title"
-          :cardText="item.description"
-          :imgMobile="item.imgMobile"
-          :imgTablet="item.imgTablet"
-          :isProductsPage="true"
-          :imgAlt="`${item.title} image`"
-        />
-      </div>
+      <transition
+        :enter-active-class="$style.products_enter"
+        :leave-active-class="$style.products_leave"
+        mode="out-in"
+        appear
+      >
+        <div :key="products" :class="$style.products__wrapper" v-if="products">
+          <BaseCard
+            v-for="item in products"
+            :cardTitle="item.title"
+            :cardText="item.description"
+            :imgMobile="item.imgMobile"
+            :imgTablet="item.imgTablet"
+            :isProductsPage="true"
+            :imgAlt="`${item.title} image`"
+          />
+        </div>
+      </transition>
     </TheSection>
     <TheSection>
       <BaseGrid>
@@ -82,6 +90,22 @@ onBeforeMount(() => initProductsPage());
   .products__wrapper {
     gap: 98px;
     padding-bottom: 48px;
+  }
+}
+
+.products_enter {
+  animation: fade 0.3s ease-out;
+}
+.products_leave {
+  animation: fade 0.3s ease-in reverse;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 </style>
