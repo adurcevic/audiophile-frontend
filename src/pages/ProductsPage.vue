@@ -25,6 +25,15 @@ const initProductsPage = () => {
   });
 };
 
+const shapeLinkPath = (title) => {
+  const productName = title.toLowerCase();
+  if (productName.includes('wireless')) {
+    return productName.split(' ')[0];
+  }
+
+  return productName.split(' ').slice(0, -1).join('');
+};
+
 watch(route, () => {
   initProductsPage();
 });
@@ -47,17 +56,15 @@ onBeforeMount(() => initProductsPage());
             v-for="item in products"
             :cardTitle="item.title"
             :cardText="item.description"
-            :imgMobile="item.imgMobile"
-            :imgTablet="item.imgTablet"
+            :imgMobile="item.images.imgMobile"
+            :imgTablet="item.images.imgTablet"
             :isProductsPage="true"
             :imgAlt="`${item.title} image`"
           >
             <BaseLink
-              :path="`${productType.toLowerCase()}/${item.title
-                .split(' ')
-                .slice(0, -1)
-                .join('')
-                .toLowerCase()}`"
+              :path="`${productType.toLowerCase()}/${shapeLinkPath(
+                item.title
+              )}`"
               >See Product</BaseLink
             >
           </BaseCard>

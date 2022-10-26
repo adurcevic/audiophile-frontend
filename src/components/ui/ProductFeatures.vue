@@ -25,8 +25,8 @@ console.log(props.text, props.boxContent);
     <div :class="$style.box">
       <p :class="$style.title">In the box</p>
       <div :class="$style.box__content">
-        <p v-for="[number, text] in boxContent" :class="$style.box__text">
-          <span :class="$style.items_number">{{ number }}</span> {{ text }}
+        <p v-for="{ quantity, item } in boxContent" :class="$style.box__text">
+          <span :class="$style.items_number">{{ quantity }}x</span> {{ item }}
         </p>
       </div>
     </div>

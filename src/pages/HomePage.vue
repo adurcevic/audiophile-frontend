@@ -19,7 +19,7 @@ import { navData, bestGearData } from '../data/data';
     <PageLanding>
       <LandingContent />
     </PageLanding>
-    <TheSection>
+    <TheSection isHomePage>
       <BaseGrid>
         <NavCard
           v-for="{ title, path, imgSrc } in navData"

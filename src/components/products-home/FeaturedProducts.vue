@@ -20,7 +20,7 @@
         </picture>
         <div :class="$style.product__content">
           <p :class="$style.product__title">ZX7 speaker</p>
-          <base-link path="/" isOutline>See Product</base-link>
+          <BaseLink path="/speakers/zx7" isOutline>See Product</BaseLink>
         </div>
       </div>
     </slot>

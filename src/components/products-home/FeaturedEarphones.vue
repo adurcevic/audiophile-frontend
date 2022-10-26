@@ -17,7 +17,7 @@
     </picture>
     <div :class="$style.earphones__content">
       <p :class="$style.earphones__title">YX1 earphones</p>
-      <BaseLink path="/" isOutline>See Product</BaseLink>
+      <BaseLink path="/earphones/yx1" isOutline>See Product</BaseLink>
     </div>
   </div>
 </template>

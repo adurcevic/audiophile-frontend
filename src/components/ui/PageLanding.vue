@@ -33,7 +33,7 @@ const props = defineProps({
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 150px;
+  height: 130px;
   background-color: var(--bg-primary);
 }
 
@@ -43,12 +43,6 @@ const props = defineProps({
   text-transform: uppercase;
   color: var(--text-primary);
   letter-spacing: 4px;
-}
-
-@media (min-width: 768px) {
-  .default__header {
-    height: 200px;
-  }
 }
 
 .switch_enter {

@@ -16,7 +16,7 @@ import BaseLink from '../ui/BaseLink.vue';
         Upgrade to premium speakers that are phenomenally buil to deliver truly
         remarkable sound.
       </p>
-      <base-link isSecondary>See Product</base-link>
+      <BaseLink path="/speakers/zx9" isSecondary>See Product</BaseLink>
     </div>
   </div>
 </template>

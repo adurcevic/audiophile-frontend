@@ -1,4 +1,12 @@
-<script setup></script>
+<script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  isHomePage: Boolean,
+});
+
+const margin = computed(() => (props.isHomePage ? '130px' : '90px'));
+</script>
 <template lang="">
   <section :class="$style.section">
     <div :class="$style.section__inner">
@@ -10,6 +18,10 @@
 .section {
   width: 100%;
   margin-top: 130px;
+}
+
+.section:first-of-type {
+  margin-top: v-bind(margin);
 }
 
 .section__inner {

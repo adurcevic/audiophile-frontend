@@ -9,6 +9,7 @@ import BaseGrid from '../components/ui/BaseGrid.vue';
 import BaseBtn from '../components/ui/BaseBtn.vue';
 import CartBtn from '../components/ui/CartBtn.vue';
 import ProductFeatures from '../components/ui/ProductFeatures.vue';
+import ProductGallery from '../components/ui/ProductGallery.vue';
 import { useRoute } from 'vue-router';
 import { productsData, navData, bestGearData } from '../data/data';
 import { ref, onBeforeMount, watch } from 'vue';
@@ -22,19 +23,19 @@ const initProductPage = () => {
     routeName === 'speakers' ? routeName.slice(0, -1) : routeName;
   const productName = route.params.productName;
 
-  // console.log(route.params.productName);
-  // console.log(productName);
-  // console.log(routeName);
-
   productsData.forEach((product) => {
     if (product[routeName]) {
-      productData.value = product[routeName].find(
-        (item) =>
-          item.title
-            .toLowerCase()
-            .replaceAll(' ', '')
-            .replace(productType, '') === productName
-      );
+      productData.value = product[routeName].find((item) => {
+        const shapedTitle = item.title
+          .toLowerCase()
+          .replaceAll(' ', '')
+          .replace(productType, '');
+
+        return (
+          shapedTitle === productName ||
+          shapedTitle === `${productName}wireless`
+        );
+      });
     }
   });
 
@@ -54,9 +55,9 @@ onBeforeMount(() => initProductPage());
       <BaseCard
         :cardTitle="productData.title"
         :cardText="productData.description"
-        :imgMobile="productData.productMobileImg"
-        :imgTablet="productData.productTabletImg"
-        :imgDesktop="productData.productDesktopImg"
+        :imgMobile="productData.productImages.productMobileImg"
+        :imgTablet="productData.productImages.productTabletImg"
+        :imgDesktop="productData.productImages.productDesktopImg"
         :imgAlt="`${productData.title} image`"
         :isProductPage="true"
         :price="
@@ -77,6 +78,9 @@ onBeforeMount(() => initProductPage());
         :text="productData.productFeatures"
         :boxContent="productData.setContent"
       />
+    </TheSection>
+    <TheSection>
+      <!-- <ProductGallery :galleryImgs="productData.galleryImages" /> -->
     </TheSection>
     <TheSection>
       <BaseGrid>

@@ -12,7 +12,7 @@ import BaseLink from './BaseLink.vue';
             Experience natural, lifelike audio and exceptional build quality
             made for the passionate music enthusiast.
           </p>
-          <base-link>See Product</base-link>
+          <BaseLink path="/headphones/xx99markii">See Product</BaseLink>
         </div>
       </div>
     </div>
