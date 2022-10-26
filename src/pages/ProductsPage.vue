@@ -12,12 +12,12 @@ import { useRoute } from 'vue-router';
 import { watch, ref, onBeforeMount } from 'vue';
 
 const route = useRoute();
-const title = ref('');
+const productType = ref('');
 const products = ref(null);
 
 const initProductsPage = () => {
   const routeName = route.fullPath.replace('/', '');
-  title.value = routeName;
+  productType.value = routeName;
   productsData.forEach((product) => {
     if (product[routeName]) {
       products.value = product[routeName];
@@ -34,7 +34,7 @@ onBeforeMount(() => initProductsPage());
 <template lang="">
   <TheHeader />
   <TheMain>
-    <PageLanding :title="title" />
+    <PageLanding :title="productType" />
     <TheSection>
       <transition
         :enter-active-class="$style.products_enter"
@@ -51,7 +51,16 @@ onBeforeMount(() => initProductsPage());
             :imgTablet="item.imgTablet"
             :isProductsPage="true"
             :imgAlt="`${item.title} image`"
-          />
+          >
+            <BaseLink
+              :path="`${productType.toLowerCase()}/${item.title
+                .split(' ')
+                .slice(0, -1)
+                .join('')
+                .toLowerCase()}`"
+              >See Product</BaseLink
+            >
+          </BaseCard>
         </div>
       </transition>
     </TheSection>

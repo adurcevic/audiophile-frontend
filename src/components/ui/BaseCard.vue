@@ -5,6 +5,9 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  price: {
+    type: String,
+  },
   emphasizedWord: {
     type: String,
   },
@@ -30,11 +33,18 @@ const props = defineProps({
   isProductsPage: {
     type: Boolean,
   },
+  isProductPage: {
+    type: Boolean,
+  },
 });
 
-const mediaWidth = computed(() =>
-  props.imgDesktop ? '(max-width: 900px)' : '(min-width: 901px)'
-);
+/*PRODUCTS PAGE STYLE */
+const mediaWidth = computed(() => {
+  if (props.imgDesktop && !props.isProductPage) return '(max-width: 900px)';
+  if (props.isProductPage) return '(min-width: 600px) and (max-width: 850px)';
+
+  return '(min-width: 901px)';
+});
 
 const isActionTextVisibile = computed(() => {
   const title = props.cardTitle.toLowerCase();
@@ -52,7 +62,17 @@ const isActionTextVisibile = computed(() => {
   return false;
 });
 
-const gridGap = computed(() => (props.isProductsPage ? '98px' : '32px'));
+const gridGap = computed(() =>
+  props.isProductsPage || props.isProductPage ? '98px' : '32px'
+);
+
+/*PRODUCT PAGE STYLES */
+const contentPosition = computed(() => (props.isProductPage ? '2' : '1'));
+const textAlign = computed(() => (props.isProductPage ? 'start' : 'center'));
+const flexPosition = computed(() => (props.isProductPage ? 'start' : 'center'));
+const gridColumns = computed(() =>
+  props.isProductPage ? 'repeat(2, 1fr)' : '1fr'
+);
 </script>
 <template lang="">
   <div :class="$style.card__wrapper">
@@ -60,15 +80,14 @@ const gridGap = computed(() => (props.isProductsPage ? '98px' : '32px'));
       <source media="(max-width: 450px)" :srcset="imgMobile" />
       <source :media="mediaWidth" :srcset="imgTablet" />
       <source media="(min-width: 901px)" :srcset="imgDesktop" />
-      <source />
-      <source />
       <img :class="$style.card__img" :alt="imgAlt" :src="imgMobile" />
     </picture>
     <div :class="$style.card__content">
       <span v-if="isActionTextVisibile" :class="$style.card__action_text"
         >New product</span
       >
-      <p :class="$style.card__title">
+      <h1 v-if="isProductPage" :class="$style.card__title">{{ cardTitle }}</h1>
+      <p v-else :class="$style.card__title">
         {{ cardTitle
         }}<span v-if="emphasizedWord" :class="$style.emphasized_word">{{
           emphasizedWord
@@ -76,7 +95,8 @@ const gridGap = computed(() => (props.isProductsPage ? '98px' : '32px'));
         >{{ restOfTitle }}
       </p>
       <p :class="$style.card__text">{{ cardText }}</p>
-      <BaseLink v-if="isProductsPage">See Product</BaseLink>
+      <p v-if="price" :class="$style.card__price">{{ price }}</p>
+      <slot></slot>
     </div>
   </div>
 </template>
@@ -88,7 +108,7 @@ const gridGap = computed(() => (props.isProductsPage ? '98px' : '32px'));
 }
 
 .card__action_text {
-  font-size: 2rem;
+  font-size: 1.6rem;
   text-transform: uppercase;
   color: var(--color-primary);
   letter-spacing: 6px;
@@ -105,16 +125,16 @@ const gridGap = computed(() => (props.isProductsPage ? '98px' : '32px'));
   display: flex;
   flex-direction: column;
   gap: 24px;
-  align-items: center;
+  align-items: v-bind(flexPosition);
   justify-content: center;
 }
 
 .card__title {
-  font-size: 3.2rem;
+  font-size: 2.8rem;
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 1.5px;
-  text-align: center;
+  text-align: v-bind(textAlign);
   color: var(--theme-text-primary);
 }
 
@@ -123,10 +143,32 @@ const gridGap = computed(() => (props.isProductsPage ? '98px' : '32px'));
 }
 
 .card__text {
-  text-align: center;
+  text-align: v-bind(textAlign);
   font-size: 1.6rem;
   color: var(--theme-text-tertiary);
   line-height: 1.5;
+}
+
+.card__price {
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--theme-text-primary);
+}
+
+@media (min-width: 500px) {
+  .card__action_text {
+    font-size: 2rem;
+  }
+
+  .card__title {
+    font-size: 3.2rem;
+  }
+}
+@media (min-width: 600px) {
+  .card__wrapper {
+    grid-template-columns: v-bind(gridColumns);
+  }
 }
 
 @media (min-width: 901px) {
@@ -136,7 +178,7 @@ const gridGap = computed(() => (props.isProductsPage ? '98px' : '32px'));
   }
 
   .card__content {
-    grid-column: 1;
+    grid-column: v-bind(contentPosition);
     grid-row: 1;
     align-items: start;
   }

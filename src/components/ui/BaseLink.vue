@@ -14,10 +14,6 @@ const props = defineProps({
   },
 });
 
-const click = () => {
-  console.log(click);
-};
-
 const fontColor = computed(() =>
   props.isOutline ? 'var(--text-tertiary)' : 'var(--text-primary)'
 );
@@ -43,12 +39,10 @@ const bgColor = computed(() => {
 });
 </script>
 <template>
-  <router-link :to="path" :class="$style.btn" @click="click"
-    ><slot></slot
-  ></router-link>
+  <router-link :to="path" :class="$style.link"><slot></slot></router-link>
 </template>
 <style module>
-.btn {
+.link {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,7 +57,7 @@ const bgColor = computed(() => {
   text-transform: uppercase;
 }
 
-.btn:hover {
+.link:hover {
   filter: brightness(1.4);
   background-color: v-bind(hoverBg);
   color: v-bind(hoverColor);
