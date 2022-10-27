@@ -62,6 +62,7 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
       <ul :class="$style.navigation__list">
         <router-link
           v-for="{ name, path } in navData"
+          :key="name"
           :to="path"
           :exact-active-class="$style.active_link"
           :class="$style.nav__link"

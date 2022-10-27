@@ -3,6 +3,7 @@ import { computed } from 'vue';
 
 const props = defineProps({
   isHomePage: Boolean,
+  title: String,
 });
 
 const margin = computed(() => (props.isHomePage ? '130px' : '90px'));
@@ -10,6 +11,7 @@ const margin = computed(() => (props.isHomePage ? '130px' : '90px'));
 <template lang="">
   <section :class="$style.section">
     <div :class="$style.section__inner">
+      <h2 v-if="title" :class="$style.section__title">{{ title }}</h2>
       <slot></slot>
     </div>
   </section>
@@ -29,6 +31,15 @@ const margin = computed(() => (props.isHomePage ? '130px' : '90px'));
   padding-right: 12px;
 }
 
+.section__title {
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--theme-text-primary);
+  font-size: 2.4rem;
+  letter-spacing: 2px;
+  margin-bottom: 48px;
+}
+
 .section:last-child {
   margin-bottom: 130px;
 }
@@ -37,6 +48,13 @@ const margin = computed(() => (props.isHomePage ? '130px' : '90px'));
   .section__inner {
     padding-left: 32px;
     padding-right: 32px;
+  }
+}
+
+@media (min-width: 768px) {
+  .section__title {
+    font-size: 3.2rem;
+    margin-bottom: 64px;
   }
 }
 

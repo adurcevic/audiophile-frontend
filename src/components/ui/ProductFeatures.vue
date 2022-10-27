@@ -9,8 +9,6 @@ const props = defineProps({
     required: true,
   },
 });
-
-console.log(props.text, props.boxContent);
 </script>
 <template lang="">
   <div :class="$style.section__container">

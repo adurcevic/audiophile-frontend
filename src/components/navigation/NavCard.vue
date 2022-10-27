@@ -20,7 +20,7 @@ const imgUrl = computed(() => {
 });
 </script>
 <template lang="">
-  <div :class="$style.navcard">
+  <li :class="$style.navcard">
     <div :class="$style.navcard__content">
       <p :class="$style.navcard__title">{{ title }}</p>
       <router-link :class="$style.navcard__link" :to="path">
@@ -37,7 +37,7 @@ const imgUrl = computed(() => {
         </svg>
       </router-link>
     </div>
-  </div>
+  </li>
 </template>
 <style lang="css" module>
 .navcard {

@@ -33,7 +33,9 @@ export const productsData = [
   {
     headphones: [
       {
+        id: 1,
         title: 'XX99 Mark II Headphones',
+        new: true,
         description:
           'The new XX99 Mark II headphones is the pinnacle of pristine audio. It redefines your premium headphone experience by reproducing the balanced depth and precision of studio-quality sound.',
         images: {
@@ -88,9 +90,41 @@ export const productsData = [
           { quantity: 1, item: '3.5mm 5m audio cable' },
           { quantity: 1, item: 'Travel Bag' },
         ],
-        relatedProducts: ['XX99 Mark I', 'XX59', 'ZX9 Speaker'],
+        relatedProducts: [
+          {
+            title: 'XX99 Mark I',
+            imgMobile:
+              'src/assets/related-products/xx99-mark-one/image-xx99-mark-one-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/xx99-mark-one/image-xx99-mark-one-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/xx99-mark-one/image-xx99-mark-one-related-desktop.webp',
+            path: '/headphones/xx99marki',
+          },
+          {
+            title: 'XX59',
+            imgMobile:
+              'src/assets/related-products/xx59/image-xx59-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/xx59/image-xx59-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/xx59/image-xx59-related-desktop.webp',
+            path: '/headphones/xx59',
+          },
+          {
+            title: 'ZX9 Speaker',
+            imgMobile:
+              'src/assets/related-products/zx9/image-zx9-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/zx9/image-zx9-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/zx9/image-zx9-related-desktop.webp',
+            path: '/speakers/zx9',
+          },
+        ],
       },
       {
+        id: 2,
         title: 'XX99 Mark I Headphones',
         description:
           'As the gold standard for headphones, the classic XX99 Mark I offers detailed and accurate audio reproduction for audiophiles, mixing engineers, and music aficionados alike in studios and on the go.',
@@ -108,6 +142,32 @@ export const productsData = [
           productDesktopImg:
             'src/assets/headphones/xx99-one-headphones/image-xx99-mark-one-product-desktop.webp',
         },
+        galleryImages: {
+          firstImg: {
+            imgMobile:
+              'src/assets/headphones/xx99-one-headphones/gallery/image-1-xx99-mark-one-gallery-mobile.webp',
+            imgTablet:
+              'src/assets/headphones/xx99-one-headphones/gallery/image-1-xx99-mark-one-gallery-tablet.webp',
+            imgDesktop:
+              'src/assets/headphones/xx99-one-headphones/gallery/image-1-xx99-mark-one-gallery-desktop.webp',
+          },
+          secondImg: {
+            imgMobile:
+              'src/assets/headphones/xx99-one-headphones/gallery/image-2-xx99-mark-one-gallery-mobile.webp',
+            imgTablet:
+              'src/assets/headphones/xx99-one-headphones/gallery/image-2-xx99-mark-one-gallery-tablet.webp',
+            imgDesktop:
+              'src/assets/headphones/xx99-one-headphones/gallery/image-2-xx99-mark-one-gallery-desktop.webp',
+          },
+          thirdImg: {
+            imgMobile:
+              'src/assets/headphones/xx99-one-headphones/gallery/image-3-xx99-mark-one-gallery-mobile.webp',
+            imgTablet:
+              'src/assets/headphones/xx99-one-headphones/gallery/image-3-xx99-mark-one-gallery-tablet.webp',
+            imgDesktop:
+              'src/assets/headphones/xx99-one-headphones/gallery/image-3-xx99-mark-one-gallery-desktop.webp',
+          },
+        },
         price: 1750,
         productFeatures: [
           'As the headphones all others are measured against, the XX99 Mark I demonstrates over five decades of audio expertise, redefining the critical listening experience. This pair of closed-back headphones are made of industrial, aerospace-grade materials to emphasize durability at a relatively light weight of 11 oz',
@@ -119,8 +179,41 @@ export const productsData = [
           { quantity: 1, item: 'User manual' },
           { quantity: 1, item: '3.5mm 5m audio cable' },
         ],
+        relatedProducts: [
+          {
+            title: 'XX99 Mark II',
+            imgMobile:
+              'src/assets/related-products/xx99-mark-two/image-xx99-mark-two-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/xx99-mark-two/image-xx99-mark-two-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/xx99-mark-two/image-xx99-mark-two-related-desktop.webp',
+            path: '/headphones/xx99markii',
+          },
+          {
+            title: 'XX59',
+            imgMobile:
+              'src/assets/related-products/xx59/image-xx59-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/xx59/image-xx59-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/xx59/image-xx59-related-desktop.webp',
+            path: '/headphones/xx59',
+          },
+          {
+            title: 'ZX9 Speaker',
+            imgMobile:
+              'src/assets/related-products/zx9/image-zx9-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/zx9/image-zx9-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/zx9/image-zx9-related-desktop.webp',
+            path: '/speakers/zx9',
+          },
+        ],
       },
       {
+        id: 3,
         title: 'XX59 Headphones',
         description:
           'Enjoy your audio almost anywhere and customize it to your specific tastes with the XX59 headphones. The stylish yet durable versatile wireless headset is a brilliant companion at home or on the move.',
@@ -138,6 +231,32 @@ export const productsData = [
           productDesktopImg:
             'src/assets/headphones/xx59-headphones/image-xx59-product-desktop.webp',
         },
+        galleryImages: {
+          firstImg: {
+            imgMobile:
+              'src/assets/headphones/xx59-headphones/gallery/image-1-xx59-gallery-mobile.webp',
+            imgTablet:
+              'src/assets/headphones/xx59-headphones/gallery/image-1-xx59-gallery-tablet.webp',
+            imgDesktop:
+              'src/assets/headphones/xx59-headphones/gallery/image-1-xx59-gallery-desktop.webp',
+          },
+          secondImg: {
+            imgMobile:
+              'src/assets/headphones/xx59-headphones/gallery/image-2-xx59-gallery-mobile.webp',
+            imgTablet:
+              'src/assets/headphones/xx59-headphones/gallery/image-2-xx59-gallery-tablet.webp',
+            imgDesktop:
+              'src/assets/headphones/xx59-headphones/gallery/image-2-xx59-gallery-desktop.webp',
+          },
+          thirdImg: {
+            imgMobile:
+              'src/assets/headphones/xx59-headphones/gallery/image-3-xx59-gallery-mobile.webp',
+            imgTablet:
+              'src/assets/headphones/xx59-headphones/gallery/image-3-xx59-gallery-tablet.webp',
+            imgDesktop:
+              'src/assets/headphones/xx59-headphones/gallery/image-3-xx59-gallery-desktop.webp',
+          },
+        },
         price: 899,
         productFeatures: [
           'These headphones have been created from durable, high-quality materials tough enough to take anywhere. Its compact folding design fuses comfort and minimalist style making it perfect for travel. Flawless transmission is assured by the latest wireless technology engineered for audio synchronization with videos.',
@@ -149,13 +268,47 @@ export const productsData = [
           { quantity: 1, item: 'User manual' },
           { quantity: 1, item: '3.5mm 5m audio cable' },
         ],
+        relatedProducts: [
+          {
+            title: 'XX99 Mark II',
+            imgMobile:
+              'src/assets/related-products/xx99-mark-two/image-xx99-mark-two-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/xx99-mark-two/image-xx99-mark-two-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/xx99-mark-two/image-xx99-mark-two-related-desktop.webp',
+            path: '/headphones/xx99markii',
+          },
+          {
+            title: 'XX99 Mark I',
+            imgMobile:
+              'src/assets/related-products/xx99-mark-one/image-xx99-mark-one-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/xx99-mark-one/image-xx99-mark-one-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/xx99-mark-one/image-xx99-mark-one-related-desktop.webp',
+            path: '/headphones/xx99marki',
+          },
+          {
+            title: 'ZX9 Speaker',
+            imgMobile:
+              'src/assets/related-products/zx9/image-zx9-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/zx9/image-zx9-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/zx9/image-zx9-related-desktop.webp',
+            path: '/speakers/zx9',
+          },
+        ],
       },
     ],
   },
   {
     speakers: [
       {
+        id: 4,
         title: 'ZX9 Speaker',
+        new: true,
         description:
           'Upgrade your sound system with the all new ZX9 active speaker. It’s a bookshelf speaker system that offers truly wireless connectivity -- creating new possibilities for more pleasing and practical audio setups.',
         images: {
@@ -170,6 +323,32 @@ export const productsData = [
           productDesktopImg:
             'src/assets/speakers/zx9-speaker/image-zx9-product-desktop.webp',
         },
+        galleryImages: {
+          firstImg: {
+            imgMobile:
+              'src/assets/speakers/zx9-speaker/gallery/image-1-zx9-gallery-mobile.webp',
+            imgTablet:
+              'src/assets/speakers/zx9-speaker/gallery/image-1-zx9-gallery-tablet.webp',
+            imgDesktop:
+              'src/assets/speakers/zx9-speaker/gallery/image-1-zx9-gallery-desktop.webp',
+          },
+          secondImg: {
+            imgMobile:
+              'src/assets/speakers/zx9-speaker/gallery/image-2-zx9-gallery-mobile.webp',
+            imgTablet:
+              'src/assets/speakers/zx9-speaker/gallery/image-2-zx9-gallery-tablet.webp',
+            imgDesktop:
+              'src/assets/speakers/zx9-speaker/gallery/image-2-zx9-gallery-desktop.webp',
+          },
+          thirdImg: {
+            imgMobile:
+              'src/assets/speakers/zx9-speaker/gallery/image-3-zx9-gallery-mobile.webp',
+            imgTablet:
+              'src/assets/speakers/zx9-speaker/gallery/image-3-zx9-gallery-tablet.webp',
+            imgDesktop:
+              'src/assets/speakers/zx9-speaker/gallery/image-3-zx9-gallery-desktop.webp',
+          },
+        },
         price: 4500,
         productFeatures: [
           'Connect via Bluetooth or nearly any wired source. This speaker features optical, digital coaxial, USB Type-B, stereo RCA, and stereo XLR inputs, allowing you to have up to five wired source devices connected for easy switching. Improved bluetooth technology offers near lossless audio quality at up to 328ft (100m).',
@@ -182,8 +361,41 @@ export const productsData = [
           { quantity: 1, item: '3.5mm 10m audio cable' },
           { quantity: 1, item: '10m optical cable' },
         ],
+        relatedProducts: [
+          {
+            title: 'ZX7 Speaker',
+            imgMobile:
+              'src/assets/related-products/zx7/image-zx7-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/zx7/image-zx7-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/zx7/image-zx7-related-desktop.webp',
+            path: '/speakers/zx7',
+          },
+          {
+            title: 'XX99 Mark I',
+            imgMobile:
+              'src/assets/related-products/xx99-mark-one/image-xx99-mark-one-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/xx99-mark-one/image-xx99-mark-one-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/xx99-mark-one/image-xx99-mark-one-related-desktop.webp',
+            path: '/headphones/xx99marki',
+          },
+          {
+            title: 'XX59',
+            imgMobile:
+              'src/assets/related-products/xx59/image-xx59-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/xx59/image-xx59-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/xx59/image-xx59-related-desktop.webp',
+            path: '/headphones/xx59',
+          },
+        ],
       },
       {
+        id: 5,
         title: 'ZX7 Speaker',
         description:
           'Stream high quality sound wirelessly with minimal loss. The ZX7 bookshelf speaker uses high-end audiophile components that represents the top of the line powered speakers for home or studio use.',
@@ -199,6 +411,32 @@ export const productsData = [
           productDesktopImg:
             'src/assets/speakers/zx7-speaker/image-zx7-product-desktop.webp',
         },
+        galleryImages: {
+          firstImg: {
+            imgMobile:
+              'src/assets/speakers/zx7-speaker/gallery/image-1-zx7-gallery-mobile.webp',
+            imgTablet:
+              'src/assets/speakers/zx7-speaker/gallery/image-1-zx7-gallery-tablet.webp',
+            imgDesktop:
+              'src/assets/speakers/zx7-speaker/gallery/image-1-zx7-gallery-desktop.webp',
+          },
+          secondImg: {
+            imgMobile:
+              'src/assets/speakers/zx7-speaker/gallery/image-2-zx7-gallery-mobile.webp',
+            imgTablet:
+              'src/assets/speakers/zx7-speaker/gallery/image-2-zx7-gallery-tablet.webp',
+            imgDesktop:
+              'src/assets/speakers/zx7-speaker/gallery/image-2-zx7-gallery-desktop.webp',
+          },
+          thirdImg: {
+            imgMobile:
+              'src/assets/speakers/zx7-speaker/gallery/image-3-zx7-gallery-mobile.webp',
+            imgTablet:
+              'src/assets/speakers/zx7-speaker/gallery/image-3-zx7-gallery-tablet.webp',
+            imgDesktop:
+              'src/assets/speakers/zx7-speaker/gallery/image-3-zx7-gallery-desktop.webp',
+          },
+        },
         price: 3500,
         productFeatures: [
           'Reap the advantages of a flat diaphragm tweeter cone. This provides a fast response rate and excellent high frequencies that lower tiered bookshelf speakers cannot provide. The woofers are made from aluminum that produces a unique and clear sound. XLR inputs allow you to connect to a mixer for more advanced usage.',
@@ -211,13 +449,47 @@ export const productsData = [
           { quantity: 1, item: '3.5mm 7.5m audio cable' },
           { quantity: 1, item: '7.5m optical cable' },
         ],
+        relatedProducts: [
+          {
+            title: 'ZX9 Speaker',
+            imgMobile:
+              'src/assets/related-products/zx9/image-zx9-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/zx9/image-zx9-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/zx9/image-zx9-related-desktop.webp',
+            path: '/speakers/zx9',
+          },
+          {
+            title: 'XX99 Mark I',
+            imgMobile:
+              'src/assets/related-products/xx99-mark-one/image-xx99-mark-one-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/xx99-mark-one/image-xx99-mark-one-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/xx99-mark-one/image-xx99-mark-one-related-desktop.webp',
+            path: '/headphones/xx99marki',
+          },
+          {
+            title: 'XX59',
+            imgMobile:
+              'src/assets/related-products/xx59/image-xx59-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/xx59/image-xx59-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/xx59/image-xx59-related-desktop.webp',
+            path: '/headphones/xx59',
+          },
+        ],
       },
     ],
   },
   {
     earphones: [
       {
+        id: 6,
         title: 'YX1 Wireless Earphones',
+        new: true,
         description:
           'Upgrade your sound system with the all new ZX9 active speaker. It’s a bookshelf speaker system that offers truly wireless connectivity -- creating new possibilities for more pleasing and practical audio setups.',
         images: {
@@ -234,6 +506,32 @@ export const productsData = [
           productDesktopImg:
             'src/assets/earphones/yx1-earphones/image-yx1-product-desktop.webp',
         },
+        galleryImages: {
+          firstImg: {
+            imgMobile:
+              'src/assets/earphones/yx1-earphones/gallery/image-1-yx1-gallery-mobile.webp',
+            imgTablet:
+              'src/assets/earphones/yx1-earphones/gallery/image-1-yx1-gallery-tablet.webp',
+            imgDesktop:
+              'src/assets/earphones/yx1-earphones/gallery/image-1-yx1-gallery-desktop.webp',
+          },
+          secondImg: {
+            imgMobile:
+              'src/assets/earphones/yx1-earphones/gallery/image-2-yx1-gallery-mobile.webp',
+            imgTablet:
+              'src/assets/earphones/yx1-earphones/gallery/image-2-yx1-gallery-tablet.webp',
+            imgDesktop:
+              'src/assets/earphones/yx1-earphones/gallery/image-2-yx1-gallery-desktop.webp',
+          },
+          thirdImg: {
+            imgMobile:
+              'src/assets/earphones/yx1-earphones/gallery/image-3-yx1-gallery-mobile.webp',
+            imgTablet:
+              'src/assets/earphones/yx1-earphones/gallery/image-3-yx1-gallery-tablet.webp',
+            imgDesktop:
+              'src/assets/earphones/yx1-earphones/gallery/image-3-yx1-gallery-desktop.webp',
+          },
+        },
         price: 599,
         productFeatures: [
           'Experience unrivalled stereo sound thanks to innovative acoustic technology. With improved ergonomics designed for full day wearing, these revolutionary earphones have been finely crafted to provide you with the perfect fit, delivering complete comfort all day long while enjoying exceptional noise isolation and truly immersive sound.',
@@ -245,6 +543,38 @@ export const productsData = [
           { quantity: 1, item: 'User manual' },
           { quantity: 1, item: 'USB-C charging cable' },
           { quantity: 1, item: 'Travel pouch' },
+        ],
+        relatedProducts: [
+          {
+            title: 'XX99 Mark I',
+            imgMobile:
+              'src/assets/related-products/xx99-mark-one/image-xx99-mark-one-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/xx99-mark-one/image-xx99-mark-one-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/xx99-mark-one/image-xx99-mark-one-related-desktop.webp',
+            path: '/headphones/xx99marki',
+          },
+          {
+            title: 'XX59',
+            imgMobile:
+              'src/assets/related-products/xx59/image-xx59-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/xx59/image-xx59-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/xx59/image-xx59-related-desktop.webp',
+            path: '/headphones/xx59',
+          },
+          {
+            title: 'ZX9 Speaker',
+            imgMobile:
+              'src/assets/related-products/zx9/image-zx9-related-mobile.webp',
+            imgTablet:
+              'src/assets/related-products/zx9/image-zx9-related-tablet.webp',
+            imgDesktop:
+              'src/assets/related-products/zx9/image-zx9-related-desktop.webp',
+            path: '/speakers/zx9',
+          },
         ],
       },
     ],

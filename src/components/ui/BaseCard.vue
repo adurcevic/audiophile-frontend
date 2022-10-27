@@ -5,6 +5,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  imgAlt: {
+    type: String,
+    required: true,
+  },
   price: {
     type: String,
   },
@@ -26,14 +30,13 @@ const props = defineProps({
   imgDesktop: {
     type: String,
   },
-  imgAlt: {
-    type: String,
-    required: true,
-  },
   isProductsPage: {
     type: Boolean,
   },
   isProductPage: {
+    type: Boolean,
+  },
+  isNew: {
     type: Boolean,
   },
 });
@@ -44,22 +47,6 @@ const mediaWidth = computed(() => {
   if (props.isProductPage) return '(min-width: 600px) and (max-width: 850px)';
 
   return '(min-width: 901px)';
-});
-
-const isActionTextVisibile = computed(() => {
-  const title = props.cardTitle.toLowerCase();
-  const newHeadphones = 'XX99 Mark II Headphones';
-  const newSpeaker = 'ZX9 Speaker';
-  const newEarphones = 'YX1 Wireless Earphones';
-
-  if (
-    title === newHeadphones.toLowerCase() ||
-    title === newSpeaker.toLowerCase() ||
-    title === newEarphones.toLowerCase()
-  )
-    return true;
-
-  return false;
 });
 
 const gridGap = computed(() =>
@@ -83,9 +70,7 @@ const gridColumns = computed(() =>
       <img :class="$style.card__img" :alt="imgAlt" :src="imgMobile" />
     </picture>
     <div :class="$style.card__content">
-      <span v-if="isActionTextVisibile" :class="$style.card__action_text"
-        >New product</span
-      >
+      <span v-if="isNew" :class="$style.card__action_text">New product</span>
       <h1 v-if="isProductPage" :class="$style.card__title">{{ cardTitle }}</h1>
       <p v-else :class="$style.card__title">
         {{ cardTitle

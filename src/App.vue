@@ -1,5 +1,4 @@
 <script setup>
-import TheHeader from './components/layout/TheHeader.vue';
 import { provide } from 'vue';
 import { useDark, useToggle } from '@vueuse/core';
 

@@ -10,7 +10,11 @@ const imgArr = Object.values(props.galleryImgs);
 </script>
 <template lang="">
   <div v-if="galleryImgs" :class="$style.gallery">
-    <picture :class="$style.picture" v-for="imgLink in imgArr">
+    <picture
+      v-for="imgLink in imgArr"
+      :class="$style.picture"
+      aria-hidden="true"
+    >
       <source media="(max-width: 500px)" :srcset="imgLink.imgMobile" />
       <source media="(max-width: 900px)" :srcset="imgLink.imgTablet" />
       <source media="(min-width: 901px)" :srcset="imgLink.imgDesktop" />
@@ -37,7 +41,7 @@ const imgArr = Object.values(props.galleryImgs);
 
 @media (min-width: 475px) {
   .gallery {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.8fr 1.2fr;
     gap: 12px;
   }
 

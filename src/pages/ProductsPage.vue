@@ -54,12 +54,14 @@ onBeforeMount(() => initProductsPage());
         <div :key="products" :class="$style.products__wrapper" v-if="products">
           <BaseCard
             v-for="item in products"
+            :key="item.id"
             :cardTitle="item.title"
             :cardText="item.description"
             :imgMobile="item.images.imgMobile"
             :imgTablet="item.images.imgTablet"
             :isProductsPage="true"
             :imgAlt="`${item.title} image`"
+            :isNew="item.new"
           >
             <BaseLink
               :path="`${productType.toLowerCase()}/${shapeLinkPath(
@@ -75,6 +77,7 @@ onBeforeMount(() => initProductsPage());
       <BaseGrid>
         <NavCard
           v-for="{ title, path, imgSrc } in navData"
+          :key="title"
           :title="title"
           :path="path"
           :imgSrc="imgSrc"

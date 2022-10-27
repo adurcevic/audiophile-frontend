@@ -10,6 +10,7 @@ import BaseBtn from '../components/ui/BaseBtn.vue';
 import CartBtn from '../components/ui/CartBtn.vue';
 import ProductFeatures from '../components/ui/ProductFeatures.vue';
 import ProductGallery from '../components/ui/ProductGallery.vue';
+import RelatedCard from '../components/ui/RelatedCard.vue';
 import { useRoute } from 'vue-router';
 import { productsData, navData, bestGearData } from '../data/data';
 import { ref, onBeforeMount, watch } from 'vue';
@@ -38,8 +39,6 @@ const initProductPage = () => {
       });
     }
   });
-
-  console.log(productData.value);
 };
 
 watch(route, () => {
@@ -52,26 +51,35 @@ onBeforeMount(() => initProductPage());
   <TheHeader />
   <TheMain>
     <TheSection>
-      <BaseCard
-        :cardTitle="productData.title"
-        :cardText="productData.description"
-        :imgMobile="productData.productImages.productMobileImg"
-        :imgTablet="productData.productImages.productTabletImg"
-        :imgDesktop="productData.productImages.productDesktopImg"
-        :imgAlt="`${productData.title} image`"
-        :isProductPage="true"
-        :price="
-          productData.price.toLocaleString('en-GB', {
-            style: 'currency',
-            currency: 'EUR',
-          })
-        "
+      <transition
+        :enter-active-class="$style.page_enter"
+        :leave-active-class="$style.page_leave"
+        mode="out-in"
+        appear
       >
-        <div :class="$style.btn__positioner">
-          <CartBtn />
-          <BaseBtn>Add Product</BaseBtn>
-        </div>
-      </BaseCard>
+        <BaseCard
+          :key="productData.id"
+          :cardTitle="productData.title"
+          :cardText="productData.description"
+          :imgMobile="productData.productImages.productMobileImg"
+          :imgTablet="productData.productImages.productTabletImg"
+          :imgDesktop="productData.productImages.productDesktopImg"
+          :imgAlt="`${productData.title} image`"
+          :isProductPage="true"
+          :is-new="productData.new"
+          :price="
+            productData.price.toLocaleString('en-GB', {
+              style: 'currency',
+              currency: 'EUR',
+            })
+          "
+        >
+          <div :class="$style.btn__positioner">
+            <CartBtn />
+            <BaseBtn>Add Product</BaseBtn>
+          </div>
+        </BaseCard>
+      </transition>
     </TheSection>
     <TheSection>
       <ProductFeatures
@@ -80,12 +88,18 @@ onBeforeMount(() => initProductPage());
       />
     </TheSection>
     <TheSection>
-      <!-- <ProductGallery :galleryImgs="productData.galleryImages" /> -->
+      <ProductGallery :galleryImgs="productData.galleryImages" />
+    </TheSection>
+    <TheSection title="You may also like">
+      <BaseGrid>
+        <RelatedCard :related-products="productData.relatedProducts" />
+      </BaseGrid>
     </TheSection>
     <TheSection>
       <BaseGrid>
         <NavCard
           v-for="{ title, path, imgSrc } in navData"
+          :key="title"
           :title="title"
           :path="path"
           :imgSrc="imgSrc"
@@ -112,5 +126,21 @@ onBeforeMount(() => initProductPage());
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
+}
+
+.page_enter {
+  animation: fade 0.3s ease-out;
+}
+.page_leave {
+  animation: fade 0.3s ease-in reverse;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 </style>
