@@ -42,6 +42,7 @@ const props = defineProps({
 
 .related__img {
   width: 100%;
+  height: auto;
 }
 
 @media (min-width: 627px) {

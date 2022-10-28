@@ -16,8 +16,8 @@
       </button>
     </div>
     <div :class="$style.quantity">1</div>
-    <div :class="$style.btn__wrapper" aria-label="Decrement product quantity">
-      <button :class="$style.btn">
+    <div :class="$style.btn__wrapper" >
+      <button :class="$style.btn" aria-label="Decrement product quantity">
         <svg
           aria-hidden="true"
           focusable="false"

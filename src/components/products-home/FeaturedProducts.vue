@@ -19,7 +19,7 @@
           />
         </picture>
         <div :class="$style.product__content">
-          <p :class="$style.product__title">ZX7 speaker</p>
+          <h2 :class="$style.product__title">ZX7 speaker</h2>
           <BaseLink path="/speakers/zx7" isOutline>See Product</BaseLink>
         </div>
       </div>

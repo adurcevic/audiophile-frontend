@@ -72,13 +72,13 @@ const gridColumns = computed(() =>
     <div :class="$style.card__content">
       <span v-if="isNew" :class="$style.card__action_text">New product</span>
       <h1 v-if="isProductPage" :class="$style.card__title">{{ cardTitle }}</h1>
-      <p v-else :class="$style.card__title">
+      <h2 v-else :class="$style.card__title">
         {{ cardTitle
         }}<span v-if="emphasizedWord" :class="$style.emphasized_word">{{
           emphasizedWord
         }}</span
         >{{ restOfTitle }}
-      </p>
+      </h2>
       <p :class="$style.card__text">{{ cardText }}</p>
       <p v-if="price" :class="$style.card__price">{{ price }}</p>
       <slot></slot>

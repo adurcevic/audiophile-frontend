@@ -11,12 +11,15 @@ import CartBtn from '../components/ui/CartBtn.vue';
 import ProductFeatures from '../components/ui/ProductFeatures.vue';
 import ProductGallery from '../components/ui/ProductGallery.vue';
 import RelatedCard from '../components/ui/RelatedCard.vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { productsData, navData, bestGearData } from '../data/data';
 import { ref, onBeforeMount, watch } from 'vue';
 
+const router = useRouter();
 const route = useRoute();
 const productData = ref(null);
+
+const goBack = () => router.go(-1);
 
 const initProductPage = () => {
   const routeName = route.path.replace('/', '').split('/').shift();
@@ -51,6 +54,9 @@ onBeforeMount(() => initProductPage());
   <TheHeader />
   <TheMain>
     <TheSection>
+      <div :class="[$style.btn__positioner, $style.return]">
+        <BaseBtn @btn-action="goBack" isReturn>Go Back</BaseBtn>
+      </div>
       <transition
         :enter-active-class="$style.page_enter"
         :leave-active-class="$style.page_leave"
@@ -126,6 +132,10 @@ onBeforeMount(() => initProductPage());
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
+}
+
+.return {
+  margin-bottom: 48px;
 }
 
 .page_enter {
