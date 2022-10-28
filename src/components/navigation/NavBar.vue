@@ -57,17 +57,18 @@ const navLinkWidth = computed(() => (props.isFooter ? 'auto' : '100%'));
 const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
 </script>
 <template lang="">
-  <nav id="navigation" :class="navClass">
+  <nav :id="!isFooter ? 'navigation' : null" :class="navClass">
     <div :class="navInnerClass">
-      <ul :class="$style.navigation__list">
+      <div :class="$style.navigation__list">
         <router-link
           v-for="{ name, path } in navData"
+          :key="name"
           :to="path"
           :exact-active-class="$style.active_link"
           :class="$style.nav__link"
           @click="$emit('close-nav')"
         >
-          <li :class="$style.navigation__item">
+          <div :class="$style.navigation__item">
             <svg
               v-if="!isFooter && name === 'Home'"
               aria-hidden="true"
@@ -121,9 +122,9 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
               />
             </svg>
             <span>{{ name }}</span>
-          </li>
+          </div>
         </router-link>
-      </ul>
+      </div>
     </div>
   </nav>
 </template>

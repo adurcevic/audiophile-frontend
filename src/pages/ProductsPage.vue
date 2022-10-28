@@ -12,17 +12,26 @@ import { useRoute } from 'vue-router';
 import { watch, ref, onBeforeMount } from 'vue';
 
 const route = useRoute();
-const title = ref('');
+const productType = ref('');
 const products = ref(null);
 
 const initProductsPage = () => {
   const routeName = route.fullPath.replace('/', '');
-  title.value = routeName;
+  productType.value = routeName;
   productsData.forEach((product) => {
     if (product[routeName]) {
       products.value = product[routeName];
     }
   });
+};
+
+const shapeLinkPath = (title) => {
+  const productName = title.toLowerCase();
+  if (productName.includes('wireless')) {
+    return productName.split(' ')[0];
+  }
+
+  return productName.split(' ').slice(0, -1).join('');
 };
 
 watch(route, () => {
@@ -34,7 +43,7 @@ onBeforeMount(() => initProductsPage());
 <template lang="">
   <TheHeader />
   <TheMain>
-    <PageLanding :title="title" />
+    <PageLanding :title="productType" />
     <TheSection>
       <transition
         :enter-active-class="$style.products_enter"
@@ -45,13 +54,22 @@ onBeforeMount(() => initProductsPage());
         <div :key="products" :class="$style.products__wrapper" v-if="products">
           <BaseCard
             v-for="item in products"
+            :key="item.id"
             :cardTitle="item.title"
             :cardText="item.description"
-            :imgMobile="item.imgMobile"
-            :imgTablet="item.imgTablet"
+            :imgMobile="item.images.imgMobile"
+            :imgTablet="item.images.imgTablet"
             :isProductsPage="true"
             :imgAlt="`${item.title} image`"
-          />
+            :isNew="item.new"
+          >
+            <BaseLink
+              :path="`${productType.toLowerCase()}/${shapeLinkPath(
+                item.title
+              )}`"
+              >See Product</BaseLink
+            >
+          </BaseCard>
         </div>
       </transition>
     </TheSection>
@@ -59,6 +77,7 @@ onBeforeMount(() => initProductsPage());
       <BaseGrid>
         <NavCard
           v-for="{ title, path, imgSrc } in navData"
+          :key="title"
           :title="title"
           :path="path"
           :imgSrc="imgSrc"

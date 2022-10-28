@@ -22,14 +22,26 @@ const routes = [
     component: () => import('./pages/ProductsPage.vue'),
   },
   {
+    path: '/headphones/:productName',
+    component: () => import('./pages/ProductPage.vue'),
+  },
+  {
     path: '/speakers',
     name: 'speakers',
     component: () => import('./pages/ProductsPage.vue'),
   },
   {
+    path: '/speakers/:productName',
+    component: () => import('./pages/ProductPage.vue'),
+  },
+  {
     path: '/earphones',
     name: 'earphones',
     component: () => import('./pages/ProductsPage.vue'),
+  },
+  {
+    path: '/earphones/:productName',
+    component: () => import('./pages/ProductPage.vue'),
   },
 ];
 

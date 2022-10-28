@@ -11,12 +11,12 @@ import BaseLink from '../ui/BaseLink.vue';
       />
     </figure>
     <div :class="$style.product__content">
-      <p :class="$style.content__title">ZX9 SPEAKER</p>
+      <h2 :class="$style.content__title">ZX9 SPEAKER</h2>
       <p :class="$style.content__text">
         Upgrade to premium speakers that are phenomenally buil to deliver truly
         remarkable sound.
       </p>
-      <base-link isSecondary>See Product</base-link>
+      <BaseLink path="/speakers/zx9" isSecondary>See Product</BaseLink>
     </div>
   </div>
 </template>

@@ -13,11 +13,12 @@
       <img
         :class="$style.earphones__img"
         src="../../assets/yx1-earphones/image-earphones-yx1-mobile.webp"
+        alt="image of YX1 wireless earphones"
       />
     </picture>
     <div :class="$style.earphones__content">
-      <p :class="$style.earphones__title">YX1 earphones</p>
-      <BaseLink path="/" isOutline>See Product</BaseLink>
+      <h2 :class="$style.earphones__title">YX1 earphones</h2>
+      <BaseLink path="/earphones/yx1" isOutline>See Product</BaseLink>
     </div>
   </div>
 </template>
