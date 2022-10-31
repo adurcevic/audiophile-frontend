@@ -1,8 +1,17 @@
-<script setup></script>
+<script setup>
+import { computed } from 'vue';
+const props = defineProps({
+  isFooter: {
+    type: Boolean,
+  },
+});
+
+const zIndex = computed(() => (props.isFooter ? 1 : 5));
+</script>
 <template lang="">
   <router-link
     :to="{ name: 'home' }"
-    :class="$style.logo_link"
+    :class="$style.logoLink"
     aria-label="go to home page"
   >
     <svg
@@ -21,9 +30,9 @@
   </router-link>
 </template>
 <style lang="css" module>
-.logo_link {
+.logoLink {
   display: grid;
   place-items: center;
-  z-index: 5;
+  z-index: v-bind(zIndex);
 }
 </style>

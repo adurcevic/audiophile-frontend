@@ -4,13 +4,16 @@ const props = defineProps({
   isReturn: {
     type: Boolean,
   },
+  isCart: {
+    type: Boolean,
+  },
 });
 
 const style = useCssModule();
 
-const btnClass = computed(() =>
-  props.isReturn ? style.btn__return : style.btn
-);
+const btnClass = computed(() => (props.isReturn ? style.btnReturn : style.btn));
+const fontSize = computed(() => (props.isCart ? '1.6rem' : '1.8rem'));
+const lineHeight = computed(() => (props.isCart ? '1px' : '3px'));
 </script>
 <template lang="">
   <button @click="$emit('btnAction')" :class="btnClass"><slot></slot></button>
@@ -31,20 +34,20 @@ const btnClass = computed(() =>
   text-transform: uppercase;
 }
 
-.btn__return {
+.btnReturn {
   position: relative;
   text-transform: capitalize;
   cursor: pointer;
-  font-size: 1.8rem;
+  font-size: v-bind(fontSize);
   color: var(--theme-text-tertiary);
   font-weight: 300;
 }
 
-.btn__return::before {
+.btnReturn::before {
   content: '';
   position: absolute;
   width: 100%;
-  height: 3px;
+  height: v-bind(lineHeight);
   border-radius: 4px;
   background-color: var(--theme-text-tertiary);
   bottom: -4px;
@@ -54,7 +57,7 @@ const btnClass = computed(() =>
   transition: transform 0.3s ease-in-out;
 }
 
-.btn__return:hover::before {
+.btnReturn:hover::before {
   transform-origin: left;
   transform: scaleX(1);
 }

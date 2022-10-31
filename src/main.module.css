@@ -4,6 +4,8 @@
   --dot-color: #ad643b;
   --border-primary: #97979740;
   --bg-body: #ffffff;
+  --bg-cart: #ffffff;
+  --bg-overlay: #0000003d;
   --bg-primary: #191919;
   --bg-secondary: #f1f1f1;
   --bg-tertiary: #dc8a5c;
@@ -18,6 +20,7 @@
 }
 
 [theme='custom-dark'] {
+  --bg-cart: #070707;
   --bg-body: #111111;
   --bg-secondary: #c1c1c1;
   --theme-text-primary: #ffffff;
@@ -58,4 +61,20 @@ button {
 
 ul {
   list-style-type: none;
+}
+
+.fadeEnter {
+  animation: fade 0.3s ease-out;
+}
+.fadeLeave {
+  animation: fade 0.3s ease-in reverse;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

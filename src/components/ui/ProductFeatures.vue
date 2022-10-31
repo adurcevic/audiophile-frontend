@@ -11,27 +11,27 @@ const props = defineProps({
 });
 </script>
 <template lang="">
-  <div :class="$style.section__container">
+  <div :class="$style.sectionContainer">
     <div>
       <p :class="$style.title">Features</p>
-      <div :class="$style.features__content">
-        <p v-for="paragraph in text" :class="$style.features__text">
+      <div :class="$style.featuresContent">
+        <p v-for="paragraph in text" :class="$style.featuresText">
           {{ paragraph }}
         </p>
       </div>
     </div>
     <div :class="$style.box">
       <p :class="$style.title">In the box</p>
-      <div :class="$style.box__content">
-        <p v-for="{ quantity, item } in boxContent" :class="$style.box__text">
-          <span :class="$style.items_number">{{ quantity }}x</span> {{ item }}
+      <div :class="$style.boxContent">
+        <p v-for="{ quantity, item } in boxContent" :class="$style.boxText">
+          <span :class="$style.itemsNumber">{{ quantity }}x</span> {{ item }}
         </p>
       </div>
     </div>
   </div>
 </template>
 <style lang="css" module>
-.section__container {
+.sectionContainer {
   display: flex;
   flex-direction: column;
   gap: 64px;
@@ -45,7 +45,7 @@ const props = defineProps({
   letter-spacing: 2px;
 }
 
-.features__content {
+.featuresContent {
   margin-top: 24px;
   display: flex;
   flex-direction: column;
@@ -53,7 +53,7 @@ const props = defineProps({
   line-height: 1.7;
 }
 
-.features__text {
+.featuresText {
   font-size: 1.6rem;
   color: var(--theme-text-tertiary);
   font-weight: 200;
@@ -65,19 +65,19 @@ const props = defineProps({
   gap: 24px;
 }
 
-.box__content {
+.boxContent {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.box__text {
+.boxText {
   font-size: 1.6rem;
   color: var(--theme-text-tertiary);
   font-weight: 300;
 }
 
-.items_number {
+.itemsNumber {
   color: var(--color-primary);
   padding-right: 4px;
 }
@@ -95,12 +95,12 @@ const props = defineProps({
     gap: 48px;
     flex-direction: column;
   }
-  .section__container {
+  .sectionContainer {
     display: grid;
     grid-template-columns: 1.4fr 0.6fr;
   }
 
-  .features__content {
+  .featuresContent {
     margin-top: 48px;
   }
 
@@ -109,7 +109,7 @@ const props = defineProps({
   }
 }
 @media (min-width: 1024px) {
-  .section__container {
+  .sectionContainer {
     gap: 90px;
   }
 }

@@ -2,13 +2,13 @@
 import BaseLink from './BaseLink.vue';
 </script>
 <template>
-  <transition :appear-active-class="$style.content_enter_active" appear>
-    <div :class="$style.content__wrapper">
+  <transition :appear-active-class="$style.contentEnterActive" appear>
+    <div :class="$style.contentWrapper">
       <div :class="$style.content">
-        <div :class="$style.content__inner">
-          <span :class="$style.action__text">New product</span>
-          <h1 :class="$style.content__title">XX99 mark II headphones</h1>
-          <p :class="$style.content__text">
+        <div :class="$style.contentInner">
+          <span :class="$style.actionText">New product</span>
+          <h1 :class="$style.contentTitle">XX99 mark II headphones</h1>
+          <p :class="$style.contentText">
             Experience natural, lifelike audio and exceptional build quality
             made for the passionate music enthusiast.
           </p>
@@ -19,7 +19,7 @@ import BaseLink from './BaseLink.vue';
   </transition>
 </template>
 <style lang="css" module>
-.content__wrapper::after {
+.contentWrapper::after {
   content: '';
   top: -50px;
   position: absolute;
@@ -37,7 +37,7 @@ import BaseLink from './BaseLink.vue';
   justify-content: center;
 }
 
-.content__inner {
+.contentInner {
   z-index: 2;
   width: 100%;
   max-width: 300px;
@@ -48,7 +48,7 @@ import BaseLink from './BaseLink.vue';
   text-align: center;
 }
 
-.action__text {
+.actionText {
   font-size: 1.8rem;
   text-transform: uppercase;
   letter-spacing: 6px;
@@ -56,7 +56,7 @@ import BaseLink from './BaseLink.vue';
   font-weight: 300;
 }
 
-.content__title {
+.contentTitle {
   font-size: 3.2rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -65,7 +65,7 @@ import BaseLink from './BaseLink.vue';
   line-height: 1.3;
 }
 
-.content__text {
+.contentText {
   font-size: 1.6rem;
   color: var(--text-secondary);
   font-weight: 300;
@@ -73,32 +73,32 @@ import BaseLink from './BaseLink.vue';
 }
 
 @media (min-width: 375px) {
-  .content__inner {
+  .contentInner {
     max-width: 387px;
   }
 }
 
 @media (min-width: 401px) {
-  .content__wrapper::after {
+  .contentWrapper::after {
     background-image: url('../../assets/landing/landing-tablet.webp');
   }
 }
 
 @media (min-width: 492px) {
-  .content__wrapper::after {
+  .contentWrapper::after {
     top: -100px;
     height: 120%;
   }
 
-  .action__text {
+  .actionText {
     font-size: 2.2rem;
   }
 
-  .content__title {
+  .contentTitle {
     font-size: 4.8rem;
   }
 
-  .content__text {
+  .contentText {
     font-size: 2rem;
   }
 }
@@ -109,36 +109,36 @@ import BaseLink from './BaseLink.vue';
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .content__wrapper {
+  .contentWrapper {
     position: relative;
     max-width: 1264px;
     margin: 0 auto;
   }
 
-  .content__wrapper::after {
+  .contentWrapper::after {
     top: 0px;
     right: 0;
     height: 100%;
     width: 555px;
   }
 
-  .content__inner {
+  .contentInner {
     max-width: 350px;
     align-items: flex-start;
     text-align: start;
     padding-left: 32px;
   }
 
-  .action__text {
+  .actionText {
     font-size: 1.8rem;
   }
 
-  .content__text {
+  .contentText {
     font-size: 1.6rem;
   }
 }
 
-.content_enter_active {
+.contentEnterActive {
   animation: enter 1.5s ease-in;
 }
 

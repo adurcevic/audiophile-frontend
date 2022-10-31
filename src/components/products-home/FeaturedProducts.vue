@@ -1,8 +1,8 @@
 <script setup></script>
 <template lang="">
-  <div :class="$style.product__section">
+  <div :class="$style.productSection">
     <slot>
-      <div :class="$style.product__inner">
+      <div :class="$style.productInner">
         <picture>
           <source
             media="(max-width: 925px)"
@@ -18,8 +18,8 @@
             alt="image of ZX7 speaker"
           />
         </picture>
-        <div :class="$style.product__content">
-          <h2 :class="$style.product__title">ZX7 speaker</h2>
+        <div :class="$style.productContent">
+          <h2 :class="$style.productTitle">ZX7 speaker</h2>
           <BaseLink path="/speakers/zx7" isOutline>See Product</BaseLink>
         </div>
       </div>
@@ -27,14 +27,14 @@
   </div>
 </template>
 <style lang="css" module>
-.product__section {
+.productSection {
   position: relative;
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 12px;
 }
 
-.product__section:last-child {
+.productSection:last-child {
   margin-bottom: 0;
 }
 .img {
@@ -43,7 +43,7 @@
   object-fit: cover;
 }
 
-.product__content {
+.productContent {
   top: 0;
   left: 20px;
   position: absolute;
@@ -55,7 +55,7 @@
   gap: 32px;
 }
 
-.product__title {
+.productTitle {
   font-size: 2.8rem;
   text-transform: uppercase;
   font-weight: 600;
@@ -69,11 +69,11 @@
     object-fit: contain;
   }
 
-  .product__content {
+  .productContent {
     left: 10%;
   }
 
-  .product__section {
+  .productSection {
     margin-bottom: 24px;
   }
 }

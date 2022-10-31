@@ -13,7 +13,7 @@ const props = defineProps({
 const emit = defineEmits(['toggle']);
 
 const backgroundStyles = computed(() =>
-  props.value ? style.gold_mid : style.gray_lighter
+  props.value ? style.goldMid : style.grayLighter
 );
 
 const indicatorStyles = computed(() => {
@@ -29,9 +29,9 @@ const indicatorStyles = computed(() => {
     role="checkbox"
     :aria-checked="value"
   >
-    <span :class="$style.toggle__wrapper">
-      <span :class="[$style.toggle__background, backgroundStyles]"> </span>
-      <span :class="$style.toggle__indicator" :style="indicatorStyles"> </span>
+    <span :class="$style.toggleWrapper">
+      <span :class="[$style.toggleBackground, backgroundStyles]"> </span>
+      <span :class="$style.toggleIndicator" :style="indicatorStyles"> </span>
     </span>
   </button>
 </template>
@@ -41,15 +41,15 @@ const indicatorStyles = computed(() => {
   align-items: center;
   justify-content: center;
 }
-.gold_mid {
+.goldMid {
   background-color: var(--dot-color);
 }
 
-.gray_lighter {
-  background-color: #c2c2c2;
+.grayLighter {
+  background-color: var(--bg-tertiary);
 }
 
-.toggle__wrapper {
+.toggleWrapper {
   display: inline-block;
   position: relative;
   cursor: pointer;
@@ -58,11 +58,11 @@ const indicatorStyles = computed(() => {
   border-radius: 9999px;
 }
 
-.toggle__wrapper:focus {
+.toggleWrapper:focus {
   outline: 0;
 }
 
-.toggle__background {
+.toggleBackground {
   display: inline-block;
   border-radius: 9999px;
   height: 100%;
@@ -71,7 +71,7 @@ const indicatorStyles = computed(() => {
   transition: background-color 0.4s ease;
 }
 
-.toggle__indicator {
+.toggleIndicator {
   position: absolute;
   height: 16px;
   width: 16px;

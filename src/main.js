@@ -1,8 +1,9 @@
 import { createApp } from 'vue';
+import { createPinia } from 'pinia';
 import { createRouter, createWebHashHistory } from 'vue-router';
 import HomePage from './pages/HomePage.vue';
 import { clickOutside } from './utilis/functions';
-import './main.css';
+import './main.module.css';
 import App from './App.vue';
 import BaseLink from './components/ui/BaseLink.vue';
 
@@ -54,8 +55,10 @@ const router = createRouter({
   routes,
 });
 
+const pinia = createPinia();
 const app = createApp(App);
 
+app.use(pinia);
 app.use(router);
 app.component('BaseLink', BaseLink);
 app.directive('click-outside', clickOutside);

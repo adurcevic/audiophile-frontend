@@ -1,37 +1,75 @@
 <script setup>
-import HamburgerButton from '../ui/HamburgerButton.vue';
-import NavBar from '../navigation/NavBar.vue';
-import ToggleSwitch from '../ui/ToggleSwitch.vue';
-import LogoLink from '../ui/LogoLink.vue';
+import HamburgerButton from '@/components/ui/HamburgerButton.vue';
+import NavBar from '@/components/navigation/NavBar.vue';
+import ToggleSwitch from '@/components/ui/ToggleSwitch.vue';
+import LogoLink from '@/components/ui/LogoLink.vue';
+import CartCard from '@/components/ui/CartCard.vue';
+import CartItem from '@/components/ui/CartItem.vue';
+import CartBtn from '@/components/ui/CartBtn.vue';
+import PageOverlay from '@/components/ui/PageOverlay.vue';
+import { useCartStore } from '@/stores/CartStore';
 import { computed, ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import { inject } from 'vue';
+import { isSpecialBooleanAttr } from '@vue/shared';
 
+const isCartOpen = ref(false);
 const isNavOpen = ref(false);
+const store = useCartStore();
+const { cartItems, numOfCartItems, payAmount } = storeToRefs(store);
+const { increaseQty, decreaseQty, removeAllItems } = store;
 
 const { isDark, toggleTheme } = inject('theme');
 
-const toggleNav = () => {
-  if (!isNavOpen.value) {
+const toggleValue = (ref) => {
+  if (!ref.value) {
     setTimeout(() => {
-      isNavOpen.value = true;
-    }, 0.5);
+      ref.value = true;
+    });
   } else {
-    isNavOpen.value = false;
+    ref.value = false;
   }
+};
+
+const close = (ref) => {
+  if (ref.value) ref.value = false;
+};
+
+const toggleNav = () => {
+  toggleValue(isNavOpen);
+};
+
+const closeNav = () => {
+  close(isNavOpen);
+};
+
+const toggleCart = () => {
+  isCartOpen.value = !isCartOpen.value;
+};
+
+const closeCart = () => {
+  close(isCartOpen);
 };
 
 const lightIcon = computed(() => (isDark.value ? '#333333' : '#ffffff'));
 
 const darkIcon = computed(() => (!isDark.value ? '#333333' : '#ffffff'));
 
-const closeNav = () => {
-  if (isNavOpen.value) isNavOpen.value = false;
-};
+const badgeValue = computed(() =>
+  numOfCartItems.value <= 99 ? numOfCartItems.value : '99+'
+);
 </script>
 <template lang="">
+  <transition
+    :enter-active-class="$style.overlayEnter"
+    :leave-active-class="$style.overlayLeave"
+    mode="out-in"
+  >
+    <PageOverlay v-if="isCartOpen" @click="closeCart" />
+  </transition>
   <header :class="$style.header">
-    <div :class="$style.toggle__container">
-      <div :class="$style.theme__icon">
+    <div :class="$style.toggleContainer">
+      <div :class="$style.themeIcon">
         <svg
           aria-hidden="true"
           focusable="false"
@@ -51,7 +89,7 @@ const closeNav = () => {
       </div>
 
       <ToggleSwitch :value="isDark" @toggle="toggleTheme"></ToggleSwitch>
-      <div :class="$style.theme__icon">
+      <div :class="$style.themeIcon">
         <svg
           aria-hidden="true"
           focusable="false"
@@ -70,7 +108,7 @@ const closeNav = () => {
         </svg>
       </div>
     </div>
-    <div :class="$style.header__inner">
+    <div :class="$style.headerInner">
       <HamburgerButton
         :is-nav-open="isNavOpen"
         @toggle-nav="toggleNav"
@@ -82,9 +120,9 @@ const closeNav = () => {
         v-click-outside="closeNav"
         @close-nav="closeNav"
       ></NavBar>
-      <div :class="$style.headers__icons">
+      <div :class="$style.headersIcons">
         <button
-          :class="$style.icons_btn"
+          :class="$style.iconsBtn"
           title="Open dropdown menu for sign in"
           aria-label="Open dropdown menu for sign"
         >
@@ -106,9 +144,10 @@ const closeNav = () => {
           </svg>
         </button>
         <button
-          :class="$style.icons_btn"
+          :class="[$style.iconsBtn, $style.iconCart]"
           title="Show items in cart"
           aria-label="Show items in cart"
+          @click="toggleCart"
         >
           <svg
             aria-hidden="true"
@@ -126,13 +165,46 @@ const closeNav = () => {
               d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
             />
           </svg>
+          <span
+            v-if="numOfCartItems"
+            aria-label="Number of products in cart"
+            :class="$style.cartBadge"
+            >{{ badgeValue }}</span
+          >
         </button>
       </div>
+      <transition
+        :enter-active-class="$style.cartEnter"
+        :leave-active-class="$style.cartLeave"
+        mode="out-in"
+      >
+        <CartCard
+          v-if="isCartOpen"
+          :numOfItemsInCart="numOfCartItems"
+          :amountTotal="payAmount"
+        >
+          <CartItem
+            v-for="item in cartItems"
+            :product="{
+              imgSrc: item.cartImg,
+              title: item.productName,
+              price: item.price,
+            }"
+          >
+            <CartBtn
+              :addQuantity="item.quantity"
+              isSmaller
+              @decrementQty="decreaseQty(item.id)"
+              @incrementQty="increaseQty(item.id)"
+            />
+          </CartItem>
+        </CartCard>
+      </transition>
     </div>
   </header>
 </template>
 <style lang="css" module>
-.toggle__container {
+.toggleContainer {
   width: 100%;
   margin-top: 20px;
   display: flex;
@@ -142,7 +214,7 @@ const closeNav = () => {
   z-index: 10;
 }
 
-.theme__icon {
+.themeIcon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -150,7 +222,7 @@ const closeNav = () => {
   height: 26px;
 }
 
-.theme__icon svg {
+.themeIcon svg {
   transition: stroke 0.4s ease-in-out;
 }
 
@@ -178,23 +250,25 @@ const closeNav = () => {
   background-color: var(--bg-primary);
 }
 
-.header__inner {
+.headerInner {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 24px;
   border-bottom: 1px solid var(--border-primary);
   height: 100%;
   width: calc(100% - 24px);
 }
 
-.headers__icons {
+.headersIcons {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
+  margin-left: auto;
 }
 
-.icons_btn {
+.iconsBtn {
   display: grid;
   place-items: center;
   height: 24px;
@@ -202,19 +276,71 @@ const closeNav = () => {
   cursor: pointer;
 }
 
-.icons_btn svg path {
+.iconCart {
+  z-index: 20;
+  position: relative;
+}
+
+.cartBadge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: -10px;
+  right: -5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--text-primary);
+  font-size: 11px;
+}
+
+.iconsBtn svg path {
   stroke: var(--text-primary);
 }
 
 @media (min-width: 375px) {
-  .header__inner {
+  .headerInner {
     width: calc(100% - 64px);
   }
 }
 
+@media (min-width: 548px) {
+  .headerInner {
+    gap: 48px;
+  }
+}
+
 @media (min-width: 1024px) {
-  .header__inner {
+  .headerInner {
     max-width: 1200px;
+    gap: 0;
+  }
+}
+
+.overlayEnter {
+  composes: fadeEnter from '@/main.module.css';
+}
+.overlayLeave {
+  composes: fadeLeave from '@/main.module.css';
+}
+
+.cartEnter {
+  animation: fade-cart 0.3s ease-out;
+}
+.cartLeave {
+  animation: fade-cart 0.3s ease-in reverse;
+}
+
+@keyframes fade-cart {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>

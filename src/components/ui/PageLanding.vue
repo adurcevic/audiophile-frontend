@@ -8,14 +8,14 @@ const props = defineProps({
 <template>
   <div :class="$style.landing">
     <slot>
-      <div :class="$style.default__header">
+      <div :class="$style.defaultHeader">
         <transition
-          :enter-active-class="$style.switch_enter"
-          :leave-active-class="$style.switch_leave"
+          :enter-active-class="$style.switchEnter"
+          :leave-active-class="$style.switchLeave"
           mode="out-in"
           appear
         >
-          <h1 :key="title" :class="$style.default__title">{{ title }}</h1>
+          <h1 :key="title" :class="$style.defaultTitle">{{ title }}</h1>
         </transition>
       </div>
     </slot>
@@ -28,7 +28,7 @@ const props = defineProps({
   background-color: var(--bg-primary);
 }
 
-.default__header {
+.defaultHeader {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,7 +37,7 @@ const props = defineProps({
   background-color: var(--bg-primary);
 }
 
-.default__title {
+.defaultTitle {
   font-size: 3.2rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -45,19 +45,10 @@ const props = defineProps({
   letter-spacing: 4px;
 }
 
-.switch_enter {
-  animation: fade 0.3s ease-out;
+.switchEnter {
+  composes: fadeEnter from '@/main.module.css';
 }
-.switch_leave {
-  animation: fade 0.3s ease-in reverse;
-}
-
-@keyframes fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.switchLeave {
+  composes: fadeLeave from '@/main.module.css';
 }
 </style>

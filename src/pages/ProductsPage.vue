@@ -1,13 +1,13 @@
 <script setup>
-import TheHeader from '../components/layout/TheHeader.vue';
-import TheMain from '../components/layout/TheMain.vue';
-import TheSection from '../components/layout/TheSection.vue';
-import PageLanding from '../components/ui/PageLanding.vue';
-import TheFooter from '../components/layout/TheFooter.vue';
-import BaseCard from '../components/ui/BaseCard.vue';
-import BaseGrid from '../components/ui/BaseGrid.vue';
-import NavCard from '../components/navigation/NavCard.vue';
-import { bestGearData, navData, productsData } from '../data/data';
+import TheHeader from '@/components/layout/TheHeader.vue';
+import TheMain from '@/components/layout/TheMain.vue';
+import TheSection from '@/components/layout/TheSection.vue';
+import PageLanding from '@/components/ui/PageLanding.vue';
+import TheFooter from '@/components/layout/TheFooter.vue';
+import BaseCard from '@/components/ui/BaseCard.vue';
+import BaseGrid from '@/components/ui/BaseGrid.vue';
+import NavCard from '@/components/navigation/NavCard.vue';
+import { bestGearData, navData, productsData } from '@/data/data';
 import { useRoute } from 'vue-router';
 import { watch, ref, onBeforeMount } from 'vue';
 
@@ -46,21 +46,23 @@ onBeforeMount(() => initProductsPage());
     <PageLanding :title="productType" />
     <TheSection>
       <transition
-        :enter-active-class="$style.products_enter"
-        :leave-active-class="$style.products_leave"
+        :enter-active-class="$style.productsEnter"
+        :leave-active-class="$style.productsLeave"
         mode="out-in"
         appear
       >
-        <div :key="products" :class="$style.products__wrapper" v-if="products">
+        <div :key="products" :class="$style.productsWrapper" v-if="products">
           <BaseCard
             v-for="item in products"
             :key="item.id"
-            :cardTitle="item.title"
-            :cardText="item.description"
-            :imgMobile="item.images.imgMobile"
-            :imgTablet="item.images.imgTablet"
+            :cardData="{
+              title: item.title,
+              text: item.description,
+              imgMobile: item.images.imgMobile,
+              imgTablet: item.images.imgTablet,
+              imgAlt: `${item.title} image`,
+            }"
             :isProductsPage="true"
-            :imgAlt="`${item.title} image`"
             :isNew="item.new"
           >
             <BaseLink
@@ -86,45 +88,38 @@ onBeforeMount(() => initProductsPage());
     </TheSection>
     <TheSection>
       <BaseCard
-        cardTitle="Bringing you the "
-        emphasizedWord="best "
-        restOfTitle="audio gear"
-        :cardText="bestGearData.text"
-        :imgMobile="bestGearData.imgMobile"
-        :imgTablet="bestGearData.imgTablet"
-        :imgDesktop="bestGearData.imgDesktop"
-        :imgAlt="bestGearData.imgAlt"
+        :cardData="{
+          title: 'Bringing you the ',
+          emphasizedWord: 'best ',
+          restOfTitle: 'audio gear',
+          text: bestGearData.text,
+          imgMobile: bestGearData.imgMobile,
+          imgTablet: bestGearData.imgTablet,
+          imgDesktop: bestGearData.imgDesktop,
+          imgAlt: bestGearData.imgAlt,
+        }"
       />
     </TheSection>
   </TheMain>
   <TheFooter />
 </template>
 <style lang="css" module>
-.products__wrapper {
+.productsWrapper {
   display: grid;
   gap: 64px;
 }
 
 @media (min-width: 901px) {
-  .products__wrapper {
+  .productsWrapper {
     gap: 98px;
     padding-bottom: 48px;
   }
 }
 
-.products_enter {
-  animation: fade 0.3s ease-out;
+.productsEnter {
+  composes: fadeEnter from '@/main.module.css';
 }
-.products_leave {
-  animation: fade 0.3s ease-in reverse;
-}
-
-@keyframes fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.productsLeave {
+  composes: fadeLeave from '@/main.module.css';
 }
 </style>

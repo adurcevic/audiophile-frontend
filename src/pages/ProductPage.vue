@@ -1,23 +1,49 @@
 <script setup>
-import TheHeader from '../components/layout/TheHeader.vue';
-import TheSection from '../components/layout/TheSection.vue';
-import TheMain from '../components/layout/TheMain.vue';
-import TheFooter from '../components/layout/TheFooter.vue';
-import BaseCard from '../components/ui/BaseCard.vue';
-import NavCard from '../components/navigation/NavCard.vue';
-import BaseGrid from '../components/ui/BaseGrid.vue';
-import BaseBtn from '../components/ui/BaseBtn.vue';
-import CartBtn from '../components/ui/CartBtn.vue';
-import ProductFeatures from '../components/ui/ProductFeatures.vue';
-import ProductGallery from '../components/ui/ProductGallery.vue';
-import RelatedCard from '../components/ui/RelatedCard.vue';
+import TheHeader from '@/components/layout/TheHeader.vue';
+import TheSection from '@/components/layout/TheSection.vue';
+import TheMain from '@/components/layout/TheMain.vue';
+import TheFooter from '@/components/layout/TheFooter.vue';
+import BaseCard from '@/components/ui/BaseCard.vue';
+import NavCard from '@/components/navigation/NavCard.vue';
+import BaseGrid from '@/components/ui/BaseGrid.vue';
+import BaseBtn from '@/components/ui/BaseBtn.vue';
+import CartBtn from '@/components/ui/CartBtn.vue';
+import ProductFeatures from '@/components/ui/ProductFeatures.vue';
+import ProductGallery from '@/components/ui/ProductGallery.vue';
+import RelatedCard from '@/components/ui/RelatedCard.vue';
+import { useCartStore } from '@/stores/CartStore';
 import { useRoute, useRouter } from 'vue-router';
-import { productsData, navData, bestGearData } from '../data/data';
+import { productsData, navData, bestGearData } from '@/data/data';
 import { ref, onBeforeMount, watch } from 'vue';
 
+const store = useCartStore();
+const { cartItems } = store;
+const { addItemToCart } = store;
 const router = useRouter();
 const route = useRoute();
 const productData = ref(null);
+const quantity = ref(1);
+
+const increaseQuantity = () => {
+  if (quantity.value === 99) return;
+
+  quantity.value++;
+};
+
+const decreaseQuantity = () => {
+  if (quantity.value === 1) return;
+
+  quantity.value--;
+};
+
+const resetQuantity = () => {
+  quantity.value = 1;
+};
+
+const addToCart = (product) => {
+  addItemToCart(product);
+  resetQuantity();
+};
 
 const goBack = () => router.go(-1);
 
@@ -54,44 +80,67 @@ onBeforeMount(() => initProductPage());
   <TheHeader />
   <TheMain>
     <TheSection>
-      <div :class="[$style.btn__positioner, $style.return]">
+      <div :class="[$style.btnPositioner, $style.return]">
         <BaseBtn @btn-action="goBack" isReturn>Go Back</BaseBtn>
       </div>
       <transition
-        :enter-active-class="$style.page_enter"
-        :leave-active-class="$style.page_leave"
+        :enter-active-class="$style.pageEnter"
+        :leave-active-class="$style.pageLeave"
         mode="out-in"
         appear
       >
         <BaseCard
           :key="productData.id"
-          :cardTitle="productData.title"
-          :cardText="productData.description"
-          :imgMobile="productData.productImages.productMobileImg"
-          :imgTablet="productData.productImages.productTabletImg"
-          :imgDesktop="productData.productImages.productDesktopImg"
-          :imgAlt="`${productData.title} image`"
-          :isProductPage="true"
-          :is-new="productData.new"
-          :price="
-            productData.price.toLocaleString('en-GB', {
+          :cardData="{
+            title: productData.title,
+            text: productData.description,
+            imgMobile: productData.productImages.productMobileImg,
+            imgTablet: productData.productImages.productTabletImg,
+            imgDesktop: productData.productImages.productDesktopImg,
+            imgAlt: `${productData.title} image`,
+            price: productData.price.toLocaleString('en-GB', {
               style: 'currency',
               currency: 'EUR',
-            })
-          "
+            }),
+          }"
+          :isProductPage="true"
+          :is-new="productData.new"
         >
           <div :class="$style.btn__positioner">
-            <CartBtn />
-            <BaseBtn>Add Product</BaseBtn>
+            <CartBtn
+              :addQuantity="quantity"
+              @incrementQty="increaseQuantity"
+              @decrementQty="decreaseQuantity"
+            />
+            <BaseBtn
+              @btn-action="
+                addToCart({
+                  id: productData.id,
+                  productName: productData.shortTitle,
+                  price: productData.price,
+                  quantity,
+                  cartImg: productData.cartImg,
+                })
+              "
+              >Add Product</BaseBtn
+            >
           </div>
         </BaseCard>
       </transition>
     </TheSection>
     <TheSection>
-      <ProductFeatures
-        :text="productData.productFeatures"
-        :boxContent="productData.setContent"
-      />
+      <transition
+        :enter-active-class="$style.pageEnter"
+        :leave-active-class="$style.pageLeave"
+        mode="out-in"
+        appear
+      >
+        <ProductFeatures
+          :key="productData.productFeatures"
+          :text="productData.productFeatures"
+          :boxContent="productData.setContent"
+        />
+      </transition>
     </TheSection>
     <TheSection>
       <ProductGallery :galleryImgs="productData.galleryImages" />
@@ -114,14 +163,16 @@ onBeforeMount(() => initProductPage());
     </TheSection>
     <TheSection>
       <BaseCard
-        cardTitle="Bringing you the "
-        emphasizedWord="best "
-        restOfTitle="audio gear"
-        :cardText="bestGearData.text"
-        :imgMobile="bestGearData.imgMobile"
-        :imgTablet="bestGearData.imgTablet"
-        :imgDesktop="bestGearData.imgDesktop"
-        :imgAlt="bestGearData.imgAlt"
+        :cardData="{
+          title: 'Bringing you the ',
+          emphasizedWord: 'best ',
+          restOfTitle: 'audio gear',
+          text: bestGearData.text,
+          imgMobile: bestGearData.imgMobile,
+          imgTablet: bestGearData.imgTablet,
+          imgDesktop: bestGearData.imgDesktop,
+          imgAlt: bestGearData.imgAlt,
+        }"
       />
     </TheSection>
   </TheMain>
@@ -138,19 +189,10 @@ onBeforeMount(() => initProductPage());
   margin-bottom: 48px;
 }
 
-.page_enter {
-  animation: fade 0.3s ease-out;
+.pageEnter {
+  composes: fadeEnter from '@/main.module.css';
 }
-.page_leave {
-  animation: fade 0.3s ease-in reverse;
-}
-
-@keyframes fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.pageLeave {
+  composes: fadeLeave from '@/main.module.css';
 }
 </style>

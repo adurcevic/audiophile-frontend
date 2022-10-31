@@ -21,13 +21,13 @@ const navData = [
 ];
 
 const navClass = computed(() => {
-  if (props.isFooter) return style.navigation_footer;
-  if (props.isNavOpen) return [style.navigation, style.is_open];
+  if (props.isFooter) return style.navigationFooter;
+  if (props.isNavOpen) return [style.navigation, style.isOpen];
   return style.navigation;
 });
 
 const navInnerClass = computed(() =>
-  props.isFooter ? style.navigation__inner_footer : style.navigation__inner
+  props.isFooter ? style.navigationInnerFooter : style.navigationInner
 );
 
 const transitionEl = computed(() =>
@@ -59,21 +59,21 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
 <template lang="">
   <nav :id="!isFooter ? 'navigation' : null" :class="navClass">
     <div :class="navInnerClass">
-      <div :class="$style.navigation__list">
+      <div :class="$style.navigationList">
         <router-link
           v-for="{ name, path } in navData"
           :key="name"
           :to="path"
-          :exact-active-class="$style.active_link"
-          :class="$style.nav__link"
+          :exact-active-class="$style.activeLink"
+          :class="$style.navLink"
           @click="$emit('close-nav')"
         >
-          <div :class="$style.navigation__item">
+          <div :class="$style.navigationItem">
             <svg
               v-if="!isFooter && name === 'Home'"
               aria-hidden="true"
               focusable="false"
-              :class="$style.list_icon"
+              :class="$style.listIcon"
               style="width: 24px; height: 24px"
               viewBox="0 0 24 24"
             >
@@ -84,7 +84,7 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
             </svg>
             <svg
               v-else-if="!isFooter && name === 'Headphones'"
-              :class="$style.list_icon"
+              :class="$style.listIcon"
               style="width: 24px; height: 24px"
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -97,7 +97,7 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
             </svg>
             <svg
               v-else-if="!isFooter && name === 'Speakers'"
-              :class="$style.list_icon"
+              :class="$style.listIcon"
               style="width: 24px; height: 24px"
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -110,7 +110,7 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
             </svg>
             <svg
               v-else-if="!isFooter && name === 'Earphones'"
-              :class="$style.list_icon"
+              :class="$style.listIcon"
               style="width: 24px; height: 24px"
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -129,11 +129,11 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
   </nav>
 </template>
 <style lang="css" module>
-.active_link {
+.activeLink {
   background-color: v-bind(activeLinkBg);
 }
 
-.active_link .navigation__item::after {
+.activeLink .navigationItem::after {
   content: v-bind(afterEl);
   height: 12px;
   width: 12px;
@@ -156,13 +156,13 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
   background-color: var(--bg-primary);
 }
 
-.navigation_footer {
+.navigationFooter {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.navigation__inner {
+.navigationInner {
   height: 100%;
   padding-top: 150px;
   display: flex;
@@ -170,20 +170,20 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
   padding-left: 12px;
 }
 
-.navigation__inner_footer {
+.navigationInnerFooter {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.navigation.is_open {
+.navigation.isOpen {
   opacity: 1;
   visibility: visible;
   transform: translateX(220px);
 }
 
-.navigation__list {
+.navigationList {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -192,14 +192,14 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
   gap: v-bind(navListGap);
 }
 
-.navigation__list a {
+.navigationList a {
   width: v-bind(navLinkWidth);
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
   padding-left: 6px;
 }
 
-.navigation__item {
+.navigationItem {
   padding: 5px 0;
   display: flex;
   align-items: center;
@@ -221,7 +221,7 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
   transition: v-bind(transitionEl);
 }
 
-.navigation__item:hover {
+.navigationItem:hover {
   transform: v-bind(transformHover);
   background-position: v-bind(bgPosition);
 }
@@ -232,19 +232,30 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
     width: 240px;
   }
 
-  .navigation__inner {
+  .navigationInner {
     padding-left: 32px;
   }
 
-  .navigation.is_open {
+  .navigation.isOpen {
     transform: translateX(240px);
   }
 }
 
 @media (min-width: 500px) {
-  .navigation__list {
+  .navigationList {
     flex-direction: v-bind(navListDirection);
     gap: 24px;
+  }
+}
+
+@media (min-width: 548px) {
+  .navigation {
+    left: -270px;
+    width: 270px;
+  }
+
+  .navigation.isOpen {
+    transform: translateX(270px);
   }
 }
 
@@ -259,28 +270,28 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
     background-color: transparent;
   }
 
-  .navigation.is_open {
+  .navigation.isOpen {
     transform: none;
   }
 
-  .navigation__inner {
+  .navigationInner {
     padding-top: 0;
     align-items: center;
     padding-left: 0;
   }
 
-  .list_icon {
+  .listIcon {
     display: none;
   }
 
-  .navigation__list {
+  .navigationList {
     flex-direction: row;
     align-items: center;
     justify-content: center;
     gap: 48px;
   }
 
-  .navigation__list a {
+  .navigationList a {
     position: relative;
     width: auto;
     border-top-left-radius: 0;
@@ -288,20 +299,20 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
     padding-left: 0;
   }
 
-  .active_link {
+  .activeLink {
     background-color: transparent;
   }
 
-  .navigation__item {
+  .navigationItem {
     transition: background-position 0.3s ease-in-out;
   }
 
-  .navigation__item:hover {
+  .navigationItem:hover {
     transform: none;
     background-position: 0;
   }
 
-  .nav__link .navigation__item:after {
+  .navLink .navigationItem:after {
     content: v-bind(afterEl);
     position: absolute;
     left: 0;
@@ -312,11 +323,11 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
     margin: 0;
   }
 
-  .active_link.nav__link .navigation__item::after {
+  .activeLink.navLink .navigationItem::after {
     width: 100%;
   }
 
-  .active_link .navigation__item {
+  .activeLink .navigationItem {
     background-image: none;
     -webkit-text-fill-color: var(--color-primary);
   }

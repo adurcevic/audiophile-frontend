@@ -1,8 +1,27 @@
-<script setup></script>
+<script setup>
+import { computed } from 'vue';
+const props = defineProps({
+  addQuantity: {
+    type: Number,
+    required: true,
+  },
+  isSmaller: {
+    type: Boolean,
+  },
+});
+
+const fontSize = computed(() => (props.isSmaller ? '1.4rem' : '1.8rem'));
+const padding = computed(() => (props.isSmaller ? '8px' : '14px'));
+const heightWidth = computed(() => (props.isSmaller ? '20px' : '24px'));
+</script>
 <template lang="">
-  <div :class="$style.btn__container">
-    <div :class="$style.btn__wrapper">
-      <button :class="$style.btn" aria-label="Increment product quantity">
+  <div :class="$style.btnContainer">
+    <div :class="$style.btnWrapper">
+      <button
+        :class="$style.btn"
+        aria-label="Increment product quantity"
+        @click="$emit('decrementQty')"
+      >
         <svg
           aria-hidden="true"
           focusable="false"
@@ -15,9 +34,13 @@
         </svg>
       </button>
     </div>
-    <div :class="$style.quantity">1</div>
-    <div :class="$style.btn__wrapper" >
-      <button :class="$style.btn" aria-label="Decrement product quantity">
+    <div :class="$style.quantity">{{ addQuantity }}</div>
+    <div :class="$style.btnWrapper">
+      <button
+        :class="$style.btn"
+        aria-label="Decrement product quantity"
+        @click="$emit('incrementQty')"
+      >
         <svg
           aria-hidden="true"
           focusable="false"
@@ -35,27 +58,26 @@
   </div>
 </template>
 <style lang="css" module>
-.btn__container {
+.btnContainer {
   display: flex;
   align-items: center;
   justify-content: center;
-  place-items: center;
   background-color: var(--bg-secondary);
 }
 
-.btn__wrapper {
+.btnWrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 14px;
+  padding: v-bind(padding);
 }
 
-.btn__wrapper svg {
+.btnWrapper svg {
   fill: var(--theme-text-secondary);
 }
 
 .quantity {
-  font-size: 1.8rem;
+  font-size: v-bind(fontSize);
   padding: 0 10px;
 }
 
@@ -63,15 +85,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 24px;
-  width: 24px;
+  height: v-bind(heightWidth);
+  width: v-bind(heightWidth);
   cursor: pointer;
 }
 
-.btn__wrapper:hover {
+.btnWrapper:hover {
   background-color: var(--hover-primary);
 }
-.btn__wrapper:hover svg {
+.btnWrapper:hover svg {
   fill: var(--color-primary);
 }
 </style>
