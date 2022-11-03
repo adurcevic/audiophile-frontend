@@ -1,8 +1,27 @@
-<script setup></script>
+<script setup>
+import { computed } from 'vue';
+const props = defineProps({
+  addQuantity: {
+    type: Number,
+    required: true,
+  },
+  isSmaller: {
+    type: Boolean,
+  },
+});
+
+const fontSize = computed(() => (props.isSmaller ? '1.4rem' : '1.8rem'));
+const padding = computed(() => (props.isSmaller ? '8px' : '14px'));
+const heightWidth = computed(() => (props.isSmaller ? '20px' : '24px'));
+</script>
 <template lang="">
-  <div :class="$style.btn__container">
-    <div :class="$style.btn__wrapper">
-      <button :class="$style.btn" aria-label="Increment product quantity">
+  <div :class="$style.btnContainer">
+    <button
+      :class="$style.btn"
+      aria-label="Increment product quantity"
+      @click="$emit('decrementQty')"
+    >
+      <div :class="$style.iconWrapper">
         <svg
           aria-hidden="true"
           focusable="false"
@@ -13,11 +32,15 @@
         >
           <path d="M6.75 9.25a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z" />
         </svg>
-      </button>
-    </div>
-    <div :class="$style.quantity">1</div>
-    <div :class="$style.btn__wrapper" >
-      <button :class="$style.btn" aria-label="Decrement product quantity">
+      </div>
+    </button>
+    <div :class="$style.quantity">{{ addQuantity }}</div>
+    <button
+      :class="$style.btn"
+      aria-label="Decrement product quantity"
+      @click="$emit('incrementQty')"
+    >
+      <div :class="$style.iconWrapper">
         <svg
           aria-hidden="true"
           focusable="false"
@@ -30,48 +53,41 @@
             d="M10.75 6.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z"
           />
         </svg>
-      </button>
-    </div>
+      </div>
+    </button>
   </div>
 </template>
 <style lang="css" module>
-.btn__container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  place-items: center;
+.btnContainer {
+  composes: flexCenter from '@/main.module.css';
   background-color: var(--bg-secondary);
 }
 
-.btn__wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 14px;
+.btn {
+  composes: flexCenter from '@/main.module.css';
+  padding: v-bind(padding);
+  cursor: pointer;
 }
 
-.btn__wrapper svg {
+.btn svg {
   fill: var(--theme-text-secondary);
 }
 
 .quantity {
-  font-size: 1.8rem;
+  font-size: v-bind(fontSize);
   padding: 0 10px;
 }
 
-.btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 24px;
-  width: 24px;
-  cursor: pointer;
+.iconWrapper {
+  composes: flexCenter from '@/main.module.css';
+  height: v-bind(heightWidth);
+  width: v-bind(heightWidth);
 }
 
-.btn__wrapper:hover {
+.btn:hover {
   background-color: var(--hover-primary);
 }
-.btn__wrapper:hover svg {
+.btn:hover svg {
   fill: var(--color-primary);
 }
 </style>

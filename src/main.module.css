@@ -4,6 +4,9 @@
   --dot-color: #ad643b;
   --border-primary: #97979740;
   --bg-body: #ffffff;
+  --bg-cart: #ffffff;
+  --bg-toggle: #e3a17d;
+  --bg-overlay: #0000003d;
   --bg-primary: #191919;
   --bg-secondary: #f1f1f1;
   --bg-tertiary: #dc8a5c;
@@ -18,6 +21,7 @@
 }
 
 [theme='custom-dark'] {
+  --bg-cart: #070707;
   --bg-body: #111111;
   --bg-secondary: #c1c1c1;
   --theme-text-primary: #ffffff;
@@ -58,4 +62,10 @@ button {
 
 ul {
   list-style-type: none;
+}
+
+.flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

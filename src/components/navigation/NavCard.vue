@@ -21,10 +21,10 @@ const imgUrl = computed(() => {
 </script>
 <template lang="">
   <li :class="$style.navcard">
-    <div :class="$style.navcard__content">
-      <p :class="$style.navcard__title">{{ title }}</p>
-      <router-link :class="$style.navcard__link" :to="path">
-        <span :class="$style.link__title">Shop</span>
+    <div :class="$style.navcardContent">
+      <p :class="$style.navcardTitle">{{ title }}</p>
+      <router-link :class="$style.navcardLink" :to="path">
+        <span :class="$style.linkTitle">Shop</span>
         <svg
           aria-hidden="true"
           style="width: 24px; height: 24px"
@@ -44,10 +44,9 @@ const imgUrl = computed(() => {
   max-width: 400px;
   width: 100%;
   position: relative;
-  display: flex;
+  composes: flexCenter from '@/main.module.css';
+
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   background-color: var(--bg-secondary);
   border-radius: 4px;
 }
@@ -62,39 +61,38 @@ const imgUrl = computed(() => {
   background-size: contain;
 }
 
-.navcard__content {
+.navcardContent {
   padding-top: 80px;
   padding-bottom: 32px;
   display: grid;
   place-items: center;
   gap: 24px;
 }
-.navcard__title {
+.navcardTitle {
   font-size: 2rem;
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 1px;
 }
-.navcard__link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.navcardLink {
+  composes: flexCenter from '@/main.module.css';
+
   gap: 4px;
   transition: color 0.3s ease-in-out;
 }
 
-.navcard__link svg path {
+.navcardLink svg path {
   fill: var(--color-primary);
 }
 
-.link__title {
+.linkTitle {
   font-size: 1.6rem;
   color: var(--theme-text-secondary);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-.navcard__link:hover span {
+.navcardLink:hover span {
   color: var(--color-primary);
 }
 
@@ -104,7 +102,7 @@ const imgUrl = computed(() => {
     height: 170px;
   }
 
-  .navcard__content {
+  .navcardContent {
     padding-top: 90px;
   }
 }

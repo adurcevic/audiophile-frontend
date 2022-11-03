@@ -17,7 +17,7 @@ const toggleNav = () => {
 const ariaExpanded = computed(() => (props.isNavOpen ? 'true' : 'false'));
 
 const hamburgerStatus = computed(() =>
-  props.isNavOpen ? [style.hamburger, style.is_open] : style.hamburger
+  props.isNavOpen ? [style.hamburger, style.isOpen] : style.hamburger
 );
 </script>
 <template>
@@ -57,14 +57,14 @@ const hamburgerStatus = computed(() =>
   transform-origin: 1px;
 }
 
-.hamburger.is_open div:first-child {
+.hamburger.isOpen div:first-child {
   transform: rotate(48deg);
 }
-.hamburger.is_open div:nth-child(2) {
+.hamburger.isOpen div:nth-child(2) {
   opacity: 0;
   transform: translateX(20px);
 }
-.hamburger.is_open div:last-child {
+.hamburger.isOpen div:last-child {
   transform: rotate(-48deg);
 }
 

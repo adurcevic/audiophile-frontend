@@ -1,37 +1,89 @@
 <script setup>
-import HamburgerButton from '../ui/HamburgerButton.vue';
-import NavBar from '../navigation/NavBar.vue';
-import ToggleSwitch from '../ui/ToggleSwitch.vue';
-import LogoLink from '../ui/LogoLink.vue';
-import { computed, ref } from 'vue';
-import { inject } from 'vue';
+import HamburgerButton from '@/components/ui/HamburgerButton.vue';
+import NavBar from '@/components/navigation/NavBar.vue';
+import ToggleSwitch from '@/components/ui/ToggleSwitch.vue';
+import LogoLink from '@/components/ui/LogoLink.vue';
+import CartCard from '@/components/ui/CartCard.vue';
+import CartItem from '@/components/ui/CartItem.vue';
+import CartBtn from '@/components/ui/CartBtn.vue';
+import PageOverlay from '@/components/ui/PageOverlay.vue';
+import FadeTransition from '@/components/ui/FadeTransition.vue';
+import ListTransition from '@/components/ui/ListTransition.vue';
+import { useCartStore } from '@/stores/CartStore';
+import { computed, ref, inject, onMounted, useCssModule } from 'vue';
+import { storeToRefs } from 'pinia';
 
+const isCartOpen = ref(false);
 const isNavOpen = ref(false);
-
+const store = useCartStore();
+const header = ref(null);
+const style = useCssModule();
+const isHeaderVisible = ref(false);
+const { cartItems, getNumOfCartItems, getTotalAmount } = storeToRefs(store);
+const { increaseQty, decreaseQty, removeAllItems } = store;
 const { isDark, toggleTheme } = inject('theme');
 
-const toggleNav = () => {
-  if (!isNavOpen.value) {
+const toggleValue = (ref) => {
+  if (!ref.value) {
     setTimeout(() => {
-      isNavOpen.value = true;
-    }, 0.5);
+      ref.value = true;
+    });
   } else {
-    isNavOpen.value = false;
+    ref.value = false;
   }
+};
+
+const close = (ref) => {
+  if (ref.value) ref.value = false;
+};
+
+const toggleNav = () => {
+  toggleValue(isNavOpen);
+};
+
+const closeNav = () => {
+  close(isNavOpen);
+};
+
+const toggleCart = () => {
+  isCartOpen.value = !isCartOpen.value;
+};
+
+const closeCart = () => {
+  close(isCartOpen);
 };
 
 const lightIcon = computed(() => (isDark.value ? '#333333' : '#ffffff'));
 
 const darkIcon = computed(() => (!isDark.value ? '#333333' : '#ffffff'));
 
-const closeNav = () => {
-  if (isNavOpen.value) isNavOpen.value = false;
-};
+const badgeValue = computed(() =>
+  getNumOfCartItems.value <= 99 ? getNumOfCartItems.value : '99+'
+);
+
+const headerClass = computed(() =>
+  isHeaderVisible.value ? [style.header, style.stickyNav] : style.header
+);
+
+const headerHeight = computed(() => (isHeaderVisible.value ? 80 : 120));
+
+onMounted(() =>
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > headerHeight.value) {
+      isHeaderVisible.value = true;
+    } else {
+      isHeaderVisible.value = false;
+    }
+  })
+);
 </script>
 <template lang="">
-  <header :class="$style.header">
-    <div :class="$style.toggle__container">
-      <div :class="$style.theme__icon">
+  <header :class="headerClass" ref="header">
+    <FadeTransition>
+      <PageOverlay v-if="isCartOpen" @click="closeCart" />
+    </FadeTransition>
+    <div v-if="!isHeaderVisible" :class="$style.toggleContainer">
+      <div :class="$style.themeIcon">
         <svg
           aria-hidden="true"
           focusable="false"
@@ -51,7 +103,7 @@ const closeNav = () => {
       </div>
 
       <ToggleSwitch :value="isDark" @toggle="toggleTheme"></ToggleSwitch>
-      <div :class="$style.theme__icon">
+      <div :class="$style.themeIcon">
         <svg
           aria-hidden="true"
           focusable="false"
@@ -70,7 +122,7 @@ const closeNav = () => {
         </svg>
       </div>
     </div>
-    <div :class="$style.header__inner">
+    <div :class="$style.headerInner">
       <HamburgerButton
         :is-nav-open="isNavOpen"
         @toggle-nav="toggleNav"
@@ -82,9 +134,9 @@ const closeNav = () => {
         v-click-outside="closeNav"
         @close-nav="closeNav"
       ></NavBar>
-      <div :class="$style.headers__icons">
+      <div :class="$style.headersIcons">
         <button
-          :class="$style.icons_btn"
+          :class="$style.iconsBtn"
           title="Open dropdown menu for sign in"
           aria-label="Open dropdown menu for sign"
         >
@@ -106,9 +158,10 @@ const closeNav = () => {
           </svg>
         </button>
         <button
-          :class="$style.icons_btn"
+          :class="[$style.iconsBtn, $style.iconCart]"
           title="Show items in cart"
           aria-label="Show items in cart"
+          @click="toggleCart"
         >
           <svg
             aria-hidden="true"
@@ -126,31 +179,63 @@ const closeNav = () => {
               d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
             />
           </svg>
+          <span
+            v-if="getNumOfCartItems"
+            aria-label="Number of products in cart"
+            :class="$style.cartBadge"
+            >{{ badgeValue }}</span
+          >
         </button>
       </div>
+      <transition
+        :enter-active-class="$style.cartEnter"
+        :leave-active-class="$style.cartLeave"
+        mode="out-in"
+      >
+        <CartCard
+          v-if="isCartOpen"
+          :numOfItemsInCart="getNumOfCartItems"
+          :amountTotal="getTotalAmount"
+        >
+          <ListTransition>
+            <CartItem
+              v-for="item in cartItems"
+              :key="item.id"
+              :product="{
+                imgSrc: item.cartImg,
+                title: item.productName,
+                price: item.price,
+              }"
+            >
+              <CartBtn
+                :addQuantity="item.quantity"
+                isSmaller
+                @decrementQty="decreaseQty(item.id)"
+                @incrementQty="increaseQty(item.id)"
+              />
+            </CartItem>
+          </ListTransition>
+        </CartCard>
+      </transition>
     </div>
   </header>
 </template>
 <style lang="css" module>
-.toggle__container {
+.toggleContainer {
   width: 100%;
   margin-top: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  composes: flexCenter from '@/main.module.css';
   gap: 12px;
   z-index: 10;
 }
 
-.theme__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.themeIcon {
+  composes: flexCenter from '@/main.module.css';
   width: 26px;
   height: 26px;
 }
 
-.theme__icon svg {
+.themeIcon svg {
   transition: stroke 0.4s ease-in-out;
 }
 
@@ -171,30 +256,37 @@ const closeNav = () => {
 .header {
   height: 120px;
   width: 100%;
-  display: flex;
+  composes: flexCenter from '@/main.module.css';
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   background-color: var(--bg-primary);
 }
 
-.header__inner {
+.stickyNav {
+  position: sticky;
+  height: 80px;
+  top: 0;
+  left: 0;
+  z-index: 14;
+  background-color: #191919e2;
+}
+
+.headerInner {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 24px;
   border-bottom: 1px solid var(--border-primary);
   height: 100%;
   width: calc(100% - 24px);
 }
 
-.headers__icons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.headersIcons {
+  composes: flexCenter from '@/main.module.css';
   gap: 12px;
+  margin-left: auto;
 }
 
-.icons_btn {
+.iconsBtn {
   display: grid;
   place-items: center;
   height: 24px;
@@ -202,19 +294,62 @@ const closeNav = () => {
   cursor: pointer;
 }
 
-.icons_btn svg path {
+.iconCart {
+  z-index: 20;
+  position: relative;
+}
+
+.cartBadge {
+  position: absolute;
+  composes: flexCenter from '@/main.module.css';
+  top: -10px;
+  right: -5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--text-primary);
+  font-size: 11px;
+}
+
+.iconsBtn svg path {
   stroke: var(--text-primary);
 }
 
 @media (min-width: 375px) {
-  .header__inner {
+  .headerInner {
     width: calc(100% - 64px);
   }
 }
 
+@media (min-width: 548px) {
+  .headerInner {
+    gap: 48px;
+  }
+}
+
 @media (min-width: 1024px) {
-  .header__inner {
+  .headerInner {
     max-width: 1200px;
+    gap: 0;
+  }
+}
+
+.cartEnter {
+  animation: fade-cart 0.3s ease-out;
+}
+.cartLeave {
+  animation: fade-cart 0.3s ease-in reverse;
+}
+
+@keyframes fade-cart {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>

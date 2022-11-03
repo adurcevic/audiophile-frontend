@@ -1,34 +1,9 @@
 <script setup>
 import { computed } from 'vue';
 const props = defineProps({
-  cardTitle: {
-    type: String,
+  cardData: {
+    type: Object,
     required: true,
-  },
-  imgAlt: {
-    type: String,
-    required: true,
-  },
-  price: {
-    type: String,
-  },
-  emphasizedWord: {
-    type: String,
-  },
-  restOfTitle: {
-    type: String,
-  },
-  cardText: {
-    type: String,
-  },
-  imgMobile: {
-    type: String,
-  },
-  imgTablet: {
-    type: String,
-  },
-  imgDesktop: {
-    type: String,
   },
   isProductsPage: {
     type: Boolean,
@@ -43,7 +18,8 @@ const props = defineProps({
 
 /*PRODUCTS PAGE STYLE */
 const mediaWidth = computed(() => {
-  if (props.imgDesktop && !props.isProductPage) return '(max-width: 900px)';
+  if (props.cardData.imgDesktop && !props.isProductPage)
+    return '(max-width: 900px)';
   if (props.isProductPage) return '(min-width: 600px) and (max-width: 850px)';
 
   return '(min-width: 901px)';
@@ -62,51 +38,59 @@ const gridColumns = computed(() =>
 );
 </script>
 <template lang="">
-  <div :class="$style.card__wrapper">
+  <div :class="$style.cardWrapper">
     <picture>
-      <source media="(max-width: 450px)" :srcset="imgMobile" />
-      <source :media="mediaWidth" :srcset="imgTablet" />
-      <source media="(min-width: 901px)" :srcset="imgDesktop" />
-      <img :class="$style.card__img" :alt="imgAlt" :src="imgMobile" />
+      <source media="(max-width: 450px)" :srcset="cardData.imgMobile" />
+      <source :media="mediaWidth" :srcset="cardData.imgTablet" />
+      <source media="(min-width: 901px)" :srcset="cardData.imgDesktop" />
+      <img
+        :class="$style.cardImg"
+        :alt="cardData.imgAlt"
+        :src="cardData.imgMobile"
+      />
     </picture>
-    <div :class="$style.card__content">
-      <span v-if="isNew" :class="$style.card__action_text">New product</span>
-      <h1 v-if="isProductPage" :class="$style.card__title">{{ cardTitle }}</h1>
-      <h2 v-else :class="$style.card__title">
-        {{ cardTitle
-        }}<span v-if="emphasizedWord" :class="$style.emphasized_word">{{
-          emphasizedWord
+    <div :class="$style.cardContent">
+      <span v-if="isNew" :class="$style.cardActionText">New product</span>
+      <h1 v-if="isProductPage" :class="$style.cardTitle">
+        {{ cardData.title }}
+      </h1>
+      <h2 v-else :class="$style.cardTitle">
+        {{ cardData.title
+        }}<span v-if="cardData.emphasizedWord" :class="$style.emphasizedWord">{{
+          cardData.emphasizedWord
         }}</span
-        >{{ restOfTitle }}
+        >{{ cardData.restOfTitle }}
       </h2>
-      <p :class="$style.card__text">{{ cardText }}</p>
-      <p v-if="price" :class="$style.card__price">{{ price }}</p>
+      <p :class="$style.cardText">{{ cardData.text }}</p>
+      <p v-if="cardData.price" :class="$style.cardPrice">
+        {{ cardData.price }}
+      </p>
       <slot></slot>
     </div>
   </div>
 </template>
 <style lang="css" module>
-.card__wrapper {
+.cardWrapper {
   display: grid;
   grid-template-columns: 1fr;
   gap: 32px;
 }
 
-.card__action_text {
+.cardActionText {
   font-size: 1.6rem;
   text-transform: uppercase;
   color: var(--color-primary);
   letter-spacing: 6px;
 }
 
-.card__img {
+.cardImg {
   width: 100%;
   height: 100%;
   object-fit: contain;
   border-radius: 12px;
 }
 
-.card__content {
+.cardContent {
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -114,7 +98,7 @@ const gridColumns = computed(() =>
   justify-content: center;
 }
 
-.card__title {
+.cardTitle {
   font-size: 2.8rem;
   text-transform: uppercase;
   font-weight: 600;
@@ -123,18 +107,18 @@ const gridColumns = computed(() =>
   color: var(--theme-text-primary);
 }
 
-.emphasized_word {
+.emphasizedWord {
   color: var(--color-primary);
 }
 
-.card__text {
+.cardText {
   text-align: v-bind(textAlign);
   font-size: 1.6rem;
   color: var(--theme-text-tertiary);
   line-height: 1.5;
 }
 
-.card__price {
+.cardPrice {
   font-size: 1.8rem;
   font-weight: 600;
   letter-spacing: 1px;
@@ -142,42 +126,42 @@ const gridColumns = computed(() =>
 }
 
 @media (min-width: 500px) {
-  .card__action_text {
+  .cardActionText {
     font-size: 2rem;
   }
 
-  .card__title {
+  .cardTitle {
     font-size: 3.2rem;
   }
 }
 @media (min-width: 600px) {
-  .card__wrapper {
+  .cardWrapper {
     grid-template-columns: v-bind(gridColumns);
   }
 }
 
 @media (min-width: 901px) {
-  .card__wrapper {
+  .cardWrapper {
     grid-template-columns: repeat(2, 1fr);
     gap: v-bind(gridGap);
   }
 
-  .card__content {
+  .cardContent {
     grid-column: v-bind(contentPosition);
     grid-row: 1;
     align-items: start;
   }
 
-  .card__wrapper:nth-child(even) .card__content {
+  .cardWrapper:nth-child(even) .cardContent {
     grid-column: 2;
   }
 
-  .card__title {
+  .cardTitle {
     text-align: start;
     font-size: 4.2rem;
   }
 
-  .card__text {
+  .cardText {
     text-align: start;
   }
 }

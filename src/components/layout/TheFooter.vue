@@ -1,25 +1,25 @@
 <script setup>
-import NavBar from '../navigation/NavBar.vue';
-import LogoLink from '../ui/LogoLink.vue';
-import { footerData } from '../../data/data';
+import NavBar from '@/components/navigation/NavBar.vue';
+import LogoLink from '@/components/ui/LogoLink.vue';
+import { footerData } from '@/data/data';
 
 const { text, copyright } = footerData;
 </script>
 <template lang="">
   <footer :class="$style.footer">
-    <div :class="$style.footer__inner">
-      <div :class="$style.footer__header">
-        <LogoLink />
+    <div :class="$style.footerInner">
+      <div :class="$style.footerHeader">
+        <LogoLink isFooter />
         <nav-bar isFooter />
       </div>
-      <div :class="$style.footer__content">
-        <p :class="$style.footer__text">
+      <div :class="$style.footerContent">
+        <p :class="$style.text">
           {{ text }}
         </p>
-        <p :class="$style.footer__copyright">
+        <p :class="$style.copyright">
           {{ copyright }}
         </p>
-        <div :class="$style.icon__container">
+        <div :class="$style.iconContainer">
           <a
             :class="$style.link"
             href="https://www.facebook.com/"
@@ -88,7 +88,7 @@ const { text, copyright } = footerData;
   justify-content: center;
 }
 
-.footer__inner {
+.footerInner {
   position: relative;
   padding: 72px 0;
   margin-left: 12px;
@@ -101,7 +101,7 @@ const { text, copyright } = footerData;
   gap: 32px;
 }
 
-.footer__inner::before {
+.footerInner::before {
   content: '';
   height: 4px;
   width: 100px;
@@ -110,7 +110,7 @@ const { text, copyright } = footerData;
   background-color: var(--color-primary);
 }
 
-.footer__header {
+.footerHeader {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -119,13 +119,13 @@ const { text, copyright } = footerData;
   gap: 32px;
 }
 
-.footer__content {
+.footerContent {
   display: grid;
   place-items: center;
   gap: 24px;
 }
 
-.footer__text {
+.text {
   color: var(--text-secondary);
   font-size: 1.4rem;
   text-align: center;
@@ -145,80 +145,80 @@ const { text, copyright } = footerData;
   fill: var(--color-primary);
 }
 
-.footer__copyright {
+.copyright {
   color: var(--text-secondary);
   font-size: 1.4rem;
   text-align: center;
 }
 
-.icon__container {
+.iconContainer {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
 @media (min-width: 375px) {
-  .footer__inner {
+  .footerInner {
     margin-left: 32px;
     margin-right: 32px;
   }
 }
 
 @media (min-width: 500px) {
-  .footer__header {
+  .footerHeader {
     align-items: start;
   }
 
-  .footer__inner::before {
+  .footerInner::before {
     left: 0;
   }
-  .footer__content {
+  .footerContent {
     grid-template-columns: 1.4fr 0.6fr;
     justify-items: start;
   }
 
-  .footer__text {
+  .text {
     grid-column-start: span 2;
     text-align: start;
   }
 
-  .footer__copyright {
+  .copyright {
     text-align: start;
     font-weight: 600;
     font-size: 1.6rem;
   }
 
-  .icon__container {
+  .iconContainer {
     justify-self: end;
   }
 }
 
 @media (min-width: 733px) {
-  .footer__header {
+  .footerHeader {
     flex-direction: row;
     justify-content: space-between;
   }
 }
 
 @media (min-width: 1009px) {
-  .footer__inner {
+  .footerInner {
     max-width: 1200px;
   }
-  .footer__header {
+  .footerHeader {
     flex-direction: row;
     justify-content: space-between;
   }
 
-  .footer__content {
+  .footerContent {
     grid-template-columns: repeat(2, 1fr);
     justify-items: start;
   }
 
-  .footer__text {
+  .text {
     grid-column-start: span 1;
   }
 
-  .icon__container {
+  .iconContainer {
     grid-row: 1;
     grid-column: 2;
     align-self: end;

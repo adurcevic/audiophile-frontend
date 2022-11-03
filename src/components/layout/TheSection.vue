@@ -10,8 +10,8 @@ const margin = computed(() => (props.isHomePage ? '130px' : '90px'));
 </script>
 <template lang="">
   <section :class="$style.section">
-    <div :class="$style.section__inner">
-      <h2 v-if="title" :class="$style.section__title">{{ title }}</h2>
+    <div :class="$style.sectionInner">
+      <h2 v-if="title" :class="$style.sectionTitle">{{ title }}</h2>
       <slot></slot>
     </div>
   </section>
@@ -26,12 +26,12 @@ const margin = computed(() => (props.isHomePage ? '130px' : '90px'));
   margin-top: v-bind(margin);
 }
 
-.section__inner {
+.sectionInner {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.section__title {
+.sectionTitle {
   text-transform: uppercase;
   text-align: center;
   color: var(--theme-text-primary);
@@ -45,21 +45,21 @@ const margin = computed(() => (props.isHomePage ? '130px' : '90px'));
 }
 
 @media (min-width: 375px) {
-  .section__inner {
+  .sectionInner {
     padding-left: 32px;
     padding-right: 32px;
   }
 }
 
 @media (min-width: 768px) {
-  .section__title {
+  .sectionTitle {
     font-size: 3.2rem;
     margin-bottom: 64px;
   }
 }
 
 @media (min-width: 1024px) {
-  .section__inner {
+  .sectionInner {
     margin: 0 auto;
     max-width: 1200px;
   }

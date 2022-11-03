@@ -1,10 +1,11 @@
 import { createApp } from 'vue';
+import { createPinia } from 'pinia';
 import { createRouter, createWebHashHistory } from 'vue-router';
-import HomePage from './pages/HomePage.vue';
-import { clickOutside } from './utilis/functions';
-import './main.css';
-import App from './App.vue';
-import BaseLink from './components/ui/BaseLink.vue';
+import HomePage from '@/pages/HomePage.vue';
+import { clickOutside } from '@/utilis/functions';
+import '@/main.module.css';
+import App from '@/App.vue';
+import BaseLink from '@/components/ui/BaseLink.vue';
 
 const routes = [
   {
@@ -19,29 +20,29 @@ const routes = [
   {
     path: '/headphones',
     name: 'headphones',
-    component: () => import('./pages/ProductsPage.vue'),
+    component: () => import('@/pages/ProductsPage.vue'),
   },
   {
     path: '/headphones/:productName',
-    component: () => import('./pages/ProductPage.vue'),
+    component: () => import('@/pages/ProductPage.vue'),
   },
   {
     path: '/speakers',
     name: 'speakers',
-    component: () => import('./pages/ProductsPage.vue'),
+    component: () => import('@/pages/ProductsPage.vue'),
   },
   {
     path: '/speakers/:productName',
-    component: () => import('./pages/ProductPage.vue'),
+    component: () => import('@/pages/ProductPage.vue'),
   },
   {
     path: '/earphones',
     name: 'earphones',
-    component: () => import('./pages/ProductsPage.vue'),
+    component: () => import('@/pages/ProductsPage.vue'),
   },
   {
     path: '/earphones/:productName',
-    component: () => import('./pages/ProductPage.vue'),
+    component: () => import('@/pages/ProductPage.vue'),
   },
 ];
 
@@ -54,8 +55,11 @@ const router = createRouter({
   routes,
 });
 
+const pinia = createPinia();
 const app = createApp(App);
+app.config.globalProperties.window = window;
 
+app.use(pinia);
 app.use(router);
 app.component('BaseLink', BaseLink);
 app.directive('click-outside', clickOutside);
