@@ -18,7 +18,16 @@ const props = defineProps({
       />
       <div :class="$style.cartContent">
         <p :class="$style.cartTitle">{{ product.title }}</p>
-        <p :class="$style.cartPrice">{{ product.price }}</p>
+        <p :class="$style.cartPrice">
+          {{
+            product.price.toLocaleString('en-GB', {
+              style: 'currency',
+              currency: 'EUR',
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })
+          }}
+        </p>
       </div>
     </div>
     <slot></slot>

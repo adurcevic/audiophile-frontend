@@ -7,6 +7,7 @@ import TheFooter from '@/components/layout/TheFooter.vue';
 import BaseCard from '@/components/ui/BaseCard.vue';
 import BaseGrid from '@/components/ui/BaseGrid.vue';
 import NavCard from '@/components/navigation/NavCard.vue';
+import FadeTransition from '@/components/ui/FadeTransition.vue';
 import { bestGearData, navData, productsData } from '@/data/data';
 import { useRoute } from 'vue-router';
 import { watch, ref, onBeforeMount } from 'vue';
@@ -45,12 +46,7 @@ onBeforeMount(() => initProductsPage());
   <TheMain>
     <PageLanding :title="productType" />
     <TheSection>
-      <transition
-        :enter-active-class="$style.productsEnter"
-        :leave-active-class="$style.productsLeave"
-        mode="out-in"
-        appear
-      >
+      <FadeTransition appear>
         <div :key="products" :class="$style.productsWrapper" v-if="products">
           <BaseCard
             v-for="item in products"
@@ -73,7 +69,7 @@ onBeforeMount(() => initProductsPage());
             >
           </BaseCard>
         </div>
-      </transition>
+      </FadeTransition>
     </TheSection>
     <TheSection>
       <BaseGrid>
@@ -114,12 +110,5 @@ onBeforeMount(() => initProductsPage());
     gap: 98px;
     padding-bottom: 48px;
   }
-}
-
-.productsEnter {
-  composes: fadeEnter from '@/main.module.css';
-}
-.productsLeave {
-  composes: fadeLeave from '@/main.module.css';
 }
 </style>

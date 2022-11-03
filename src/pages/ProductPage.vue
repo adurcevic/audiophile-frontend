@@ -11,10 +11,11 @@ import CartBtn from '@/components/ui/CartBtn.vue';
 import ProductFeatures from '@/components/ui/ProductFeatures.vue';
 import ProductGallery from '@/components/ui/ProductGallery.vue';
 import RelatedCard from '@/components/ui/RelatedCard.vue';
+import FadeTransition from '@/components/ui/FadeTransition.vue';
 import { useCartStore } from '@/stores/CartStore';
 import { useRoute, useRouter } from 'vue-router';
 import { productsData, navData, bestGearData } from '@/data/data';
-import { ref, onBeforeMount, watch } from 'vue';
+import { ref, onBeforeMount, watch, computed } from 'vue';
 
 const store = useCartStore();
 const { cartItems } = store;
@@ -23,6 +24,11 @@ const router = useRouter();
 const route = useRoute();
 const productData = ref(null);
 const quantity = ref(1);
+const isAddedToCart = ref(false);
+
+const btnText = computed(() =>
+  isAddedToCart.value ? 'Added to cart' : 'Add to cart'
+);
 
 const increaseQuantity = () => {
   if (quantity.value === 99) return;
@@ -43,6 +49,12 @@ const resetQuantity = () => {
 const addToCart = (product) => {
   addItemToCart(product);
   resetQuantity();
+  isAddedToCart.value = true;
+  console.log(isAddedToCart.value);
+  setTimeout(() => {
+    isAddedToCart.value = false;
+    console.log(isAddedToCart.value);
+  }, 1500);
 };
 
 const goBack = () => router.go(-1);
@@ -83,12 +95,7 @@ onBeforeMount(() => initProductPage());
       <div :class="[$style.btnPositioner, $style.return]">
         <BaseBtn @btn-action="goBack" isReturn>Go Back</BaseBtn>
       </div>
-      <transition
-        :enter-active-class="$style.pageEnter"
-        :leave-active-class="$style.pageLeave"
-        mode="out-in"
-        appear
-      >
+      <FadeTransition appear>
         <BaseCard
           :key="productData.id"
           :cardData="{
@@ -101,6 +108,8 @@ onBeforeMount(() => initProductPage());
             price: productData.price.toLocaleString('en-GB', {
               style: 'currency',
               currency: 'EUR',
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
             }),
           }"
           :isProductPage="true"
@@ -112,35 +121,54 @@ onBeforeMount(() => initProductPage());
               @incrementQty="increaseQuantity"
               @decrementQty="decreaseQuantity"
             />
-            <BaseBtn
-              @btn-action="
-                addToCart({
-                  id: productData.id,
-                  productName: productData.shortTitle,
-                  price: productData.price,
-                  quantity,
-                  cartImg: productData.cartImg,
-                })
-              "
-              >Add Product</BaseBtn
-            >
+            <FadeTransition>
+              <BaseBtn
+                :key="btnText"
+                @btn-action="
+                  addToCart({
+                    id: productData.id,
+                    productName: productData.shortTitle,
+                    price: productData.price,
+                    quantity,
+                    cartImg: productData.cartImg,
+                  })
+                "
+                :disabled="isAddedToCart"
+                >{{ btnText }}
+                <svg
+                  v-if="isAddedToCart"
+                  aria-hidden="true"
+                  focusable="false"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  class="w-5 h-5"
+                  width="15px"
+                  height="15px"
+                  :style="{
+                    marginLeft: '4px',
+                  }"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </BaseBtn>
+            </FadeTransition>
           </div>
         </BaseCard>
-      </transition>
+      </FadeTransition>
     </TheSection>
     <TheSection>
-      <transition
-        :enter-active-class="$style.pageEnter"
-        :leave-active-class="$style.pageLeave"
-        mode="out-in"
-        appear
-      >
+      <FadeTransition appear>
         <ProductFeatures
           :key="productData.productFeatures"
           :text="productData.productFeatures"
           :boxContent="productData.setContent"
         />
-      </transition>
+      </FadeTransition>
     </TheSection>
     <TheSection>
       <ProductGallery :galleryImgs="productData.galleryImages" />
@@ -187,12 +215,5 @@ onBeforeMount(() => initProductPage());
 
 .return {
   margin-bottom: 48px;
-}
-
-.pageEnter {
-  composes: fadeEnter from '@/main.module.css';
-}
-.pageLeave {
-  composes: fadeLeave from '@/main.module.css';
 }
 </style>

@@ -1,4 +1,5 @@
 <script setup>
+import FadeTransition from '@/components/ui/FadeTransition.vue';
 const props = defineProps({
   title: {
     type: String,
@@ -9,14 +10,9 @@ const props = defineProps({
   <div :class="$style.landing">
     <slot>
       <div :class="$style.defaultHeader">
-        <transition
-          :enter-active-class="$style.switchEnter"
-          :leave-active-class="$style.switchLeave"
-          mode="out-in"
-          appear
-        >
+        <FadeTransition appear>
           <h1 :key="title" :class="$style.defaultTitle">{{ title }}</h1>
-        </transition>
+        </FadeTransition>
       </div>
     </slot>
   </div>
@@ -29,9 +25,7 @@ const props = defineProps({
 }
 
 .defaultHeader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  composes: flexCenter from '@/main.module.css';
   width: 100%;
   height: 130px;
   background-color: var(--bg-primary);
@@ -43,12 +37,5 @@ const props = defineProps({
   text-transform: uppercase;
   color: var(--text-primary);
   letter-spacing: 4px;
-}
-
-.switchEnter {
-  composes: fadeEnter from '@/main.module.css';
-}
-.switchLeave {
-  composes: fadeLeave from '@/main.module.css';
 }
 </style>

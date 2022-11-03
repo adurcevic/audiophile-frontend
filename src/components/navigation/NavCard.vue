@@ -44,10 +44,9 @@ const imgUrl = computed(() => {
   max-width: 400px;
   width: 100%;
   position: relative;
-  display: flex;
+  composes: flexCenter from '@/main.module.css';
+
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   background-color: var(--bg-secondary);
   border-radius: 4px;
 }
@@ -76,9 +75,8 @@ const imgUrl = computed(() => {
   letter-spacing: 1px;
 }
 .navcardLink {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  composes: flexCenter from '@/main.module.css';
+
   gap: 4px;
   transition: color 0.3s ease-in-out;
 }

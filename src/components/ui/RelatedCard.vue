@@ -25,10 +25,8 @@ const props = defineProps({
 <style lang="css" module>
 .relatedContainer {
   max-width: 400px;
-  display: flex;
+  composes: flexCenter from '@/main.module.css';
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: 24px;
 }
 

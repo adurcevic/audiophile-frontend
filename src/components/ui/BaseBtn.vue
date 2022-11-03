@@ -20,9 +20,7 @@ const lineHeight = computed(() => (props.isCart ? '1px' : '3px'));
 </template>
 <style lang="css" module>
 .btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  composes: flexCenter from '@/main.module.css';
   background-color: var(--color-primary);
   padding: 17px 24px;
   font-size: 1.4rem;

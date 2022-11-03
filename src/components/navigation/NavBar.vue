@@ -157,9 +157,7 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
 }
 
 .navigationFooter {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  composes: flexCenter from '@/main.module.css';
 }
 
 .navigationInner {
@@ -171,10 +169,8 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
 }
 
 .navigationInnerFooter {
-  display: flex;
+  composes: flexCenter from '@/main.module.css';
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .navigation.isOpen {

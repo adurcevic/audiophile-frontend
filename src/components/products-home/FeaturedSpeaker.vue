@@ -21,10 +21,8 @@
 <style lang="css" module>
 .productContainer {
   overflow: hidden;
-  display: flex;
+  composes: flexCenter from '@/main.module.css';
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: 62px;
   position: relative;
   background-color: var(--color-primary);
@@ -40,9 +38,9 @@
 
 .productContent {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   gap: 24px;
 }
 
@@ -81,7 +79,6 @@
 
   .productContainer {
     flex-direction: row;
-    justify-content: center;
     gap: 128px;
   }
 

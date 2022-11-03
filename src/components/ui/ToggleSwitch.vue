@@ -37,16 +37,14 @@ const indicatorStyles = computed(() => {
 </template>
 <style lang="css" module>
 .switch {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  composes: flexCenter from '@/main.module.css';
 }
 .goldMid {
   background-color: var(--dot-color);
 }
 
 .grayLighter {
-  background-color: var(--bg-tertiary);
+  background-color: var(--bg-toggle);
 }
 
 .toggleWrapper {

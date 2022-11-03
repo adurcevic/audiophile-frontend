@@ -7,18 +7,20 @@ import CartCard from '@/components/ui/CartCard.vue';
 import CartItem from '@/components/ui/CartItem.vue';
 import CartBtn from '@/components/ui/CartBtn.vue';
 import PageOverlay from '@/components/ui/PageOverlay.vue';
+import FadeTransition from '@/components/ui/FadeTransition.vue';
+import ListTransition from '@/components/ui/ListTransition.vue';
 import { useCartStore } from '@/stores/CartStore';
-import { computed, ref } from 'vue';
+import { computed, ref, inject, onMounted, useCssModule } from 'vue';
 import { storeToRefs } from 'pinia';
-import { inject } from 'vue';
-import { isSpecialBooleanAttr } from '@vue/shared';
 
 const isCartOpen = ref(false);
 const isNavOpen = ref(false);
 const store = useCartStore();
-const { cartItems, numOfCartItems, payAmount } = storeToRefs(store);
+const header = ref(null);
+const style = useCssModule();
+const isHeaderVisible = ref(false);
+const { cartItems, getNumOfCartItems, getTotalAmount } = storeToRefs(store);
 const { increaseQty, decreaseQty, removeAllItems } = store;
-
 const { isDark, toggleTheme } = inject('theme');
 
 const toggleValue = (ref) => {
@@ -56,19 +58,31 @@ const lightIcon = computed(() => (isDark.value ? '#333333' : '#ffffff'));
 const darkIcon = computed(() => (!isDark.value ? '#333333' : '#ffffff'));
 
 const badgeValue = computed(() =>
-  numOfCartItems.value <= 99 ? numOfCartItems.value : '99+'
+  getNumOfCartItems.value <= 99 ? getNumOfCartItems.value : '99+'
+);
+
+const headerClass = computed(() =>
+  isHeaderVisible.value ? [style.header, style.stickyNav] : style.header
+);
+
+const headerHeight = computed(() => (isHeaderVisible.value ? 80 : 120));
+
+onMounted(() =>
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > headerHeight.value) {
+      isHeaderVisible.value = true;
+    } else {
+      isHeaderVisible.value = false;
+    }
+  })
 );
 </script>
 <template lang="">
-  <transition
-    :enter-active-class="$style.overlayEnter"
-    :leave-active-class="$style.overlayLeave"
-    mode="out-in"
-  >
-    <PageOverlay v-if="isCartOpen" @click="closeCart" />
-  </transition>
-  <header :class="$style.header">
-    <div :class="$style.toggleContainer">
+  <header :class="headerClass" ref="header">
+    <FadeTransition>
+      <PageOverlay v-if="isCartOpen" @click="closeCart" />
+    </FadeTransition>
+    <div v-if="!isHeaderVisible" :class="$style.toggleContainer">
       <div :class="$style.themeIcon">
         <svg
           aria-hidden="true"
@@ -166,7 +180,7 @@ const badgeValue = computed(() =>
             />
           </svg>
           <span
-            v-if="numOfCartItems"
+            v-if="getNumOfCartItems"
             aria-label="Number of products in cart"
             :class="$style.cartBadge"
             >{{ badgeValue }}</span
@@ -180,24 +194,27 @@ const badgeValue = computed(() =>
       >
         <CartCard
           v-if="isCartOpen"
-          :numOfItemsInCart="numOfCartItems"
-          :amountTotal="payAmount"
+          :numOfItemsInCart="getNumOfCartItems"
+          :amountTotal="getTotalAmount"
         >
-          <CartItem
-            v-for="item in cartItems"
-            :product="{
-              imgSrc: item.cartImg,
-              title: item.productName,
-              price: item.price,
-            }"
-          >
-            <CartBtn
-              :addQuantity="item.quantity"
-              isSmaller
-              @decrementQty="decreaseQty(item.id)"
-              @incrementQty="increaseQty(item.id)"
-            />
-          </CartItem>
+          <ListTransition>
+            <CartItem
+              v-for="item in cartItems"
+              :key="item.id"
+              :product="{
+                imgSrc: item.cartImg,
+                title: item.productName,
+                price: item.price,
+              }"
+            >
+              <CartBtn
+                :addQuantity="item.quantity"
+                isSmaller
+                @decrementQty="decreaseQty(item.id)"
+                @incrementQty="increaseQty(item.id)"
+              />
+            </CartItem>
+          </ListTransition>
         </CartCard>
       </transition>
     </div>
@@ -207,17 +224,13 @@ const badgeValue = computed(() =>
 .toggleContainer {
   width: 100%;
   margin-top: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  composes: flexCenter from '@/main.module.css';
   gap: 12px;
   z-index: 10;
 }
 
 .themeIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  composes: flexCenter from '@/main.module.css';
   width: 26px;
   height: 26px;
 }
@@ -243,11 +256,18 @@ const badgeValue = computed(() =>
 .header {
   height: 120px;
   width: 100%;
-  display: flex;
+  composes: flexCenter from '@/main.module.css';
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   background-color: var(--bg-primary);
+}
+
+.stickyNav {
+  position: sticky;
+  height: 80px;
+  top: 0;
+  left: 0;
+  z-index: 14;
+  background-color: #191919e2;
 }
 
 .headerInner {
@@ -261,9 +281,7 @@ const badgeValue = computed(() =>
 }
 
 .headersIcons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  composes: flexCenter from '@/main.module.css';
   gap: 12px;
   margin-left: auto;
 }
@@ -283,9 +301,7 @@ const badgeValue = computed(() =>
 
 .cartBadge {
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  composes: flexCenter from '@/main.module.css';
   top: -10px;
   right: -5px;
   width: 20px;
@@ -317,13 +333,6 @@ const badgeValue = computed(() =>
     max-width: 1200px;
     gap: 0;
   }
-}
-
-.overlayEnter {
-  composes: fadeEnter from '@/main.module.css';
-}
-.overlayLeave {
-  composes: fadeLeave from '@/main.module.css';
 }
 
 .cartEnter {

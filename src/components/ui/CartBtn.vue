@@ -16,12 +16,12 @@ const heightWidth = computed(() => (props.isSmaller ? '20px' : '24px'));
 </script>
 <template lang="">
   <div :class="$style.btnContainer">
-    <div :class="$style.btnWrapper">
-      <button
-        :class="$style.btn"
-        aria-label="Increment product quantity"
-        @click="$emit('decrementQty')"
-      >
+    <button
+      :class="$style.btn"
+      aria-label="Increment product quantity"
+      @click="$emit('decrementQty')"
+    >
+      <div :class="$style.iconWrapper">
         <svg
           aria-hidden="true"
           focusable="false"
@@ -32,15 +32,15 @@ const heightWidth = computed(() => (props.isSmaller ? '20px' : '24px'));
         >
           <path d="M6.75 9.25a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z" />
         </svg>
-      </button>
-    </div>
+      </div>
+    </button>
     <div :class="$style.quantity">{{ addQuantity }}</div>
-    <div :class="$style.btnWrapper">
-      <button
-        :class="$style.btn"
-        aria-label="Decrement product quantity"
-        @click="$emit('incrementQty')"
-      >
+    <button
+      :class="$style.btn"
+      aria-label="Decrement product quantity"
+      @click="$emit('incrementQty')"
+    >
+      <div :class="$style.iconWrapper">
         <svg
           aria-hidden="true"
           focusable="false"
@@ -53,26 +53,23 @@ const heightWidth = computed(() => (props.isSmaller ? '20px' : '24px'));
             d="M10.75 6.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z"
           />
         </svg>
-      </button>
-    </div>
+      </div>
+    </button>
   </div>
 </template>
 <style lang="css" module>
 .btnContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  composes: flexCenter from '@/main.module.css';
   background-color: var(--bg-secondary);
 }
 
-.btnWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.btn {
+  composes: flexCenter from '@/main.module.css';
   padding: v-bind(padding);
+  cursor: pointer;
 }
 
-.btnWrapper svg {
+.btn svg {
   fill: var(--theme-text-secondary);
 }
 
@@ -81,19 +78,16 @@ const heightWidth = computed(() => (props.isSmaller ? '20px' : '24px'));
   padding: 0 10px;
 }
 
-.btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.iconWrapper {
+  composes: flexCenter from '@/main.module.css';
   height: v-bind(heightWidth);
   width: v-bind(heightWidth);
-  cursor: pointer;
 }
 
-.btnWrapper:hover {
+.btn:hover {
   background-color: var(--hover-primary);
 }
-.btnWrapper:hover svg {
+.btn:hover svg {
   fill: var(--color-primary);
 }
 </style>
