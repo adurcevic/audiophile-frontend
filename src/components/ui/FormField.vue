@@ -5,12 +5,15 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  errors: {
+    type: Object,
+  },
 });
 </script>
 <template lang="">
   <div
     :class="
-      filedData.wholeRow
+      fieldData.wholeRow
         ? [$style.formField, $style.wholeRow]
         : $style.formField
     "
@@ -19,13 +22,16 @@ const props = defineProps({
       <label
         :for="fieldData.id"
         :class="
-          errors.fullName ? [$style.label, $style.colorError] : $style.label
+          errors[fieldData.id]
+            ? [$style.label, $style.colorError]
+            : $style.label
         "
         >{{ fieldData.label }}</label
       >
       <ErrorMessage :name="fieldData.id" :class="$style.errorMessage" />
     </div>
     <Field
+      v-slot="{ errors }"
       :id="fieldData.id"
       :type="fieldData.type"
       :name="fieldData.id"

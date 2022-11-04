@@ -29,6 +29,40 @@ export const footerData = {
   copyright: 'Copyright 2021. All Rights Reserved',
 };
 
+export const billingFormData = [
+  { id: 'fullName', type: 'text', label: 'Name', placeholder: 'Alexei Ward' },
+  {
+    id: 'email',
+    type: 'email',
+    label: 'Email',
+    placeholder: 'alexei@mail.com',
+  },
+  {
+    id: 'phoneNumber',
+    type: 'text',
+    label: ' Phone Number',
+    placeholder: '+12025550136',
+  },
+];
+
+export const shippingFormData = [
+  {
+    id: 'address',
+    type: 'text',
+    label: 'Address',
+    placeholder: '1137 Williams Avenue',
+    wholeRow: true,
+  },
+  { id: 'zipCode', type: 'number', label: 'Zip Code', placeholder: '10001' },
+  { id: 'city', type: 'text', label: 'City', placeholder: 'New York' },
+  {
+    id: 'country',
+    type: 'text',
+    label: 'Country',
+    placeholder: 'United States',
+  },
+];
+
 export const productsData = [
   {
     headphones: [

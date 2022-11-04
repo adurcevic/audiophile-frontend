@@ -5,7 +5,7 @@ const props = defineProps({
 </script>
 <template lang="">
   <div :class="$style.formBlock">
-    <p :class="$style.blockTitle">Billing Details</p>
+    <p :class="$style.blockTitle">{{ blockTitle }}</p>
     <div :class="$style.blockPositioner">
       <slot></slot>
     </div>
