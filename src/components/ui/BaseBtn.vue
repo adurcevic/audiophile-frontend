@@ -7,6 +7,8 @@ const props = defineProps({
   isCart: {
     type: Boolean,
   },
+  disabled: Boolean,
+  isCheckout: Boolean,
 });
 
 const style = useCssModule();
@@ -14,22 +16,29 @@ const style = useCssModule();
 const btnClass = computed(() => (props.isReturn ? style.btnReturn : style.btn));
 const fontSize = computed(() => (props.isCart ? '1.6rem' : '1.8rem'));
 const lineHeight = computed(() => (props.isCart ? '1px' : '3px'));
+const cursor = computed(() => (props.disabled ? 'not-allowed' : 'pointer'));
+const opacity = computed(() =>
+  props.isCheckout && props.disabled ? '0.7' : '1'
+);
 </script>
 <template lang="">
-  <button @click="$emit('btnAction')" :class="btnClass"><slot></slot></button>
+  <button @click="$emit('btnAction')" :disabled="disabled" :class="btnClass">
+    <slot></slot>
+  </button>
 </template>
 <style lang="css" module>
 .btn {
-  composes: flexCenter from '@/main.module.css';
+  composes: flexCenter from '@/main.css';
   background-color: var(--color-primary);
   padding: 17px 24px;
   font-size: 1.4rem;
   letter-spacing: 1px;
-  cursor: pointer;
+  cursor: v-bind(cursor);
   color: var(--text-primary);
   transition: all 0.3s ease-in-out;
   border: 1px solid var(--color-primary);
   text-transform: uppercase;
+  opacity: v-bind(opacity);
 }
 
 .btnReturn {

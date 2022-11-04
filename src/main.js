@@ -3,7 +3,7 @@ import { createPinia } from 'pinia';
 import { createRouter, createWebHashHistory } from 'vue-router';
 import HomePage from '@/pages/HomePage.vue';
 import { clickOutside } from '@/utilis/functions';
-import '@/main.module.css';
+import '@/main.css';
 import App from '@/App.vue';
 import BaseLink from '@/components/ui/BaseLink.vue';
 
@@ -43,6 +43,11 @@ const routes = [
   {
     path: '/earphones/:productName',
     component: () => import('@/pages/ProductPage.vue'),
+  },
+  {
+    path: '/checkout',
+    name: 'checkout',
+    component: () => import('@/pages/CheckoutPage.vue'),
   },
 ];
 

@@ -25,7 +25,7 @@ const props = defineProps({
 }
 
 .defaultHeader {
-  composes: flexCenter from '@/main.module.css';
+  composes: flexCenter from '@/main.css';
   width: 100%;
   height: 130px;
   background-color: var(--bg-primary);

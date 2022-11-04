@@ -224,13 +224,13 @@ onMounted(() =>
 .toggleContainer {
   width: 100%;
   margin-top: 20px;
-  composes: flexCenter from '@/main.module.css';
+  composes: flexCenter from '@/main.css';
   gap: 12px;
   z-index: 10;
 }
 
 .themeIcon {
-  composes: flexCenter from '@/main.module.css';
+  composes: flexCenter from '@/main.css';
   width: 26px;
   height: 26px;
 }
@@ -256,7 +256,7 @@ onMounted(() =>
 .header {
   height: 120px;
   width: 100%;
-  composes: flexCenter from '@/main.module.css';
+  composes: flexCenter from '@/main.css';
   flex-direction: column;
   background-color: var(--bg-primary);
 }
@@ -281,7 +281,7 @@ onMounted(() =>
 }
 
 .headersIcons {
-  composes: flexCenter from '@/main.module.css';
+  composes: flexCenter from '@/main.css';
   gap: 12px;
   margin-left: auto;
 }
@@ -301,7 +301,7 @@ onMounted(() =>
 
 .cartBadge {
   position: absolute;
-  composes: flexCenter from '@/main.module.css';
+  composes: flexCenter from '@/main.css';
   top: -10px;
   right: -5px;
   width: 20px;

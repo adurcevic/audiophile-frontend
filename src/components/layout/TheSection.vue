@@ -4,9 +4,13 @@ import { computed } from 'vue';
 const props = defineProps({
   isHomePage: Boolean,
   title: String,
+  hasForm: Boolean,
 });
 
-const margin = computed(() => (props.isHomePage ? '130px' : '90px'));
+const bgColor = computed(() =>
+  props.hasForm ? 'var(--theme-bg)' : 'transperent'
+);
+const padding = computed(() => (props.isHomePage ? '130px' : '90px'));
 </script>
 <template lang="">
   <section :class="$style.section">
@@ -19,11 +23,12 @@ const margin = computed(() => (props.isHomePage ? '130px' : '90px'));
 <style lang="css" module>
 .section {
   width: 100%;
-  margin-top: 130px;
+  padding-top: 130px;
+  background-color: v-bind(bgColor);
 }
 
 .section:first-of-type {
-  margin-top: v-bind(margin);
+  padding-top: v-bind(padding);
 }
 
 .sectionInner {
@@ -41,7 +46,7 @@ const margin = computed(() => (props.isHomePage ? '130px' : '90px'));
 }
 
 .section:last-child {
-  margin-bottom: 130px;
+  padding-bottom: 130px;
 }
 
 @media (min-width: 375px) {

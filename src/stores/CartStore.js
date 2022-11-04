@@ -44,6 +44,7 @@ export const useCartStore = defineStore('CartStore', () => {
     }
 
     existingItem.quantity = existingItem.quantity + quantity;
+    localStorage.setItem('cart', JSON.stringify(cartItems.value));
   }
 
   function removeItem(id) {
@@ -67,6 +68,7 @@ export const useCartStore = defineStore('CartStore', () => {
 
     if (product.quantity === 1) {
       removeItem(id);
+      localStorage.setItem('cart', JSON.stringify(cartItems.value));
       if (cartItems.value.length === 0) {
         localStorage.removeItem('cart');
       }

@@ -35,7 +35,7 @@ export const productsData = [
       {
         id: 1,
         title: 'XX99 Mark II Headphones',
-        shortTitle: 'XX99 MarkII',
+        shortTitle: 'XX99 Mark II',
         new: true,
         description:
           'The new XX99 Mark II headphones is the pinnacle of pristine audio. It redefines your premium headphone experience by reproducing the balanced depth and precision of studio-quality sound.',

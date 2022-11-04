@@ -37,7 +37,7 @@ const indicatorStyles = computed(() => {
 </template>
 <style lang="css" module>
 .switch {
-  composes: flexCenter from '@/main.module.css';
+  composes: flexCenter from '@/main.css';
 }
 .goldMid {
   background-color: var(--dot-color);

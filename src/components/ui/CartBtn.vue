@@ -59,12 +59,12 @@ const heightWidth = computed(() => (props.isSmaller ? '20px' : '24px'));
 </template>
 <style lang="css" module>
 .btnContainer {
-  composes: flexCenter from '@/main.module.css';
+  composes: flexCenter from '@/main.css';
   background-color: var(--bg-secondary);
 }
 
 .btn {
-  composes: flexCenter from '@/main.module.css';
+  composes: flexCenter from '@/main.css';
   padding: v-bind(padding);
   cursor: pointer;
 }
@@ -79,7 +79,7 @@ const heightWidth = computed(() => (props.isSmaller ? '20px' : '24px'));
 }
 
 .iconWrapper {
-  composes: flexCenter from '@/main.module.css';
+  composes: flexCenter from '@/main.css';
   height: v-bind(heightWidth);
   width: v-bind(heightWidth);
 }

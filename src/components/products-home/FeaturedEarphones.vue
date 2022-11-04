@@ -38,7 +38,7 @@
 
 .earphonesContent {
   width: 100%;
-  composes: flexCenter from '@/main.module.css';
+  composes: flexCenter from '@/main.css';
   flex-direction: column;
   background-color: var(--bg-secondary);
   border-radius: 12px;

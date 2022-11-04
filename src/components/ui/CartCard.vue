@@ -2,23 +2,29 @@
 import BaseBtn from './BaseBtn.vue';
 import FadeTransition from './FadeTransition.vue';
 import { useCartStore } from '@/stores/CartStore';
+import { computed } from 'vue';
+
 const props = defineProps({
-  numOfItemsInCart: {
-    type: Number,
-    required: true,
-  },
+  numOfItemsInCart: Number,
   amountTotal: {
     required: true,
   },
+  isCheckout: Boolean,
 });
 
 const store = useCartStore();
 const { removeAllItems } = store;
+
+const position = computed(() => (props.isCheckout ? 'static' : 'absolute'));
+const zIndex = computed(() => (props.isCheckout ? '1' : '20'));
+const bgColor = computed(() =>
+  props.isCheckout ? 'var(--bg-body)' : 'var(--bg-cart)'
+);
 </script>
 <template lang="">
   <div :class="$style.card">
     <FadeTransition>
-      <div v-if="!numOfItemsInCart" :class="$style.emptyCart">
+      <div v-if="!numOfItemsInCart && !isCheckout" :class="$style.emptyCart">
         <svg
           :class="$style.cart_icon"
           version="1.1"
@@ -69,15 +75,22 @@ const { removeAllItems } = store;
         </svg>
         <p :class="$style.titleEmpty">Your cart is currently empty</p>
       </div>
-      <div v-if="numOfItemsInCart" :class="$style.cardInner">
+      <div v-if="numOfItemsInCart || isCheckout" :class="$style.cardInner">
         <div :class="$style.contentPositioner">
-          <p :class="$style.title">Cart ({{ numOfItemsInCart }})</p>
-          <BaseBtn isReturn isCart @btnAction="removeAllItems"
-            >Remove all</BaseBtn
-          >
+          <p v-if="isCheckout" :class="$style.title">Summary</p>
+          <p v-else :class="$style.title">Cart ({{ numOfItemsInCart }})</p>
+          <BaseBtn
+            v-if="!isCheckout"
+            isReturn
+            isCart
+            @btnAction="removeAllItems"
+            >Remove all
+          </BaseBtn>
         </div>
         <div :class="$style.itemPositioner">
-          <slot></slot>
+          <slot>
+            <p :class="$style.emptyText">No items in cart</p>
+          </slot>
         </div>
         <div :class="$style.contentPositioner">
           <p :class="$style.text">Total</p>
@@ -92,20 +105,22 @@ const { removeAllItems } = store;
             }}
           </p>
         </div>
-        <BaseBtn>Checkout</BaseBtn>
+        <slot name="button">
+          <BaseLink :path="{ name: 'checkout' }">Checkout</BaseLink>
+        </slot>
       </div>
     </FadeTransition>
   </div>
 </template>
 <style lang="css" module>
 .card {
-  z-index: 20;
-  position: absolute;
+  z-index: v-bind(zIndex);
+  position: v-bind(position);
   right: 0;
   top: 100px;
   width: 100%;
   max-width: 400px;
-  background-color: var(--bg-cart);
+  background-color: v-bind(bgColor);
   overflow: hidden;
   border-radius: 12px;
 }
@@ -153,6 +168,15 @@ const { removeAllItems } = store;
   flex-direction: column;
   gap: 16px;
   margin-bottom: 32px;
+}
+
+.emptyText {
+  font-size: 1.8rem;
+  text-align: center;
+  font-weight: 600;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  color: var(--theme-text-secondary);
 }
 
 .text {

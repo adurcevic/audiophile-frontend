@@ -6,7 +6,10 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  isCheckout: Boolean,
 });
+
+console.log(props.product);
 </script>
 <template lang="">
   <div :class="$style.cartItem">
@@ -30,7 +33,9 @@ const props = defineProps({
         </p>
       </div>
     </div>
-    <slot></slot>
+    <slot>
+      <p :class="$style.cartQuantity">x{{ product.quantity }}</p>
+    </slot>
   </div>
 </template>
 <style lang="css" module>
@@ -66,6 +71,12 @@ const props = defineProps({
 
 .cartPrice {
   font-size: 1.4rem;
+  color: var(--theme-text-tertiary);
+  font-weight: 600;
+}
+
+.cartQuantity {
+  font-size: 1.6rem;
   color: var(--theme-text-tertiary);
   font-weight: 600;
 }

@@ -6,7 +6,7 @@ import TheFooter from '@/components/layout/TheFooter.vue';
 import BaseCard from '@/components/ui/BaseCard.vue';
 import NavCard from '@/components/navigation/NavCard.vue';
 import BaseGrid from '@/components/ui/BaseGrid.vue';
-import BaseBtn from '@/components/ui/BaseBtn.vue';
+import BaseBtn from '../components/ui/BaseBtn.vue';
 import CartBtn from '@/components/ui/CartBtn.vue';
 import ProductFeatures from '@/components/ui/ProductFeatures.vue';
 import ProductGallery from '@/components/ui/ProductGallery.vue';
