@@ -21,7 +21,7 @@
 <style lang="css" module>
 .productContainer {
   overflow: hidden;
-  composes: flexCenter from '@/main.css';
+  composes: flexCenter from 'src/main.css';
   flex-direction: column;
   gap: 62px;
   position: relative;

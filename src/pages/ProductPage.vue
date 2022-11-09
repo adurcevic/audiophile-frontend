@@ -1,20 +1,21 @@
 <script setup>
-import TheHeader from '@/components/layout/TheHeader.vue';
-import TheSection from '@/components/layout/TheSection.vue';
-import TheMain from '@/components/layout/TheMain.vue';
-import TheFooter from '@/components/layout/TheFooter.vue';
-import BaseCard from '@/components/ui/BaseCard.vue';
-import NavCard from '@/components/navigation/NavCard.vue';
-import BaseGrid from '@/components/ui/BaseGrid.vue';
+import TheHeader from '../components/layout/TheHeader.vue';
+import TheSection from '../components/layout/TheSection.vue';
+import TheMain from '../components/layout/TheMain.vue';
+import TheFooter from '../components/layout/TheFooter.vue';
+import BaseCard from '../components/ui/BaseCard.vue';
+import NavCard from '../components/navigation/NavCard.vue';
+import BaseGrid from '../components/ui/BaseGrid.vue';
 import BaseBtn from '../components/ui/BaseBtn.vue';
-import CartBtn from '@/components/ui/CartBtn.vue';
-import ProductFeatures from '@/components/ui/ProductFeatures.vue';
-import ProductGallery from '@/components/ui/ProductGallery.vue';
-import RelatedCard from '@/components/ui/RelatedCard.vue';
-import FadeTransition from '@/components/ui/FadeTransition.vue';
-import { useCartStore } from '@/stores/CartStore';
+import CartBtn from '../components/cart/CartBtn.vue';
+import ProductFeatures from '../components/product/ProductFeatures.vue';
+import ProductGallery from '../components/product/ProductGallery.vue';
+import RelatedCard from '../components/product/RelatedCard.vue';
+import FadeTransition from '../components/transitions/FadeTransition.vue';
+import CheckIcon from '../components/icons/CheckIcon.vue';
+import { useCartStore } from '../stores/CartStore';
 import { useRoute, useRouter } from 'vue-router';
-import { productsData, navData, bestGearData } from '@/data/data';
+import { productsData, secondaryNavData, bestGearData } from '../data/data';
 import { ref, onBeforeMount, watch, computed } from 'vue';
 
 const store = useCartStore();
@@ -92,7 +93,7 @@ onBeforeMount(() => initProductPage());
   <TheHeader />
   <TheMain>
     <TheSection>
-      <div :class="[$style.btnPositioner, $style.return]">
+      <div class="btnReturn">
         <BaseBtn @btn-action="goBack" isReturn>Go Back</BaseBtn>
       </div>
       <FadeTransition appear>
@@ -115,7 +116,7 @@ onBeforeMount(() => initProductPage());
           :isProductPage="true"
           :is-new="productData.new"
         >
-          <div :class="$style.btn__positioner">
+          <div class="btnPositioner">
             <CartBtn
               :addQuantity="quantity"
               @incrementQty="increaseQuantity"
@@ -135,26 +136,10 @@ onBeforeMount(() => initProductPage());
                 "
                 :disabled="isAddedToCart"
                 >{{ btnText }}
-                <svg
+                <CheckIco..
                   v-if="isAddedToCart"
-                  aria-hidden="true"
-                  focusable="false"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  class="w-5 h-5"
-                  width="15px"
-                  height="15px"
-                  :style="{
-                    marginLeft: '4px',
-                  }"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
+                  :style="{ marginLeft: '4px' }"
+                />
               </BaseBtn>
             </FadeTransition>
           </div>
@@ -181,7 +166,7 @@ onBeforeMount(() => initProductPage());
     <TheSection>
       <BaseGrid>
         <NavCard
-          v-for="{ title, path, imgSrc } in navData"
+          v-for="{ title, path, imgSrc } in secondaryNavData"
           :key="title"
           :title="title"
           :path="path"
@@ -206,14 +191,4 @@ onBeforeMount(() => initProductPage());
   </TheMain>
   <TheFooter />
 </template>
-<style lang="css" module>
-.btn__positioner {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-
-.return {
-  margin-bottom: 48px;
-}
-</style>
+<style lang="css"></style>

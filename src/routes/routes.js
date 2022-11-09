@@ -1,4 +1,4 @@
-import HomePage from '@/pages/HomePage.vue';
+import HomePage from '../pages/HomePage.vue';
 
 export const routes = [
   {
@@ -13,33 +13,33 @@ export const routes = [
   {
     path: '/headphones',
     name: 'headphones',
-    component: () => import('@/pages/ProductsPage.vue'),
+    component: () => import('../pages/ProductsPage.vue'),
   },
   {
     path: '/headphones/:productName',
-    component: () => import('@/pages/ProductPage.vue'),
+    component: () => import('../pages/ProductPage.vue'),
   },
   {
     path: '/speakers',
     name: 'speakers',
-    component: () => import('@/pages/ProductsPage.vue'),
+    component: () => import('../pages/ProductsPage.vue'),
   },
   {
     path: '/speakers/:productName',
-    component: () => import('@/pages/ProductPage.vue'),
+    component: () => import('../pages/ProductPage.vue'),
   },
   {
     path: '/earphones',
     name: 'earphones',
-    component: () => import('@/pages/ProductsPage.vue'),
+    component: () => import('../pages/ProductsPage.vue'),
   },
   {
     path: '/earphones/:productName',
-    component: () => import('@/pages/ProductPage.vue'),
+    component: () => import('../pages/ProductPage.vue'),
   },
   {
     path: '/checkout',
     name: 'checkout',
-    component: () => import('@/pages/CheckoutPage.vue'),
+    component: () => import('../pages/CheckoutPage.vue'),
   },
 ];

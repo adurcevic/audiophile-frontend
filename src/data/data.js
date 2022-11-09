@@ -1,4 +1,4 @@
-export const navData = [
+export const secondaryNavData = [
   {
     title: 'Headphones',
     path: { name: 'headphones' },
@@ -14,6 +14,13 @@ export const navData = [
     path: { name: 'earphones' },
     imgSrc: '/src/assets/nav/image-earphones.webp',
   },
+];
+
+export const navData = [
+  { name: 'Home', path: { name: 'home' } },
+  { name: 'Headphones', path: { name: 'headphones' } },
+  { name: 'Speakers', path: { name: 'speakers' } },
+  { name: 'Earphones', path: { name: 'earphones' } },
 ];
 
 export const bestGearData = {

@@ -28,7 +28,7 @@ const opacity = computed(() =>
 </template>
 <style lang="css" module>
 .btn {
-  composes: flexCenter from '@/main.css';
+  composes: flexCenter from 'src/main.css';
   background-color: var(--color-primary);
   padding: 17px 24px;
   font-size: 1.4rem;

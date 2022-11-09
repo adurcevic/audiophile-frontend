@@ -4,4 +4,3 @@
     <slot></slot>
   </main>
 </template>
-<style lang=""></style>

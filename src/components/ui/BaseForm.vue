@@ -1,9 +1,9 @@
 <script setup>
 import { Form, Field, ErrorMessage } from 'vee-validate';
-import FormBlock from './FormBlock.vue';
-import FormField from './FormField.vue';
+import FormBlock from '../form/FormBlock.vue';
+import FormField from '../form/FormField.vue';
 import { ref, watch } from 'vue';
-import { billingFormData, shippingFormData } from '@/data/data';
+import { billingFormData, shippingFormData } from '../../data/data';
 import * as yup from 'yup';
 
 const schema = yup.object({

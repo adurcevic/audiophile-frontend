@@ -65,8 +65,7 @@ const props = defineProps({
 
 .errorMessage {
   font-size: 1.2rem;
-  color: #b30000;
-  font-weight: 200;
+  color: var(--error-color);
 }
 
 .inputField {
@@ -76,11 +75,11 @@ const props = defineProps({
   font-size: 1.4rem;
 }
 .borderError {
-  border-color: #b30000;
+  border-color: var(--error-color);
 }
 
 .colorError {
-  color: #b30000;
+  color: var(--error-color);
 }
 
 @media (min-width: 670px) {

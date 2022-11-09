@@ -1,5 +1,5 @@
 <script setup>
-import BaseLink from './BaseLink.vue';
+import BaseLink from '../ui/BaseLink.vue';
 </script>
 <template>
   <transition :appear-active-class="$style.contentEnterActive" appear>

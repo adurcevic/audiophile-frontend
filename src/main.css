@@ -19,6 +19,7 @@
   --theme-text-tertiary: #949494;
   --theme-bg: #f1f1f1;
   --hover-primary: #f5f5f5;
+  --error-color: #b30000;
 }
 
 [theme='custom-dark'] {
@@ -29,7 +30,6 @@
   --theme-text-secondary: #686868;
   --theme-text-tertiary: #e6e6e6;
   --hover-primary: #d4d4d4;
-  --theme-bg: #070707;
 }
 
 * {
@@ -70,4 +70,14 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.btnPositioner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.btnReturn {
+  margin-bottom: 48px;
 }

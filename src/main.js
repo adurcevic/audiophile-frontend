@@ -1,11 +1,11 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { createRouter, createWebHashHistory } from 'vue-router';
-import { clickOutside } from '@/utilis/functions';
-import '@/main.css';
-import App from '@/App.vue';
-import BaseLink from '@/components/ui/BaseLink.vue';
-import { routes } from '@/routes/routes';
+import { clickOutside } from './utilis/functions';
+import './main.css';
+import App from './App.vue';
+import BaseLink from './components/ui/BaseLink.vue';
+import { routes } from './routes/routes';
 
 const router = createRouter({
   history: createWebHashHistory(),
