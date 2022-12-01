@@ -11,3 +11,15 @@ export const clickOutside = {
     document.removeEventListener('click', el.clickOutsideEvent);
   },
 };
+
+export const animateOnScroll = (reveals) => {
+  for (let i = 0; i < reveals.length; i++) {
+    const windowHeight = window.innerHeight;
+    const elementTop = reveals[i].getBoundingClientRect().top;
+    const elementVisible = 120;
+
+    if (elementTop < windowHeight - elementVisible) {
+      reveals[i].classList.add('active');
+    }
+  }
+};

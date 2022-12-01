@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue';
 const props = defineProps({
   galleryImgs: {
     required: true,
@@ -6,10 +7,14 @@ const props = defineProps({
   },
 });
 
+const rootRef = ref(null);
+
+defineExpose({ rootRef });
+
 const imgArr = Object.values(props.galleryImgs);
 </script>
 <template lang="">
-  <div v-if="galleryImgs" :class="$style.gallery">
+  <div v-if="galleryImgs" :class="$style.gallery" ref="rootRef">
     <picture
       v-for="imgLink in imgArr"
       :class="$style.picture"

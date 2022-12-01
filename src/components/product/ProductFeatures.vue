@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue';
 const props = defineProps({
   text: {
     type: Array,
@@ -9,9 +10,12 @@ const props = defineProps({
     required: true,
   },
 });
+const rootRef = ref(null);
+
+defineExpose({ rootRef });
 </script>
 <template lang="">
-  <div :class="$style.sectionContainer">
+  <div :class="$style.sectionContainer" ref="rootRef">
     <div>
       <p :class="$style.title">Features</p>
       <div :class="$style.featuresContent">

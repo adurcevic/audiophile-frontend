@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 
 export const useCartStore = defineStore('CartStore', () => {
   const cartItems = ref([]);
+  const shippingFee = ref(50);
 
   const getNumOfCartItems = computed(() => {
     if (!cartItems.value.length) return 0;
@@ -17,9 +18,28 @@ export const useCartStore = defineStore('CartStore', () => {
       return 0;
     }
 
-    return cartItems.value.reduce((amount, item) => {
+    const totalAmount = cartItems.value.reduce((amount, item) => {
       return (amount = item.price * item.quantity + amount);
     }, 0);
+
+    return totalAmount;
+  });
+
+  const getGrandTotal = computed(() => {
+    if (!cartItems.value.length) {
+      return 0;
+    }
+
+    return getTotalAmount.value + shippingFee.value;
+  });
+
+  const getVat = computed(() => {
+    if (!cartItems.value.length) {
+      return 0;
+    }
+
+    const vat = getTotalAmount.value * 0.2;
+    return Math.ceil(vat);
   });
 
   function setCartItems(items) {
@@ -44,6 +64,7 @@ export const useCartStore = defineStore('CartStore', () => {
     }
 
     existingItem.quantity = existingItem.quantity + quantity;
+    localStorage.setItem('cart', JSON.stringify(cartItems.value));
   }
 
   function removeItem(id) {
@@ -67,6 +88,7 @@ export const useCartStore = defineStore('CartStore', () => {
 
     if (product.quantity === 1) {
       removeItem(id);
+      localStorage.setItem('cart', JSON.stringify(cartItems.value));
       if (cartItems.value.length === 0) {
         localStorage.removeItem('cart');
       }
@@ -79,6 +101,7 @@ export const useCartStore = defineStore('CartStore', () => {
 
   return {
     cartItems,
+    shippingFee,
     getNumOfCartItems,
     getTotalAmount,
     setCartItems,
@@ -86,5 +109,7 @@ export const useCartStore = defineStore('CartStore', () => {
     removeAllItems,
     increaseQty,
     decreaseQty,
+    getVat,
+    getGrandTotal,
   };
 });

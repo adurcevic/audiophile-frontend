@@ -1,5 +1,5 @@
 <script setup>
-import FadeTransition from '@/components/ui/FadeTransition.vue';
+import FadeTransition from '../transitions/FadeTransition.vue';
 const props = defineProps({
   title: {
     type: String,
@@ -25,7 +25,7 @@ const props = defineProps({
 }
 
 .defaultHeader {
-  composes: flexCenter from '@/main.module.css';
+  composes: flexCenter from 'src/main.css';
   width: 100%;
   height: 130px;
   background-color: var(--bg-primary);

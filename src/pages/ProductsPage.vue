@@ -1,16 +1,25 @@
 <script setup>
-import TheHeader from '@/components/layout/TheHeader.vue';
-import TheMain from '@/components/layout/TheMain.vue';
-import TheSection from '@/components/layout/TheSection.vue';
-import PageLanding from '@/components/ui/PageLanding.vue';
-import TheFooter from '@/components/layout/TheFooter.vue';
-import BaseCard from '@/components/ui/BaseCard.vue';
-import BaseGrid from '@/components/ui/BaseGrid.vue';
-import NavCard from '@/components/navigation/NavCard.vue';
-import FadeTransition from '@/components/ui/FadeTransition.vue';
-import { bestGearData, navData, productsData } from '@/data/data';
+import TheHeader from '../components/layout/TheHeader.vue';
+import TheMain from '../components/layout/TheMain.vue';
+import TheSection from '../components/layout/TheSection.vue';
+import PageLanding from '../components/landing/PageLanding.vue';
+import TheFooter from '../components/layout/TheFooter.vue';
+import BaseCard from '../components/ui/BaseCard.vue';
+import BaseGrid from '../components/ui/BaseGrid.vue';
+import NavCard from '../components/navigation/NavCard.vue';
+import FadeTransition from '../components/transitions/FadeTransition.vue';
+import { productsData } from '../data/productsMock';
+import { bestGearData, secondaryNavData } from '../data/data';
 import { useRoute } from 'vue-router';
-import { watch, ref, onBeforeMount } from 'vue';
+import {
+  watch,
+  ref,
+  onBeforeMount,
+  onMounted,
+  onUnmounted,
+  onBeforeUpdate,
+} from 'vue';
+import { animateOnScroll } from '../utilis/functions';
 
 const route = useRoute();
 const productType = ref('');
@@ -72,15 +81,17 @@ onBeforeMount(() => initProductsPage());
       </FadeTransition>
     </TheSection>
     <TheSection>
-      <BaseGrid>
-        <NavCard
-          v-for="{ title, path, imgSrc } in navData"
-          :key="title"
-          :title="title"
-          :path="path"
-          :imgSrc="imgSrc"
-        />
-      </BaseGrid>
+      <FadeTransition appear>
+        <BaseGrid :key="products">
+          <NavCard
+            v-for="{ title, path, imgSrc } in secondaryNavData"
+            :key="title"
+            :title="title"
+            :path="path"
+            :imgSrc="imgSrc"
+          />
+        </BaseGrid>
+      </FadeTransition>
     </TheSection>
     <TheSection>
       <BaseCard

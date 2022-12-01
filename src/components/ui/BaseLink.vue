@@ -43,7 +43,7 @@ const bgColor = computed(() => {
 </template>
 <style module>
 .link {
-  composes: flexCenter from '@/main.module.css';
+  composes: flexCenter from 'src/main.css';
   background-color: v-bind(bgColor);
   padding: 12px 24px;
   font-size: 1.4rem;

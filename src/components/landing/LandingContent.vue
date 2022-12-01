@@ -1,5 +1,5 @@
 <script setup>
-import BaseLink from './BaseLink.vue';
+import BaseLink from '../ui/BaseLink.vue';
 </script>
 <template>
   <transition :appear-active-class="$style.contentEnterActive" appear>
@@ -21,14 +21,15 @@ import BaseLink from './BaseLink.vue';
 <style lang="css" module>
 .contentWrapper::after {
   content: '';
-  top: -50px;
+  top: 0;
   position: absolute;
   width: 100%;
   height: 100%;
-  background-size: contain;
+  background-size: cover;
   background-image: url('../../assets/landing/landing-mobile.webp');
   background-repeat: no-repeat;
   background-position: center;
+  background-position: 10% 90%;
 }
 .content {
   padding: 64px 0;
@@ -81,13 +82,17 @@ import BaseLink from './BaseLink.vue';
 @media (min-width: 401px) {
   .contentWrapper::after {
     background-image: url('../../assets/landing/landing-tablet.webp');
+    background-position: 50% 50%;
   }
 }
 
 @media (min-width: 492px) {
   .contentWrapper::after {
-    top: -100px;
-    height: 120%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 700px;
   }
 
   .actionText {
@@ -100,6 +105,12 @@ import BaseLink from './BaseLink.vue';
 
   .contentText {
     font-size: 2rem;
+  }
+}
+
+@media (min-width: 561px) {
+  .contentWrapper::after {
+    background-position: 10% 90%;
   }
 }
 
@@ -116,10 +127,9 @@ import BaseLink from './BaseLink.vue';
   }
 
   .contentWrapper::after {
-    top: 0px;
-    right: 0;
-    height: 100%;
-    width: 555px;
+    max-width: 100%;
+    background-position: 20% 80%;
+    background-image: url('../../assets/landing/landing-desktop.webp');
   }
 
   .contentInner {

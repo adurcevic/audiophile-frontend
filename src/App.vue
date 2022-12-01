@@ -1,6 +1,6 @@
 <script setup>
-import { provide, onBeforeMount } from 'vue';
-import { useCartStore } from '@/stores/CartStore';
+import { provide, onBeforeMount, onMounted } from 'vue';
+import { useCartStore } from './stores/CartStore';
 import { useDark, useToggle } from '@vueuse/core';
 
 const store = useCartStore();

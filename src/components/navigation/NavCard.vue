@@ -44,7 +44,7 @@ const imgUrl = computed(() => {
   max-width: 400px;
   width: 100%;
   position: relative;
-  composes: flexCenter from '@/main.module.css';
+  composes: flexCenter from 'src/main.css';
 
   flex-direction: column;
   background-color: var(--bg-secondary);
@@ -75,7 +75,7 @@ const imgUrl = computed(() => {
   letter-spacing: 1px;
 }
 .navcardLink {
-  composes: flexCenter from '@/main.module.css';
+  composes: flexCenter from 'src/main.css';
 
   gap: 4px;
   transition: color 0.3s ease-in-out;
