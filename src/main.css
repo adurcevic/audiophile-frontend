@@ -3,6 +3,7 @@
   --color-primary: #d87d4a;
   --dot-color: #ad643b;
   --border-primary: #97979740;
+  --border-secondary: #ffffff30;
   --bg-body: #ffffff;
   --bg-cart: #ffffff;
   --bg-toggle: #e3a17d;
@@ -30,12 +31,15 @@
   --theme-text-secondary: #686868;
   --theme-text-tertiary: #e6e6e6;
   --hover-primary: #d4d4d4;
+  --theme-bg: #070707;
 }
 
-* {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 a,
@@ -46,11 +50,20 @@ button {
 html {
   font-family: var(--font-primary);
   font-size: 62.5%;
+  scroll-behavior: smooth;
 }
 
 body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
   overflow-x: hidden;
   background-color: var(--bg-body);
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
 }
 
 a {
@@ -64,6 +77,21 @@ button {
 
 ul {
   list-style-type: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 .flexCenter {
@@ -80,4 +108,43 @@ ul {
 
 .btnReturn {
   margin-bottom: 48px;
+}
+
+.animationStartPosition {
+  opacity: 1;
+  transition: none;
+}
+
+.hiddenElementLeft,
+.hiddenElemenRight,
+.hiddenELementDown {
+  transform: translate(0);
+}
+
+.active {
+  transform: translate(0);
+}
+
+@media (min-width: 1024px) {
+  .animationStartPosition {
+    opacity: 0;
+    transition: transform 1s, opacity 1s ease-in-out;
+  }
+
+  .hiddenElementLeft {
+    transform: translateX(-150px);
+  }
+
+  .hiddenElementRight {
+    transform: translateX(150px);
+  }
+
+  .hiddenElementDown {
+    transform: translateY(150px);
+  }
+
+  .active {
+    transform: translate(0);
+    opacity: 1;
+  }
 }

@@ -3,22 +3,20 @@ import TheHeader from '../components/layout/TheHeader.vue';
 import TheMain from '../components/layout/TheMain.vue';
 import TheSection from '../components/layout/TheSection.vue';
 import TheFooter from '../components/layout/TheFooter.vue';
-import BaseForm from '../components/ui/BaseForm.vue';
+import CheckoutForm from '../components/form/CheckoutForm.vue';
 import BaseGrid from '../components/ui/BaseGrid.vue';
 import CartCard from '../components/cart/CartCard.vue';
 import CartItem from '../components/cart/CartItem.vue';
 import BaseBtn from '../components/ui/BaseBtn.vue';
-import FormBlockVue from '../components/form/FormBlock.vue';
-import FormField from '../components/form/FormField.vue';
 import FadeTransition from '../components/transitions/FadeTransition.vue';
 import { useCartStore } from '../stores/CartStore';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 
 const store = useCartStore();
-const { cartItems, getTotalAmount } = storeToRefs(store);
+const { cartItems, getTotalAmount, getVat, getGrandTotal, shippingFee } =
+  storeToRefs(store);
 const router = useRouter();
-
 const goBack = () => router.go(-1);
 </script>
 <template lang="">
@@ -29,8 +27,14 @@ const goBack = () => router.go(-1);
         <BaseBtn @btn-action="goBack" isReturn>Go Back</BaseBtn>
       </div>
       <FadeTransition appear>
-        <BaseForm>
-          <CartCard :amountTotal="getTotalAmount" isCheckout>
+        <CheckoutForm>
+          <CartCard
+            :amountTotal="getTotalAmount"
+            isCheckout
+            :vat="getVat"
+            :grandTotal="getGrandTotal"
+            :shipping="shippingFee"
+          >
             <CartItem
               v-for="item in cartItems"
               :key="item.id"
@@ -51,7 +55,7 @@ const goBack = () => router.go(-1);
               >
             </template>
           </CartCard>
-        </BaseForm>
+        </CheckoutForm>
       </FadeTransition>
     </TheSection>
   </TheMain>

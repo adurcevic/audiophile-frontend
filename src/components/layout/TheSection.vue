@@ -1,20 +1,28 @@
 <script setup>
 import { computed } from 'vue';
+import { useCssModule } from 'vue';
 
 const props = defineProps({
+  isFeaturedProducts: Boolean,
   isHomePage: Boolean,
   title: String,
   hasForm: Boolean,
 });
 
+const style = useCssModule();
 const bgColor = computed(() =>
   props.hasForm ? 'var(--theme-bg)' : 'transperent'
 );
 const padding = computed(() => (props.isHomePage ? '130px' : '90px'));
+const sectionInner = computed(() =>
+  props.isFeaturedProducts
+    ? [style.sectionInner, style.featuredSection]
+    : style.sectionInner
+);
 </script>
 <template lang="">
   <section :class="$style.section">
-    <div :class="$style.sectionInner">
+    <div :class="sectionInner">
       <h2 v-if="title" :class="$style.sectionTitle">{{ title }}</h2>
       <slot></slot>
     </div>
@@ -34,6 +42,14 @@ const padding = computed(() => (props.isHomePage ? '130px' : '90px'));
 .sectionInner {
   padding-left: 12px;
   padding-right: 12px;
+  /* overflow-x: hidden; */
+}
+
+.featuredSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-x: hidden;
 }
 
 .sectionTitle {
@@ -53,6 +69,12 @@ const padding = computed(() => (props.isHomePage ? '130px' : '90px'));
   .sectionInner {
     padding-left: 32px;
     padding-right: 32px;
+  }
+}
+
+@media (min-width: 500px) {
+  .featuredSection {
+    gap: 24px;
   }
 }
 

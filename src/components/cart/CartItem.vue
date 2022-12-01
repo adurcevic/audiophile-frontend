@@ -8,8 +8,6 @@ const props = defineProps({
   },
   isCheckout: Boolean,
 });
-
-console.log(props.product);
 </script>
 <template lang="">
   <div :class="$style.cartItem">

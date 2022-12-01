@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 const props = defineProps({
   cardData: {
     type: Object,
@@ -15,6 +15,10 @@ const props = defineProps({
     type: Boolean,
   },
 });
+
+const rootRef = ref(null);
+
+defineExpose({ rootRef });
 
 /*PRODUCTS PAGE STYLE */
 const mediaWidth = computed(() => {
@@ -38,7 +42,7 @@ const gridColumns = computed(() =>
 );
 </script>
 <template lang="">
-  <div :class="$style.cardWrapper">
+  <div :class="$style.cardWrapper" ref="rootRef">
     <picture>
       <source media="(max-width: 450px)" :srcset="cardData.imgMobile" />
       <source :media="mediaWidth" :srcset="cardData.imgTablet" />

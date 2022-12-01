@@ -15,8 +15,10 @@ import FadeTransition from '../components/transitions/FadeTransition.vue';
 import CheckIcon from '../components/icons/CheckIcon.vue';
 import { useCartStore } from '../stores/CartStore';
 import { useRoute, useRouter } from 'vue-router';
-import { productsData, secondaryNavData, bestGearData } from '../data/data';
-import { ref, onBeforeMount, watch, computed } from 'vue';
+import { secondaryNavData, bestGearData } from '../data/data';
+import { productsData } from '../data/productsMock';
+import { ref, onBeforeMount, onUnmounted, watch, computed } from 'vue';
+import { animateOnScroll } from '../utilis/functions';
 
 const store = useCartStore();
 const { cartItems } = store;
@@ -26,6 +28,8 @@ const route = useRoute();
 const productData = ref(null);
 const quantity = ref(1);
 const isAddedToCart = ref(false);
+const productFeatures = ref(null);
+const productGallery = ref(null);
 
 const btnText = computed(() =>
   isAddedToCart.value ? 'Added to cart' : 'Add to cart'
@@ -51,10 +55,8 @@ const addToCart = (product) => {
   addItemToCart(product);
   resetQuantity();
   isAddedToCart.value = true;
-  console.log(isAddedToCart.value);
   setTimeout(() => {
     isAddedToCart.value = false;
-    console.log(isAddedToCart.value);
   }, 1500);
 };
 
@@ -87,7 +89,18 @@ watch(route, () => {
   initProductPage();
 });
 
-onBeforeMount(() => initProductPage());
+const listenerFn = () => {
+  animateOnScroll([
+    productFeatures.value.rootRef,
+    productGallery.value.rootRef,
+  ]);
+};
+
+onBeforeMount(() => {
+  initProductPage();
+  window.addEventListener('scroll', listenerFn);
+});
+onUnmounted(() => window.removeEventListener('scroll', listenerFn));
 </script>
 <template lang="">
   <TheHeader />
@@ -136,7 +149,7 @@ onBeforeMount(() => initProductPage());
                 "
                 :disabled="isAddedToCart"
                 >{{ btnText }}
-                <CheckIco..
+                <CheckIcon
                   v-if="isAddedToCart"
                   :style="{ marginLeft: '4px' }"
                 />
@@ -147,16 +160,21 @@ onBeforeMount(() => initProductPage());
       </FadeTransition>
     </TheSection>
     <TheSection>
-      <FadeTransition appear>
-        <ProductFeatures
-          :key="productData.productFeatures"
-          :text="productData.productFeatures"
-          :boxContent="productData.setContent"
-        />
-      </FadeTransition>
+      <ProductFeatures
+        class="hiddenElementDown animationStartPosition"
+        ref="productFeatures"
+        :key="productData.productFeatures"
+        :text="productData.productFeatures"
+        :boxContent="productData.setContent"
+      />
     </TheSection>
     <TheSection>
-      <ProductGallery :galleryImgs="productData.galleryImages" />
+      <ProductGallery
+        :key="productData.id"
+        class="hiddenElementDown animationStartPosition"
+        ref="productGallery"
+        :galleryImgs="productData.galleryImages"
+      />
     </TheSection>
     <TheSection title="You may also like">
       <BaseGrid>
@@ -191,4 +209,3 @@ onBeforeMount(() => initProductPage());
   </TheMain>
   <TheFooter />
 </template>
-<style lang="css"></style>

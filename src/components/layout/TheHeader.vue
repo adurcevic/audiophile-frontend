@@ -11,7 +11,6 @@ import FadeTransition from '../transitions/FadeTransition.vue';
 import ListTransition from '../transitions/ListTransition.vue';
 import SunIcon from '../icons/SunIcon.vue';
 import MoonIcon from '../icons/MoonIcon.vue';
-import ProfileIcon from '../icons/ProfileIcon.vue';
 import CartIcon from '../icons/CartIcon.vue';
 import { useCartStore } from '../../stores/CartStore';
 import { computed, ref, inject, onMounted, useCssModule } from 'vue';
@@ -69,7 +68,6 @@ const headerClass = computed(() =>
 );
 
 const headerHeight = computed(() => (isHeaderVisible.value ? 80 : 120));
-const lastScrollTop = ref(0);
 
 onMounted(() =>
   window.addEventListener('scroll', () => {
@@ -77,17 +75,9 @@ onMounted(() =>
 
     if (scrollTop <= headerHeight.value) {
       isHeaderVisible.value = false;
-      lastScrollTop.value = scrollTop;
-      return;
-    }
-
-    if (scrollTop < lastScrollTop.value) {
-      isHeaderVisible.value = true;
     } else {
-      isHeaderVisible.value = false;
+      isHeaderVisible.value = true;
     }
-
-    lastScrollTop.value = scrollTop;
   })
 );
 </script>
@@ -118,13 +108,6 @@ onMounted(() =>
         @close-nav="closeNav"
       ></NavBar>
       <div :class="$style.headersIcons">
-        <button
-          :class="$style.iconsBtn"
-          title="Open dropdown menu for sign in"
-          aria-label="Open dropdown menu for sign"
-        >
-          <ProfileIcon />
-        </button>
         <button
           :class="[$style.iconsBtn, $style.iconCart]"
           title="Show items in cart"

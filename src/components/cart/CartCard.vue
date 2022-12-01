@@ -3,7 +3,7 @@ import BaseBtn from '../ui/BaseBtn.vue';
 import FadeTransition from '../transitions/FadeTransition.vue';
 import EmptyCartIcon from '../icons/EmptyCartIcon.vue';
 import { useCartStore } from '../../stores/CartStore';
-import { computed } from 'vue';
+import { computed, watch, reactive } from 'vue';
 
 const props = defineProps({
   numOfItemsInCart: Number,
@@ -11,6 +11,9 @@ const props = defineProps({
     required: true,
   },
   isCheckout: Boolean,
+  vat: Number,
+  shipping: Number,
+  grandTotal: Number,
 });
 
 const store = useCartStore();
@@ -21,6 +24,17 @@ const zIndex = computed(() => (props.isCheckout ? '1' : '20'));
 const bgColor = computed(() =>
   props.isCheckout ? 'var(--bg-body)' : 'var(--bg-cart)'
 );
+const border = computed(() => (props.isCheckout ? 'none' : '1px solid #fff'));
+
+// const priceData = [
+//   { text: 'Vat', value: props.vat },
+//   { text: 'shipping', value: props.shipping },
+//   {
+//     text: 'Grand total',
+//     value: props.grandTotal,
+//     isEmphasized: true,
+//   },
+// ];
 </script>
 <template lang="">
   <div :class="$style.card">
@@ -59,6 +73,70 @@ const bgColor = computed(() =>
             }}
           </p>
         </div>
+        <div v-if="isCheckout" :class="$style.contentPositioner">
+          <p :class="$style.text">Vat</p>
+          <p :class="$style.price">
+            {{
+              vat.toLocaleString('en-GB', {
+                style: 'currency',
+                currency: 'EUR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              })
+            }}
+          </p>
+        </div>
+        <div v-if="isCheckout" :class="$style.contentPositioner">
+          <p :class="$style.text">Shipping</p>
+          <p :class="$style.price">
+            {{
+              shipping.toLocaleString('en-GB', {
+                style: 'currency',
+                currency: 'EUR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              })
+            }}
+          </p>
+        </div>
+        <div v-if="isCheckout" :class="$style.contentPositioner">
+          <p :class="$style.text">Grand total</p>
+          <p :class="[$style.price, $style.highlightedPrice]">
+            {{
+              grandTotal.toLocaleString('en-GB', {
+                style: 'currency',
+                currency: 'EUR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              })
+            }}
+          </p>
+        </div>
+        <!-- <div v-if="isCheckout">
+          <div
+            v-for="price in priceData"
+            :key="price.value"
+            :class="$style.contentPositioner"
+          >
+            <p :class="$style.text">{{ price.text }}</p>
+            <p
+              :class="
+                price.isEmphasized
+                  ? [$style.price, $style.highlightedPrice]
+                  : $style.price
+              "
+            >
+              {{
+                price.value.toLocaleString('en-GB', {
+                  style: 'currency',
+                  currency: 'EUR',
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                })
+              }}
+            </p>
+          </div>
+        </div> -->
         <slot name="button">
           <BaseLink :path="{ name: 'checkout' }">Checkout</BaseLink>
         </slot>
@@ -77,6 +155,7 @@ const bgColor = computed(() =>
   background-color: v-bind(bgColor);
   overflow: hidden;
   border-radius: 12px;
+  border: v-bind(border);
 }
 
 .cardInner {
@@ -144,5 +223,9 @@ const bgColor = computed(() =>
   font-size: 1.8rem;
   font-weight: 600;
   color: var(--theme-text-primary);
+}
+
+.highlightedPrice {
+  color: var(--color-primary);
 }
 </style>
