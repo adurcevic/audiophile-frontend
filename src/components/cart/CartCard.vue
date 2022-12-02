@@ -23,6 +23,7 @@ const store = useCartStore();
 const { removeAllItems } = store;
 const style = useCssModule();
 const cartModal = ref(null);
+const emptyCart = ref(null);
 
 const bgColor = computed(() =>
   props.isCheckout ? 'var(--bg-body)' : 'var(--bg-cart)'
@@ -47,12 +48,19 @@ const margin = computed(() =>
 onClickOutside(cartModal, (event) => {
   emits('close-cart');
 });
+onClickOutside(emptyCart, (event) => {
+  emits('close-cart');
+});
 </script>
 <template lang="">
   <div :class="wrapperClass">
     <div :class="$style.card">
       <FadeTransition>
-        <div v-if="!numOfItemsInCart && !isCheckout" :class="$style.emptyCart">
+        <div
+          v-if="!numOfItemsInCart && !isCheckout"
+          :class="$style.emptyCart"
+          ref="emptyCart"
+        >
           <EmptyCartIcon :class="$style.cart_icon" />
           <p :class="$style.titleEmpty">Your cart is currently empty</p>
         </div>

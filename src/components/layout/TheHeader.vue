@@ -65,8 +65,8 @@ const openCart = () => {
 const closeCart = () => {
   setTimeout(() => {
     close(isCartOpen);
-  }, 10);
-  document.body.style.overflowY = 'visible';
+    document.body.style.overflowY = 'visible';
+  }, 100);
 };
 
 const lightIcon = computed(() => (isDark.value ? '#333333' : '#ffffff'));
