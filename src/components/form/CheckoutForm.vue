@@ -51,7 +51,6 @@ const schema = yup.object({
 });
 
 const onSubmit = function (values, { resetForm }) {
-  console.log(values);
   emit('on-submit');
   resetForm();
 };

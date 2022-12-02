@@ -14,7 +14,14 @@ import MoonIcon from '../icons/MoonIcon.vue';
 import CartIcon from '../icons/CartIcon.vue';
 import FadeDownTransition from '../transitions/FadeDownTransition.vue';
 import { useCartStore } from '../../stores/CartStore';
-import { computed, ref, inject, onMounted, useCssModule } from 'vue';
+import {
+  computed,
+  ref,
+  inject,
+  onMounted,
+  onBeforeUnmount,
+  useCssModule,
+} from 'vue';
 import { storeToRefs } from 'pinia';
 
 const isCartOpen = ref(false);
@@ -51,10 +58,13 @@ const closeNav = () => {
 
 const toggleCart = () => {
   isCartOpen.value = !isCartOpen.value;
+  if (isCartOpen.value) document.body.style.overflowY = 'hidden';
+  if (!isCartOpen.value) document.body.style.overflowY = 'visible';
 };
 
 const closeCart = () => {
   close(isCartOpen);
+  document.body.style.overflowY = 'visible';
 };
 
 const lightIcon = computed(() => (isDark.value ? '#333333' : '#ffffff'));
@@ -81,12 +91,41 @@ onMounted(() =>
     }
   })
 );
+
+onBeforeUnmount(() => (document.body.style.overflowY = 'visible'));
 </script>
 <template lang="">
   <header :class="headerClass" ref="header">
     <FadeTransition>
       <PageOverlay v-if="isCartOpen" @click="closeCart" />
     </FadeTransition>
+    <FadeDownTransition>
+      <CartCard
+        v-if="isCartOpen"
+        :numOfItemsInCart="getNumOfCartItems"
+        :amountTotal="getTotalAmount"
+        @close-cart="closeCart"
+      >
+        <ListTransition>
+          <CartItem
+            v-for="item in cartItems"
+            :key="item.id"
+            :product="{
+              imgSrc: item.cartImg,
+              title: item.productName,
+              price: item.price,
+            }"
+          >
+            <CartBtn
+              :addQuantity="item.quantity"
+              isSmaller
+              @decrementQty="decreaseQty(item.id)"
+              @incrementQty="increaseQty(item.id)"
+            />
+          </CartItem>
+        </ListTransition>
+      </CartCard>
+    </FadeDownTransition>
     <div v-if="!isHeaderVisible" :class="$style.toggleContainer">
       <div :class="$style.themeIcon">
         <SunIcon :stroke="lightIcon" />
@@ -124,32 +163,6 @@ onMounted(() =>
           >
         </button>
       </div>
-      <FadeDownTransition>
-        <CartCard
-          v-if="isCartOpen"
-          :numOfItemsInCart="getNumOfCartItems"
-          :amountTotal="getTotalAmount"
-        >
-          <ListTransition>
-            <CartItem
-              v-for="item in cartItems"
-              :key="item.id"
-              :product="{
-                imgSrc: item.cartImg,
-                title: item.productName,
-                price: item.price,
-              }"
-            >
-              <CartBtn
-                :addQuantity="item.quantity"
-                isSmaller
-                @decrementQty="decreaseQty(item.id)"
-                @incrementQty="increaseQty(item.id)"
-              />
-            </CartItem>
-          </ListTransition>
-        </CartCard>
-      </FadeDownTransition>
     </div>
   </header>
 </template>
@@ -228,7 +241,7 @@ onMounted(() =>
 }
 
 .iconCart {
-  z-index: 20;
+  z-index: 30;
   position: relative;
 }
 

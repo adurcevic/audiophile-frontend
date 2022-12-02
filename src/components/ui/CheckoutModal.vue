@@ -125,7 +125,7 @@ const toggleProductVisibility = () =>
   position: fixed;
   padding-left: 12px;
   padding-right: 12px;
-  z-index: 30;
+  z-index: 40;
   height: 100vh;
   width: 100vw;
   overflow-y: auto;
