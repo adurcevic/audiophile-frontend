@@ -3,7 +3,8 @@ import BaseBtn from '../ui/BaseBtn.vue';
 import FadeTransition from '../transitions/FadeTransition.vue';
 import EmptyCartIcon from '../icons/EmptyCartIcon.vue';
 import { useCartStore } from '../../stores/CartStore';
-import { computed, watch, reactive, useCssModule } from 'vue';
+import { computed, watch, reactive, useCssModule, ref } from 'vue';
+import { onClickOutside } from '@vueuse/core';
 
 const props = defineProps({
   numOfItemsInCart: Number,
@@ -16,9 +17,12 @@ const props = defineProps({
   grandTotal: Number,
 });
 
+const emits = defineEmits(['close-cart']);
+
 const store = useCartStore();
 const { removeAllItems } = store;
 const style = useCssModule();
+const cartModal = ref(null);
 
 const bgColor = computed(() =>
   props.isCheckout ? 'var(--bg-body)' : 'var(--bg-cart)'
@@ -40,16 +44,23 @@ const margin = computed(() =>
 //     isEmphasized: true,
 //   },
 // ];
+onClickOutside(cartModal, (event) => {
+  emits('close-cart');
+});
 </script>
 <template lang="">
-  <div :class="wrapperClass" @click="$emit('close-cart')">
+  <div :class="wrapperClass">
     <div :class="$style.card">
       <FadeTransition>
         <div v-if="!numOfItemsInCart && !isCheckout" :class="$style.emptyCart">
           <EmptyCartIcon :class="$style.cart_icon" />
           <p :class="$style.titleEmpty">Your cart is currently empty</p>
         </div>
-        <div v-if="numOfItemsInCart || isCheckout" :class="$style.cardInner">
+        <div
+          v-if="numOfItemsInCart || isCheckout"
+          :class="$style.cardInner"
+          ref="cartModal"
+        >
           <div :class="$style.contentPositioner">
             <p v-if="isCheckout" :class="$style.title">Summary</p>
             <p v-else :class="$style.title">Cart ({{ numOfItemsInCart }})</p>

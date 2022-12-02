@@ -56,14 +56,16 @@ const closeNav = () => {
   close(isNavOpen);
 };
 
-const toggleCart = () => {
-  isCartOpen.value = !isCartOpen.value;
+const openCart = () => {
+  isCartOpen.value = true;
   if (isCartOpen.value) document.body.style.overflowY = 'hidden';
   if (!isCartOpen.value) document.body.style.overflowY = 'visible';
 };
 
 const closeCart = () => {
-  close(isCartOpen);
+  setTimeout(() => {
+    close(isCartOpen);
+  }, 10);
   document.body.style.overflowY = 'visible';
 };
 
@@ -152,7 +154,8 @@ onBeforeUnmount(() => (document.body.style.overflowY = 'visible'));
           :class="[$style.iconsBtn, $style.iconCart]"
           title="Show items in cart"
           aria-label="Show items in cart"
-          @click="toggleCart"
+          @click="openCart"
+          :disabled="isCartOpen"
         >
           <CartIcon />
           <span
