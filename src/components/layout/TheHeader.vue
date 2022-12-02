@@ -12,6 +12,7 @@ import ListTransition from '../transitions/ListTransition.vue';
 import SunIcon from '../icons/SunIcon.vue';
 import MoonIcon from '../icons/MoonIcon.vue';
 import CartIcon from '../icons/CartIcon.vue';
+import FadeDownTransition from '../transitions/FadeDownTransition.vue';
 import { useCartStore } from '../../stores/CartStore';
 import { computed, ref, inject, onMounted, useCssModule } from 'vue';
 import { storeToRefs } from 'pinia';
@@ -123,11 +124,7 @@ onMounted(() =>
           >
         </button>
       </div>
-      <transition
-        :enter-active-class="$style.cartEnter"
-        :leave-active-class="$style.cartLeave"
-        mode="out-in"
-      >
+      <FadeDownTransition>
         <CartCard
           v-if="isCartOpen"
           :numOfItemsInCart="getNumOfCartItems"
@@ -152,7 +149,7 @@ onMounted(() =>
             </CartItem>
           </ListTransition>
         </CartCard>
-      </transition>
+      </FadeDownTransition>
     </div>
   </header>
 </template>
@@ -268,24 +265,6 @@ onMounted(() =>
   .headerInner {
     max-width: 1200px;
     gap: 0;
-  }
-}
-
-.cartEnter {
-  animation: fade-cart 0.3s ease-out;
-}
-.cartLeave {
-  animation: fade-cart 0.3s ease-in reverse;
-}
-
-@keyframes fade-cart {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 </style>

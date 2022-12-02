@@ -170,6 +170,7 @@ const navListDirection = computed(() => (props.isFooter ? 'row' : 'column'));
   );
   background-size: 200% 100%;
   background-position: -100%;
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: v-bind(transitionEl);

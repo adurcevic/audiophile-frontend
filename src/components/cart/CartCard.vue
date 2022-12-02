@@ -60,63 +60,65 @@ const border = computed(() => (props.isCheckout ? 'none' : '1px solid #fff'));
             <p :class="$style.emptyText">No items in cart</p>
           </slot>
         </div>
-        <div :class="$style.contentPositioner">
-          <p :class="$style.text">Total</p>
-          <p :class="$style.price">
-            {{
-              amountTotal.toLocaleString('en-GB', {
-                style: 'currency',
-                currency: 'EUR',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
-              })
-            }}
-          </p>
-        </div>
-        <div v-if="isCheckout" :class="$style.contentPositioner">
-          <p :class="$style.text">Vat</p>
-          <p :class="$style.price">
-            {{
-              vat.toLocaleString('en-GB', {
-                style: 'currency',
-                currency: 'EUR',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
-              })
-            }}
-          </p>
-        </div>
-        <div v-if="isCheckout" :class="$style.contentPositioner">
-          <p :class="$style.text">Shipping</p>
-          <p :class="$style.price">
-            {{
-              shipping.toLocaleString('en-GB', {
-                style: 'currency',
-                currency: 'EUR',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
-              })
-            }}
-          </p>
-        </div>
-        <div v-if="isCheckout" :class="$style.contentPositioner">
-          <p :class="$style.text">Grand total</p>
-          <p :class="[$style.price, $style.highlightedPrice]">
-            {{
-              grandTotal.toLocaleString('en-GB', {
-                style: 'currency',
-                currency: 'EUR',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
-              })
-            }}
-          </p>
+        <div :class="$style.content">
+          <div :class="$style.contentPositioner">
+            <p :class="$style.text">Total</p>
+            <p :class="$style.price">
+              {{
+                amountTotal.toLocaleString('en-GB', {
+                  style: 'currency',
+                  currency: 'EUR',
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                })
+              }}
+            </p>
+          </div>
+          <div v-if="isCheckout" :class="$style.contentPositioner">
+            <p :class="$style.text">Vat</p>
+            <p :class="$style.price">
+              {{
+                vat.toLocaleString('en-GB', {
+                  style: 'currency',
+                  currency: 'EUR',
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                })
+              }}
+            </p>
+          </div>
+          <div v-if="isCheckout" :class="$style.contentPositioner">
+            <p :class="$style.text">Shipping</p>
+            <p :class="$style.price">
+              {{
+                shipping.toLocaleString('en-GB', {
+                  style: 'currency',
+                  currency: 'EUR',
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                })
+              }}
+            </p>
+          </div>
+          <div v-if="isCheckout" :class="$style.contentPositioner">
+            <p :class="$style.text">Grand total</p>
+            <p :class="[$style.price, $style.highlightedPrice]">
+              {{
+                grandTotal.toLocaleString('en-GB', {
+                  style: 'currency',
+                  currency: 'EUR',
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                })
+              }}
+            </p>
+          </div>
         </div>
         <!-- <div v-if="isCheckout">
           <div
-            v-for="price in priceData"
-            :key="price.value"
-            :class="$style.contentPositioner"
+          v-for="price in priceData"
+          :key="price.value"
+          :class="$style.contentPositioner"
           >
             <p :class="$style.text">{{ price.text }}</p>
             <p
@@ -181,13 +183,21 @@ const border = computed(() => (props.isCheckout ? 'none' : '1px solid #fff'));
   fill: var(--theme-text-primary);
 }
 
+.content {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
 .contentPositioner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 32px;
 }
 
+.contentPositioner:nth-child(4) {
+  margin-top: 20px;
+}
 .title {
   font-size: 2rem;
   text-transform: uppercase;

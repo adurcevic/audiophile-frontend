@@ -1,5 +1,8 @@
 :root {
   --font-primary: 'Manrope', sans-serif;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-light-gray: #f1f1f1;
   --color-primary: #d87d4a;
   --dot-color: #ad643b;
   --border-primary: #97979740;

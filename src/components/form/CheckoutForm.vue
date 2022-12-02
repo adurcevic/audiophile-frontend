@@ -14,6 +14,7 @@ import {
 import * as yup from 'yup';
 
 const emoneyPayment = ref(true);
+const emit = defineEmits(['on-submit']);
 
 const schema = yup.object({
   fullName: yup.string().required('Name is required'),
@@ -48,8 +49,10 @@ const schema = yup.object({
       .required('PIN is required'),
   }),
 });
-const onSubmit = (values, { resetForm }) => {
+
+const onSubmit = function (values, { resetForm }) {
   console.log(values);
+  emit('on-submit');
   resetForm();
 };
 
