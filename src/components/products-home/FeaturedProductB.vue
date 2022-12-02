@@ -12,15 +12,15 @@
     <picture>
       <source
         media="(max-width: 925px)"
-        srcset="../../assets/zx7-speaker/image-speaker-zx7-mobile.webp"
+        srcset="/assets/zx7-speaker/image-speaker-zx7-mobile.webp"
       />
       <source
         media="(min-width: 926px)"
-        srcset="../../assets/zx7-speaker/image-speaker-zx7-desktop.webp"
+        srcset="/assets/zx7-speaker/image-speaker-zx7-desktop.webp"
       />
       <img
         :class="$style.img"
-        src="../../assets/zx7-speaker/image-speaker-zx7-mobile.webp"
+        src="/assets/zx7-speaker/image-speaker-zx7-mobile.webp"
         alt="image of ZX7 speaker"
       />
     </picture>

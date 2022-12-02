@@ -4,15 +4,15 @@
     <picture>
       <source
         media="(max-width: 677px)"
-        srcset="../../assets/yx1-earphones/image-earphones-yx1-mobile.webp"
+        srcset="/assets/yx1-earphones/image-earphones-yx1-mobile.webp"
       />
       <source
         media="(mmin-width: 678px)"
-        srcset="../../assets/yx1-earphones/image-earphones-yx1-desktop.webp"
+        srcset="/assets/yx1-earphones/image-earphones-yx1-desktop.webp"
       />
       <img
         :class="$style.earphonesImg"
-        src="../../assets/yx1-earphones/image-earphones-yx1-mobile.webp"
+        src="/assets/yx1-earphones/image-earphones-yx1-mobile.webp"
         alt="image of YX1 wireless earphones"
       />
     </picture>

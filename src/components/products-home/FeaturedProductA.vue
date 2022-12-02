@@ -10,7 +10,7 @@ const picture = ref(false);
       <img
         ref="picture"
         :class="$style.img"
-        src="../../assets/zx9-speaker/image-speaker-zx9-mobile.webp"
+        src="/assets/zx9-speaker/image-speaker-zx9-mobile.webp"
         :data-url="source"
         alt="ZX9 speaker image"
       />
